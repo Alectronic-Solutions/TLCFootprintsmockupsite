@@ -113,15 +113,15 @@ export function PageHero({
           </div>
           <div
             aria-hidden="true"
-            className={cn("absolute inset-0 -z-10 hidden sm:block", backdropScrimClassName)}
+            className={cn("pointer-events-none absolute inset-0 -z-10 hidden sm:block", backdropScrimClassName)}
           />
           <div
             aria-hidden="true"
-            className="absolute inset-x-0 top-0 -z-10 hidden h-20 bg-gradient-to-b from-cream to-transparent sm:block"
+            className="pointer-events-none absolute inset-x-0 top-0 -z-10 hidden h-20 bg-gradient-to-b from-cream to-transparent sm:block"
           />
           <div
             aria-hidden="true"
-            className="absolute inset-x-0 bottom-0 -z-10 hidden h-20 bg-gradient-to-t from-cream to-transparent sm:block"
+            className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 hidden h-20 bg-gradient-to-t from-cream to-transparent sm:block"
           />
         </>
       ) : backdrop ? (
