@@ -11,7 +11,7 @@ const defaultSiteUrl =
     ? "http://localhost:3000"
     : DEPLOY_TARGET === "cloudflare"
       ? "https://tlcfootprints.com"
-      : "https://alectronic-solutions.github.io/TLCFootprints2";
+      : "https://alectronic-solutions.github.io/TLCFootprintsmockupsite";
 
 /** The canonical root, including the repository path for a Pages preview. */
 export const SITE_URL = (

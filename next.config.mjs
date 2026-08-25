@@ -1,11 +1,11 @@
 // One source tree supports both deployment stages:
-//   - GitHub Pages client preview: /TLCFootprints2
+//   - GitHub Pages client preview: /TLCFootprintsmockupsite
 //   - Cloudflare Pages custom domain: /
 // Local development always stays at http://localhost:3000/.
 const deployTarget = process.env.DEPLOY_TARGET ?? "github-pages";
 const basePath =
   process.env.NODE_ENV === "production" && deployTarget === "github-pages"
-    ? "/TLCFootprints2"
+    ? "/TLCFootprintsmockupsite"
     : "";
 
 /** @type {import('next').NextConfig} */

@@ -242,10 +242,10 @@ The included workflow sets:
 
 ```text
 DEPLOY_TARGET=github-pages
-NEXT_PUBLIC_SITE_URL=https://alectronic-solutions.github.io/TLCFootprints2
+NEXT_PUBLIC_SITE_URL=https://alectronic-solutions.github.io/TLCFootprintsmockupsite
 ```
 
-This adds the `/TLCFootprints2` path automatically. Preview pages also receive
+This adds the `/TLCFootprintsmockupsite` path automatically. Preview pages also receive
 `noindex`, so the temporary copy cannot compete with the final domain in search.
 
 ### Cloudflare Pages final site
