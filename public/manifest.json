@@ -1,0 +1,15 @@
+{
+  "name": "T.L.C. Footprints Home Daycare",
+  "short_name": "T.L.C. Footprints",
+  "description": "A licensed California Family Child Care Home in Elk Grove, CA.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FDF8F0",
+  "theme_color": "#FDF8F0",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}
