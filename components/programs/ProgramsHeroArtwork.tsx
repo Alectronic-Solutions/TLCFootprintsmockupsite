@@ -5,6 +5,8 @@ import { cn } from "@/lib/cn";
 import { asset } from "@/lib/site";
 
 const DAB_RADIUS = 150;
+/** Smaller dab on phones - the mobile crop reads much smaller on screen than the desktop panorama. */
+const MOBILE_DAB_RADIUS = 90;
 const IDLE_FADE_DELAY_MS = 60_000;
 const FADE_DURATION_MS = 1_400;
 
@@ -12,8 +14,9 @@ type Dab = { id: number; x: number; y: number };
 
 /**
  * The Programs illustration starts in black and white, then gains colour
- * under a cursor. The full-colour version is the accessible fallback for
- * touch and reduced-motion visitors.
+ * under a cursor - or, on a phone or tablet, a finger dragging across it.
+ * Reduced-motion visitors get the full-colour version with no mask, the
+ * accessible fallback, matching every other coloring-reveal on this site.
  */
 export function ProgramsHeroArtwork({
   imageSrc,
@@ -22,6 +25,8 @@ export function ProgramsHeroArtwork({
   mobileFit = "contain",
   width = 2172,
   height = 724,
+  mobileWidth,
+  mobileHeight,
   className,
 }: {
   imageSrc: string;
@@ -32,10 +37,15 @@ export function ProgramsHeroArtwork({
   /** Native dimensions ensure the hover reveal tracks the image precisely. */
   width?: number;
   height?: number;
+  /** Native dimensions of the mobile crop, if it differs in aspect from the desktop image. Defaults to width/height. */
+  mobileWidth?: number;
+  mobileHeight?: number;
   className?: string;
 }) {
   const resolvedImageSrc = asset(imageSrc);
   const resolvedMobileImageSrc = mobileImageSrc ? asset(mobileImageSrc) : null;
+  const activeMobileWidth = mobileWidth ?? width;
+  const activeMobileHeight = mobileHeight ?? height;
   const ref = useRef<HTMLDivElement>(null);
   const last = useRef<{ x: number; y: number } | null>(null);
   const dabId = useRef(0);
@@ -43,19 +53,31 @@ export function ProgramsHeroArtwork({
   const clearTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [dabs, setDabs] = useState<Dab[]>([]);
   const [fading, setFading] = useState(false);
-  // False on the server and on touch devices. This keeps the SVG colour layer
-  // (and its image request) out of mobile markup entirely.
-  const [interactive, setInteractive] = useState(false);
+  /**
+   * Starts true so the server and the client's first render agree: the mask
+   * is present, holding no dabs, which is the grayscale resting state. The
+   * effect below turns it off only where reduced motion asks for it, and the
+   * colour layer then shows in full.
+   */
+  const [interactive, setInteractive] = useState(true);
+  const [isDesktopCrop, setIsDesktopCrop] = useState(false);
   const maskId = `${useId().replace(/[^a-zA-Z0-9-]/g, "")}-colour-reveal`;
 
   useEffect(() => {
-    const finePointer = window.matchMedia("(min-width: 640px) and (hover: hover) and (pointer: fine)");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (!finePointer.matches || reducedMotion.matches) {
+    const desktopCrop = window.matchMedia("(min-width: 640px)");
+    if (reducedMotion.matches) {
       setInteractive(false);
       return;
     }
     setInteractive(true);
+    setIsDesktopCrop(desktopCrop.matches);
+    const onCropChange = () => setIsDesktopCrop(desktopCrop.matches);
+    desktopCrop.addEventListener("change", onCropChange);
+
+    const activeWidth = desktopCrop.matches ? width : activeMobileWidth;
+    const activeHeight = desktopCrop.matches ? height : activeMobileHeight;
+    const activeFit = desktopCrop.matches ? fit : mobileFit;
 
     const armIdleFade = () => {
       if (idleTimer.current) clearTimeout(idleTimer.current);
@@ -68,7 +90,6 @@ export function ProgramsHeroArtwork({
     };
 
     const onMove = (event: PointerEvent) => {
-      if (event.pointerType !== "mouse") return;
       const rect = ref.current?.getBoundingClientRect();
       if (!rect) return;
       const px = event.clientX - rect.left;
@@ -80,17 +101,17 @@ export function ProgramsHeroArtwork({
       armIdleFade();
 
       const scale =
-        fit === "cover"
-          ? Math.max(rect.width / width, rect.height / height)
-          : Math.min(rect.width / width, rect.height / height);
-      const offsetX = (rect.width - width * scale) / 2;
-      const offsetY = (rect.height - height * scale) / 2;
+        activeFit === "cover"
+          ? Math.max(rect.width / activeWidth, rect.height / activeHeight)
+          : Math.min(rect.width / activeWidth, rect.height / activeHeight);
+      const offsetX = (rect.width - activeWidth * scale) / 2;
+      const offsetY = (rect.height - activeHeight * scale) / 2;
       const point = { x: (px - offsetX) / scale, y: (py - offsetY) / scale };
       if (
         point.x < 0 ||
         point.y < 0 ||
-        point.x > width ||
-        point.y > height ||
+        point.x > activeWidth ||
+        point.y > activeHeight ||
         (last.current && Math.hypot(point.x - last.current.x, point.y - last.current.y) < 28)
       ) {
         return;
@@ -103,26 +124,38 @@ export function ProgramsHeroArtwork({
     const reset = () => {
       last.current = null;
     };
-    window.addEventListener("pointermove", onMove, { passive: true });
-    document.addEventListener("pointerleave", reset);
+    const el = ref.current;
+    el?.addEventListener("pointermove", onMove, { passive: true });
+    el?.addEventListener("pointerleave", reset);
+    el?.addEventListener("pointerup", reset);
     return () => {
-      window.removeEventListener("pointermove", onMove);
-      document.removeEventListener("pointerleave", reset);
+      desktopCrop.removeEventListener("change", onCropChange);
+      el?.removeEventListener("pointermove", onMove);
+      el?.removeEventListener("pointerleave", reset);
+      el?.removeEventListener("pointerup", reset);
       if (idleTimer.current) clearTimeout(idleTimer.current);
       if (clearTimer.current) clearTimeout(clearTimer.current);
     };
-  }, [fit, height, width]);
+  }, [fit, mobileFit, height, width, activeMobileWidth, activeMobileHeight]);
 
-  const preserveAspectRatio = fit === "cover" ? "xMidYMid slice" : "xMidYMid meet";
+  const activeWidth = isDesktopCrop ? width : activeMobileWidth;
+  const activeHeight = isDesktopCrop ? height : activeMobileHeight;
+  const activeFit = isDesktopCrop ? fit : mobileFit;
+  const activeSrc = isDesktopCrop ? resolvedImageSrc : (resolvedMobileImageSrc ?? resolvedImageSrc);
+  const preserveAspectRatio = activeFit === "cover" ? "xMidYMid slice" : "xMidYMid meet";
+  const dabRadius = isDesktopCrop ? DAB_RADIUS : MOBILE_DAB_RADIUS;
 
   return (
-    <div ref={ref} aria-hidden="true" className={cn("absolute inset-0 overflow-hidden bg-cream", className)}>
+    <div ref={ref} aria-hidden="true" className={cn("absolute inset-0 touch-pan-y overflow-hidden bg-cream", className)}>
       {/* CSS background art direction avoids the preload scanner fetching an
           <img> fallback before it evaluates a <picture> source. Only the
-          image selected by the active media query is requested. */}
+          image selected by the active media query is requested. The resting
+          state is grayscale everywhere; the SVG layer above paints colour
+          back in under a cursor or a finger. */}
       <div
         className={cn(
           "programs-hero-base absolute inset-0 bg-center bg-no-repeat",
+          interactive ? "grayscale brightness-110" : null,
           mobileFit === "cover" ? "bg-cover" : "bg-contain",
           fit === "cover" ? "sm:bg-cover" : "sm:bg-contain",
         )}
@@ -133,19 +166,19 @@ export function ProgramsHeroArtwork({
       />
 
       {interactive ? (
-        <svg viewBox={`0 0 ${width} ${height}`} preserveAspectRatio={preserveAspectRatio} className="absolute inset-0 hidden h-full w-full sm:block">
+        <svg viewBox={`0 0 ${activeWidth} ${activeHeight}`} preserveAspectRatio={preserveAspectRatio} className="absolute inset-0 h-full w-full">
           <defs>
             <filter id={`${maskId}-blur`} x="-30%" y="-30%" width="160%" height="160%">
-              <feGaussianBlur stdDeviation="28" />
+              <feGaussianBlur stdDeviation={isDesktopCrop ? 28 : 18} />
             </filter>
-            <mask id={maskId} maskUnits="userSpaceOnUse" x="0" y="0" width={width} height={height}>
+            <mask id={maskId} maskUnits="userSpaceOnUse" x="0" y="0" width={activeWidth} height={activeHeight}>
               <g filter={`url(#${maskId}-blur)`}>
                 {dabs.map((dab) => (
                   <circle
                     key={dab.id}
                     cx={dab.x}
                     cy={dab.y}
-                    r={DAB_RADIUS}
+                    r={dabRadius}
                     fill="white"
                     className={fading ? "coloring-fade" : undefined}
                   />
@@ -154,11 +187,11 @@ export function ProgramsHeroArtwork({
             </mask>
           </defs>
           <image
-            href={resolvedImageSrc}
+            href={activeSrc}
             x="0"
             y="0"
-            width={width}
-            height={height}
+            width={activeWidth}
+            height={activeHeight}
             preserveAspectRatio={preserveAspectRatio}
             mask={`url(#${maskId})`}
           />

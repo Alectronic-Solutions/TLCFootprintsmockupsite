@@ -53,7 +53,7 @@ export default function ProgramsPage() {
         decor={false}
         surface="bg-cream/95"
         align="center"
-        contentClassName="lg:-translate-x-28 lg:-translate-y-9 lg:rounded-3xl lg:border-hair lg:border-cocoa/10 lg:bg-cream/90 lg:px-10 lg:py-10 lg:shadow-soft lg:backdrop-blur-sm"
+        contentClassName="md:rounded-3xl md:border-hair md:border-cocoa/10 md:bg-cream/90 md:px-10 md:py-10 md:shadow-soft md:backdrop-blur-sm lg:-translate-x-28 lg:-translate-y-9"
         responsiveBackdrop={
           <ProgramsHeroArtwork
             imageSrc="/programs-hero-classroom-panorama.webp"

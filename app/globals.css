@@ -99,23 +99,17 @@
   }
 }
 
-/* The Programs hero stays fully coloured on touch and reduced-motion devices.
-   Only fine-pointer visitors get the grayscale surface that the hover reveal
-   paints back into colour. */
+/* The Programs hero is grayscale at rest on every input - a cursor sweep or
+   a finger drag paints colour back in via the SVG mask above it. Reduced-
+   motion visitors get the plain colour image with no mask (ProgramsHeroArtwork
+   drops the grayscale/SVG treatment entirely in that case). */
 .programs-hero-base {
   background-image: var(--programs-hero-mobile);
-  filter: none;
 }
 
 @media (min-width: 640px) {
   .programs-hero-base {
     background-image: var(--programs-hero-desktop);
-  }
-}
-
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .programs-hero-base {
-    filter: grayscale(1) brightness(1.1);
   }
 }
 
