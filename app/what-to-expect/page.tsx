@@ -74,6 +74,7 @@ export default function WhatToExpectPage() {
           topPaddingClassName="pt-0 lg:pt-[var(--header-h)]"
           surface="bg-cream lg:bg-transparent"
           align="center"
+          contentClassName="lg:rounded-2xl lg:border lg:border-cocoa/10 lg:bg-cream/85 lg:px-10 lg:py-8 lg:shadow-soft lg:backdrop-blur-sm"
           label="A look inside T.L.C. Footprints"
           title="What Families Can Expect"
           subtitle="Choosing childcare is easier when you know what everyday care feels like. T.L.C. Footprints is a small, welcoming home program where children are known, supported, and free to be children."
