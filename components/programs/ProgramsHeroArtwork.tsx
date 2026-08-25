@@ -27,6 +27,8 @@ export function ProgramsHeroArtwork({
   height = 724,
   mobileWidth,
   mobileHeight,
+  position = "center",
+  mobilePosition = "center",
   className,
 }: {
   imageSrc: string;
@@ -40,6 +42,20 @@ export function ProgramsHeroArtwork({
   /** Native dimensions of the mobile crop, if it differs in aspect from the desktop image. Defaults to width/height. */
   mobileWidth?: number;
   mobileHeight?: number;
+  /**
+   * Where a `cover` crop centers itself horizontally at the desktop
+   * (`≥640px`) breakpoint - see `mobilePosition` below for why this exists.
+   */
+  position?: "left" | "center" | "right";
+  /**
+   * Where a `cover` crop centers itself horizontally below `640px`. Useful
+   * when the source photo has a wide plain area meant to sit under desktop
+   * copy (the What to Expect classroom photo's bare wall) - a narrow cover
+   * crop centered on that same photo zooms straight into the blank wall
+   * instead of the furniture, so a caller can bias it toward the side that
+   * actually has something to look at.
+   */
+  mobilePosition?: "left" | "center" | "right";
   className?: string;
 }) {
   const resolvedImageSrc = asset(imageSrc);
@@ -78,6 +94,7 @@ export function ProgramsHeroArtwork({
     const activeWidth = desktopCrop.matches ? width : activeMobileWidth;
     const activeHeight = desktopCrop.matches ? height : activeMobileHeight;
     const activeFit = desktopCrop.matches ? fit : mobileFit;
+    const activePosition = desktopCrop.matches ? position : mobilePosition;
 
     const armIdleFade = () => {
       if (idleTimer.current) clearTimeout(idleTimer.current);
@@ -104,7 +121,12 @@ export function ProgramsHeroArtwork({
         activeFit === "cover"
           ? Math.max(rect.width / activeWidth, rect.height / activeHeight)
           : Math.min(rect.width / activeWidth, rect.height / activeHeight);
-      const offsetX = (rect.width - activeWidth * scale) / 2;
+      const offsetX =
+        activePosition === "left"
+          ? 0
+          : activePosition === "right"
+            ? rect.width - activeWidth * scale
+            : (rect.width - activeWidth * scale) / 2;
       const offsetY = (rect.height - activeHeight * scale) / 2;
       const point = { x: (px - offsetX) / scale, y: (py - offsetY) / scale };
       if (
@@ -136,14 +158,21 @@ export function ProgramsHeroArtwork({
       if (idleTimer.current) clearTimeout(idleTimer.current);
       if (clearTimer.current) clearTimeout(clearTimer.current);
     };
-  }, [fit, mobileFit, height, width, activeMobileWidth, activeMobileHeight]);
+  }, [fit, mobileFit, height, width, activeMobileWidth, activeMobileHeight, position, mobilePosition]);
 
   const activeWidth = isDesktopCrop ? width : activeMobileWidth;
   const activeHeight = isDesktopCrop ? height : activeMobileHeight;
   const activeFit = isDesktopCrop ? fit : mobileFit;
   const activeSrc = isDesktopCrop ? resolvedImageSrc : (resolvedMobileImageSrc ?? resolvedImageSrc);
-  const preserveAspectRatio = activeFit === "cover" ? "xMidYMid slice" : "xMidYMid meet";
+  const activePosition = isDesktopCrop ? position : mobilePosition;
+  const align = activePosition === "left" ? "xMin" : activePosition === "right" ? "xMax" : "xMid";
+  const preserveAspectRatio = `${align}YMid ${activeFit === "cover" ? "slice" : "meet"}`;
   const dabRadius = isDesktopCrop ? DAB_RADIUS : MOBILE_DAB_RADIUS;
+  // Tailwind's JIT scanner needs every class name written out literally
+  // somewhere in source, so the lookup avoids building class strings with a
+  // template literal.
+  const mobileBgPositionClass = { left: "bg-left", center: "bg-center", right: "bg-right" }[mobilePosition];
+  const desktopBgPositionClass = { left: "sm:bg-left", center: "sm:bg-center", right: "sm:bg-right" }[position];
 
   return (
     <div ref={ref} aria-hidden="true" className={cn("absolute inset-0 touch-pan-y overflow-hidden bg-cream", className)}>
@@ -154,7 +183,9 @@ export function ProgramsHeroArtwork({
           back in under a cursor or a finger. */}
       <div
         className={cn(
-          "programs-hero-base absolute inset-0 bg-center bg-no-repeat",
+          "programs-hero-base absolute inset-0 bg-no-repeat",
+          mobileBgPositionClass,
+          desktopBgPositionClass,
           interactive ? "grayscale brightness-110" : null,
           mobileFit === "cover" ? "bg-cover" : "bg-contain",
           fit === "cover" ? "sm:bg-cover" : "sm:bg-contain",

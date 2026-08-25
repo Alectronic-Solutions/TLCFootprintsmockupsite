@@ -108,7 +108,7 @@ export function PageHero({
     >
       {responsiveBackdrop ? (
         <>
-          <div className="relative h-64 pointer-events-auto sm:absolute sm:inset-0 sm:-z-10 sm:h-auto">
+          <div className="relative h-[70vh] min-h-[26rem] pointer-events-auto sm:absolute sm:inset-0 sm:-z-10 sm:h-auto sm:min-h-0">
             {responsiveBackdrop}
           </div>
           <div

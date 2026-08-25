@@ -58,6 +58,9 @@ export default function ProgramsPage() {
           <ProgramsHeroArtwork
             imageSrc="/programs-hero-classroom-panorama.webp"
             mobileImageSrc="/programs-hero-classroom.webp"
+            mobileFit="cover"
+            mobileWidth={1401}
+            mobileHeight={1123}
           />
         }
       >
@@ -92,7 +95,7 @@ export default function ProgramsPage() {
             </p>
           </AnimatedSection>
 
-          <AnimatedSection delay={0.08} className="mx-auto mt-9 max-w-5xl">
+          <AnimatedSection delay={0.08} className="mx-auto mt-9 max-w-6xl">
             <FootprintChecklist />
           </AnimatedSection>
         </div>

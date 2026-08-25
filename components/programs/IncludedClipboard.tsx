@@ -20,7 +20,7 @@ import { isLineChecked } from "./checklistPieces";
  */
 export function IncludedClipboard({ placed }: { placed: readonly string[] }) {
   return (
-    <div className="mx-auto w-full max-w-[26rem] [transform:rotate(-1.2deg)]">
+    <div className="mx-auto w-full max-w-[22rem]">
       <figure className="clipboard-board relative">
         {/* The metal clip, overlapping the sheet's top edge. */}
         <svg

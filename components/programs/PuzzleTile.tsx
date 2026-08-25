@@ -3,7 +3,8 @@ import { cn } from "@/lib/cn";
 import type { FootRegion } from "./checklistPieces";
 import {
   SOLE_D,
-  BALL_BAND,
+  BALL_LEFT_BAND,
+  BALL_RIGHT_BAND,
   ARCH_BAND,
   HEEL_BAND,
   BIG_TOE,
@@ -14,9 +15,9 @@ import {
 export type PieceTone = "pink" | "leaf" | "amber";
 
 const TONE_FILL: Record<PieceTone, string> = {
-  pink: "fill-pink-light",
-  leaf: "fill-leaf-light",
-  amber: "fill-amber-light",
+  pink: "fill-pink/75",
+  leaf: "fill-leaf/80",
+  amber: "fill-amber/80",
 };
 
 const TONE_STROKE: Record<PieceTone, string> = {
@@ -25,19 +26,27 @@ const TONE_STROKE: Record<PieceTone, string> = {
   amber: "stroke-amber-dark",
 };
 
+const TONE_DOT: Record<PieceTone, string> = {
+  pink: "bg-pink",
+  leaf: "bg-leaf",
+  amber: "bg-amber",
+};
+
 /**
  * Each region's own natural width:height ratio, read straight off
- * REGION_VIEWBOX in footGeometry.ts. The three sole slices are wide and
- * short (~2.2:1); the toe regions are closer to square. A fixed *square*
+ * REGION_VIEWBOX in footGeometry.ts. The lower sole slices are wide and
+ * short, the divided ball pieces are compact, and the toe regions are closer
+ * to square. A fixed *square*
  * icon box was the first version of this component, and it was a real bug,
  * not a style choice: "meet" letterboxes a wide viewBox inside a square
  * viewport, so all three sole pieces rendered as similarly-proportioned
  * short blobs in the middle of a mostly-empty square - none of them read as
  * a distinct slice of a foot. Sizing the box itself to each region's ratio
- * is what lets a piece fill its card and keep its own real shape.
+ * is what lets a piece fill its tray slot and keep its own real shape.
  */
 const REGION_RATIO: Record<FootRegion, number> = {
-  ball: 25 / 11.2,
+  ballLeft: 13.3 / 11.2,
+  ballRight: 13.5 / 11.2,
   arch: 25 / 11.2,
   heel: 25 / 11.2,
   toeOne: 7.8 / 9.2,
@@ -61,7 +70,7 @@ function RegionCutout({ region, tone }: { region: FootRegion; tone: PieceTone })
   // keeps every piece the same visual "weight" on the tray shelf even though
   // their shapes differ, the way same-size jigsaw pieces sit in a box.
   const style = {
-    height: "clamp(2.75rem, 12vw, 4.5rem)",
+    height: "clamp(2.4rem, 10vw, 3.35rem)",
     width: "auto",
     aspectRatio: REGION_RATIO[region],
   } as CSSProperties;
@@ -99,9 +108,17 @@ function RegionCutout({ region, tone }: { region: FootRegion; tone: PieceTone })
       </svg>
     );
   }
-  // ball / arch / heel: a cropped slice of the shared sole path.
-  const band =
-    region === "ball" ? BALL_BAND : region === "arch" ? ARCH_BAND : HEEL_BAND;
+  // ball halves / arch / heel: a cropped slice of the shared sole path.
+  const band: { y: number; height: number; x?: number; width?: number } =
+    region === "ballLeft"
+      ? BALL_LEFT_BAND
+      : region === "ballRight"
+        ? BALL_RIGHT_BAND
+        : region === "arch"
+          ? ARCH_BAND
+          : HEEL_BAND;
+  const bandX = band.x ?? 0;
+  const bandWidth = band.width ?? 41;
 
   return (
     <svg
@@ -112,7 +129,7 @@ function RegionCutout({ region, tone }: { region: FootRegion; tone: PieceTone })
     >
       <defs>
         <clipPath id={clipId}>
-          <rect x="0" y={band.y} width="41" height={band.height} />
+          <rect x={bandX} y={band.y} width={bandWidth} height={band.height} />
         </clipPath>
       </defs>
       <path
@@ -143,7 +160,8 @@ export function pieceDndType(id: string) {
 
 /**
  * One puzzle piece in the tray: its own foot-region cutout, large and solid,
- * with its label as a caption underneath - one draggable, clickable card.
+ * with its label as a caption underneath - one draggable, clickable piece,
+ * intentionally left open on the tray rather than boxed into a card.
  *
  * Draggable for a mouse or trackpad (native HTML5 drag and drop, validated
  * per region in FootShape.tsx - a piece only fits its own slot). A real
@@ -174,13 +192,24 @@ export function PuzzleTile({
         e.dataTransfer.effectAllowed = "move";
       }}
       onClick={onPlace}
+      aria-label={`${label}. Tap to place this piece.`}
       className={cn(
-        "group flex min-h-[6.75rem] min-w-0 w-full touch-manipulation cursor-grab flex-col items-center justify-center gap-1.5 rounded-xl p-1.5 text-center transition-transform sm:min-h-[8.5rem] sm:gap-2 sm:p-2",
-        "hover:-translate-y-0.5 hover:scale-[1.03] active:scale-[0.97] active:cursor-grabbing focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-leaf-dark focus-visible:ring-offset-2",
+        "group flex min-h-[6.5rem] min-w-0 w-full touch-manipulation cursor-grab flex-col items-center justify-center gap-1.5 rounded-xl p-1 text-center transition-[transform,filter] duration-200 sm:min-h-[7rem]",
+        "hover:-translate-y-1 hover:drop-shadow-md active:translate-y-0 active:scale-[0.97] active:cursor-grabbing focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-leaf-dark focus-visible:ring-offset-2",
       )}
     >
+      <span
+        aria-hidden="true"
+        className="flex gap-1 opacity-40 transition-opacity group-hover:opacity-75"
+      >
+        <span className={cn("h-1 w-1 rounded-full", TONE_DOT[tone])} />
+        <span className={cn("h-1 w-1 rounded-full", TONE_DOT[tone])} />
+        <span className={cn("h-1 w-1 rounded-full", TONE_DOT[tone])} />
+      </span>
       <RegionCutout region={region} tone={tone} />
-      <span className="text-xs font-semibold leading-tight text-cocoa sm:text-sm">{label}</span>
+      <span className="whitespace-pre-line text-xs font-bold leading-tight text-cocoa sm:text-sm">
+        {label}
+      </span>
     </button>
   );
 }

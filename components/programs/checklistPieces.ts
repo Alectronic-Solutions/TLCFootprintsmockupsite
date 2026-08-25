@@ -1,15 +1,21 @@
 /**
- * The single mapping between the foot puzzle's five pieces and the
+ * The single mapping between the foot puzzle's six pieces and the
  * clipboard's checklist lines, so FootShape.tsx and IncludedClipboard.tsx
- * can never drift apart into two different lists of "the same" five facts.
+ * can never drift apart into two different lists of "the same" six facts.
  *
- * One piece can satisfy more than one clipboard line - "Meals & snacks" is
- * one region of the foot but three separate lines on the sheet (breakfast,
- * morning snack, afternoon snack), because a parent thinks of it as one
- * decision even though the rate states it as three items.
+ * The included-food area is intentionally split in two: breakfast earns one
+ * half of the ball of the foot, while morning and afternoon snacks share the
+ * yellow half. That keeps the checklist's three food lines understandable
+ * without turning the footprint into eight tiny pieces.
  */
 export type ChecklistList = "included" | "notIncluded" | "enrollment";
-export type FootRegion = "heel" | "arch" | "ball" | "toeOne" | "toeTwo";
+export type FootRegion =
+  | "heel"
+  | "arch"
+  | "ballLeft"
+  | "ballRight"
+  | "toeOne"
+  | "toeTwo";
 
 export interface PuzzlePiece {
   id: string;
@@ -22,12 +28,13 @@ export interface PuzzlePiece {
 
 export const PUZZLE_PIECES: readonly PuzzlePiece[] = [
   { id: "deposit", label: "$150 deposit", region: "heel", list: "enrollment", indices: [0] },
-  { id: "schedule", label: "Weekly or bi-weekly", region: "arch", list: "enrollment", indices: [1] },
-  { id: "meals", label: "Meals & snacks", region: "ball", list: "included", indices: [0, 1, 2] },
+  { id: "schedule", label: "Weekly /\nbi-weekly", region: "arch", list: "enrollment", indices: [1] },
+  { id: "breakfast", label: "Breakfast", region: "ballLeft", list: "included", indices: [0] },
+  { id: "snacks", label: "AM + PM snacks", region: "ballRight", list: "included", indices: [1, 2] },
   { id: "lunch", label: "Lunch from home", region: "toeOne", list: "notIncluded", indices: [0] },
   {
     id: "child-action",
-    label: "Child Action accepted",
+    label: "Child Action",
     region: "toeTwo",
     list: "enrollment",
     indices: [2],

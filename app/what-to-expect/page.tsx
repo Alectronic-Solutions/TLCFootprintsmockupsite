@@ -5,6 +5,7 @@ import { PageHero } from "@/components/sections/PageHero";
 import { ArcDivider } from "@/components/brand/ArcDivider";
 import { ExpectBook } from "@/components/what-to-expect/ExpectBook";
 import { ExpectHeroArtwork } from "@/components/what-to-expect/ExpectHeroArtwork";
+import { ProgramsHeroArtwork } from "@/components/programs/ProgramsHeroArtwork";
 import { Photo } from "@/components/media/Photo";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { BUSINESS, MEALS } from "@/lib/constants";
@@ -54,8 +55,23 @@ export default function WhatToExpectPage() {
           width directly keeps the box always full width and only caps how
           tall it gets. */}
       <div className="relative isolate flex flex-col overflow-hidden bg-cream lg:h-[min(56.25vw,44rem)] lg:justify-center">
-        <div className="relative aspect-video w-full shrink-0 lg:hidden">
-          <ExpectHeroArtwork imageSrc="/what-to-expect-hero-classroom.webp" />
+        <div className="relative h-[70vh] min-h-[26rem] w-full shrink-0 lg:hidden">
+          {/* Touch phones and tablets can't hover, so they get
+              ProgramsHeroArtwork's tap-and-drag coloring engine instead of
+              ExpectHeroArtwork's mouse-only reveal: grayscale at rest, colour
+              fills in under a finger, full-bleed cover crop so the photo
+              fills the screen edge to edge. */}
+          <ProgramsHeroArtwork
+            imageSrc="/what-to-expect-hero-classroom.webp"
+            fit="cover"
+            mobileFit="cover"
+            width={1672}
+            height={941}
+            mobileWidth={1672}
+            mobileHeight={941}
+            position="left"
+            mobilePosition="left"
+          />
           <div
             aria-hidden="true"
             className="absolute inset-0 bg-gradient-to-t from-cream via-cream/5 to-transparent"

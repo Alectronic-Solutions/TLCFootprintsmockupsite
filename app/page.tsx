@@ -113,14 +113,13 @@ export default function HomePage() {
           <AnimatedSection className="mx-auto max-w-2xl text-center">
             <SectionLabel className="text-center">Why families choose us</SectionLabel>
             <h2 className="text-3d mt-4 text-h2">A home, not a center</h2>
-            {/* Was "The warmth of a home, with a state licence behind it." -
-                which re-announced the category the hero has already announced
-                twice, in the licence pill and in the lead under the headline,
-                and spelled it the British way while doing it. A lead under a
-                heading should set up what follows, not restate what came
-                before, so this one hands off to the three blocks. */}
+            {/* This lead names the three benefits developed by the cards below,
+                so it makes sense even when this is the first section a visitor
+                reads. Avoid vague references such as "what that changes" here:
+                there is no preceding explanation for "that" to point to. */}
             <p className="mx-auto mt-5 max-w-[46ch] text-lead text-ink">
-              What that actually changes, day to day.
+              Home-based care gives your child consistency, personal attention,
+              and room to grow.
             </p>
           </AnimatedSection>
 
