@@ -29,7 +29,7 @@ import { asset } from "@/lib/site";
  * fallback, not a lesser version.
  */
 
-const LIFE_MS = 2600;
+const LIFE_MS = 4200;
 const BLOB_R = 220;
 const BLOB_BLUR = 55;
 

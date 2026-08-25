@@ -74,15 +74,15 @@ export default function WhatToExpectPage() {
           />
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-gradient-to-t from-cream via-cream/5 to-transparent"
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-cream via-cream/5 to-transparent"
           />
         </div>
 
         <ExpectHeroArtwork imageSrc="/what-to-expect-hero-classroom.webp" className="hidden lg:block" />
-        <div aria-hidden="true" className="absolute inset-0 hidden bg-cream/35 lg:block" />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden bg-cream/35 lg:block" />
         <div
           aria-hidden="true"
-          className="absolute inset-0 hidden bg-gradient-to-b from-cream/80 via-cream/10 to-cream/60 lg:block"
+          className="pointer-events-none absolute inset-0 hidden bg-gradient-to-b from-cream/80 via-cream/10 to-cream/60 lg:block"
         />
 
         <PageHero
