@@ -1,0 +1,193 @@
+/* --------------------------------------------------------------------------
+   Clipboard
+
+   The object on /programs (components/programs/IncludedClipboard.tsx): a
+   cocoa board, a drawn metal clip, and a ruled sheet whose checklist ticks
+   itself off by hand as it scrolls into view. Third in the site's small
+   family of built-CSS objects, after the toy block pen and the tic-tac-toe
+   rug above.
+   -------------------------------------------------------------------------- */
+
+.clipboard-board {
+  /* Top clearance for the clip lives here rather than as a Tailwind `pt-*`
+     utility on the element: Tailwind's utilities compile into `@layer
+     utilities`, and any un-layered rule - this one - always outranks a
+     layered rule at equal specificity, regardless of source order (CSS
+     Cascade Layers). A `pt-9` on the same element would silently lose to
+     this rule's own `padding-top` and collapse to zero. */
+  padding: 2.25rem 0.72rem 0.72rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1.35rem;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(255, 255, 255, 0.13), transparent 28%),
+    linear-gradient(145deg, #563b2c 0%, #38251b 58%, #281a13 100%);
+  box-shadow:
+    0 3px 0 0 rgba(30, 19, 13, 0.44),
+    0 18px 34px -16px rgba(62, 42, 33, 0.48),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Ruled paper: the rule lines paint first in the stack so the cream tint
+   layers over them rather than the other way round. */
+.clipboard-sheet {
+  --rule: 2.1rem;
+  border: 1px solid rgba(62, 42, 33, 0.08);
+  background-image:
+    repeating-linear-gradient(
+      180deg,
+      transparent 0 calc(var(--rule) - 1px),
+      rgba(62, 42, 33, 0.1) calc(var(--rule) - 1px) var(--rule)
+    ),
+    radial-gradient(circle at 20% 0%, #ffffff 0%, transparent 42%),
+    linear-gradient(180deg, #fffefa, var(--color-cream));
+  box-shadow:
+    0 1px 2px rgba(30, 19, 13, 0.12),
+    0 8px 18px rgba(30, 19, 13, 0.12);
+}
+
+/* The pink margin rule down the left edge, the way a legal pad carries one. */
+.clipboard-sheet::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 2.25rem;
+  width: 1px;
+  background: rgba(226, 58, 94, 0.32);
+}
+
+@media (min-width: 640px) {
+  .clipboard-sheet::before {
+    left: 2.75rem;
+  }
+}
+
+/* Each item lands on a rule, wrapped lines included. */
+.clipboard-rules > li {
+  min-height: var(--rule);
+  align-items: flex-start;
+  padding-top: 0.15rem;
+}
+
+.clipboard-tear {
+  border: none;
+  border-top: 2px dashed rgba(62, 42, 33, 0.18);
+}
+
+/* The tick draw-on itself.
+   TICK_PATH_LENGTH in HandTick.tsx (26) fixes the dash length used here.
+
+   Controlled directly on the element via HandTick's `checked` prop and its
+   `data-checked` attribute - not ancestor-scoped the way a single scroll
+   trigger for the whole sheet once was, because each tick now draws on its
+   own, the moment the foot puzzle piece that earns it is placed
+   (components/programs/FootprintChecklist.tsx). */
+@keyframes tick-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.tick-draw {
+  stroke-dasharray: 26;
+  /* Erased by default. React ships this as the server-rendered state too -
+     nothing is placed yet - so there is no hydration mismatch to guard
+     against here the way the old scroll-triggered version needed one for. */
+  stroke-dashoffset: 26;
+}
+
+.tick-draw[data-checked] {
+  animation: tick-draw 0.38s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
+
+/* Parents print this as a facts sheet, not a game - print always shows the
+   finished checklist regardless of which pieces a visitor actually placed.
+   `.foot-checklist` is the merged component's root (FootprintChecklist.tsx);
+   see the matching print rule further down for the foot puzzle itself. */
+@media print {
+  .foot-checklist .tick-draw {
+    stroke-dashoffset: 0 !important;
+    animation: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Foot puzzle
+
+   The interactive object beside the clipboard on /programs
+   (components/programs/FootShape.tsx + FootprintChecklist.tsx): a real
+   jigsaw board built from the site's anatomical footprint outline - the same
+   one the logo and the hero trail use. Each region still validates its own
+   piece, while the full footprint acts as a forgiving drop target that routes
+   any released piece to its proper position. Each region's fill and dashed
+   "empty slot" states are plain
+   conditional JSX driven by the `filled` prop, not a CSS opacity toggle, so
+   there is nothing to force here for print - the clipboard's own tick marks
+   (the facts that actually matter on paper) are already forced complete
+   above regardless of interaction state; the puzzle itself is decoration and
+   prints in whatever state it was left in. */
+@media print {
+  /* Clicking obviously does nothing on paper. */
+  .foot-checklist .puzzle-piece-buttons {
+    display: none !important;
+  }
+}
+
+/* The board is paper-white so the dashed recesses remain clear, with a warm
+   shadow that visually separates the assembled foot from the tray. When a
+   draggable piece enters the footprint, the whole silhouette lifts slightly:
+   the interaction no longer depends on landing on a thin SVG stroke. */
+.foot-shape-svg {
+  filter:
+    drop-shadow(0 2px 0 rgba(62, 42, 33, 0.12))
+    drop-shadow(0 12px 16px rgba(62, 42, 33, 0.12));
+}
+
+.foot-shape-drop-active {
+  transform: translateY(-3px) scale(1.035);
+  filter:
+    drop-shadow(0 3px 0 rgba(78, 122, 40, 0.18))
+    drop-shadow(0 16px 22px rgba(78, 122, 40, 0.25));
+}
+
+.puzzle-board {
+  background-image:
+    radial-gradient(circle at 50% 44%, rgba(255, 255, 255, 0.98), rgba(253, 248, 240, 0.62) 64%, transparent 65%),
+    radial-gradient(rgba(62, 42, 33, 0.08) 0.65px, transparent 0.65px);
+  background-size: auto, 8px 8px;
+}
+
+/* The placed SVG region is the very same shape shown in its tray tile. A
+   short overshoot gives a tap or correct drop the tactile feeling of a piece
+   settling into its matching recess, without changing the footprint layout. */
+@keyframes foot-puzzle-piece-snap {
+  0% {
+    opacity: 0.45;
+    transform: translateY(-10px) scale(1.16);
+  }
+  62% {
+    opacity: 1;
+    transform: translateY(1px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.foot-puzzle-piece-snap {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: foot-puzzle-piece-snap 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce), print {
+  .foot-puzzle-piece-snap {
+    animation: none;
+  }
+
+  .foot-shape-drop-active {
+    transform: none;
+  }
+}

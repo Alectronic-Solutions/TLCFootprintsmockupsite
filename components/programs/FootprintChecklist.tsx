@@ -7,6 +7,7 @@ import { PuzzleTile, RegionCutout, type PieceTone } from "./PuzzleTile";
 import { IncludedClipboard } from "./IncludedClipboard";
 import { PIECE_TONE_BY_ID } from "./pieceTones";
 import { PUZZLE_PIECES, type FootRegion } from "./checklistPieces";
+import "./programs-checklist.css";
 
 const ALL_PIECE_IDS = PUZZLE_PIECES.map((p) => p.id);
 

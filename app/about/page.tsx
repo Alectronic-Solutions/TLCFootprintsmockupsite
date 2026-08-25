@@ -1,3 +1,4 @@
+import "./about-tight.css";
 import { PageHero } from "@/components/sections/PageHero";
 import { CTABand } from "@/components/sections/CTABand";
 import { ThelmaStory } from "@/components/home/ThelmaStory";

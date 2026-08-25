@@ -1,0 +1,75 @@
+/* --------------------------------------------------------------------------
+   About page rhythm
+
+   The About page runs eight bands deep - hero, LaTrell, credentials, Thelma,
+   hours, philosophy, CTA - and at the site-wide `section-y` rhythm that adds
+   up to a page a parent has to scroll a long way to finish. These rules
+   compress the *vertical* rhythm for that page only, via the `.about-tight`
+   wrapper in app/about/page.tsx.
+
+   Scoped here rather than edited into the components because the bands they
+   touch (ArcDivider, ThelmaStory, CTABand) are shared with the home and
+   interior pages, whose rhythm is unchanged. The two About-only sections
+   (AboutCredentials, AboutDayBand) are tightened in their own files. The
+   hero band is left at the site-wide rhythm entirely.
+
+   Every value is a proportional trim, not a floor: roughly a third off the
+   band padding and a quarter off the seams, which keeps each section reading
+   as its own moment rather than running into the next.
+   -------------------------------------------------------------------------- */
+
+.about-tight .section-y {
+  /* Site-wide is clamp(3rem, 7vw, 5rem) - 48px to 80px. */
+  padding-block: clamp(2rem, 3.6vw, 2.75rem);
+}
+
+/* The seams. `h-[clamp(28px,4vw,52px)]` on the ArcDivider svg is decoration
+   that costs real height seven times over on this page.
+
+   Matched on the viewBox rather than a class, because two of the seven arcs
+   are rendered by CTABand itself and the page has no handle on them. Every
+   ArcDivider draws into this exact viewBox and nothing else on the site does. */
+.about-tight svg[viewBox="0 0 1440 50"] {
+  height: clamp(18px, 2.2vw, 30px);
+}
+
+@media (max-width: 639px) {
+  .about-tight .section-y {
+    padding-block: 1.75rem;
+  }
+
+  /* Phones read one column, so the grid gutters are pure vertical cost. The
+     page sets `gap-10` / `gap-9` for the two-column desktop layouts; at a
+     single column those become 40px and 36px of dead space between a photo
+     and the words about it. */
+  .about-tight .about-stack {
+    gap: 1.75rem;
+  }
+
+  /* DayBand is shared with Home and What to Expect, so its own gap-9 is left
+     alone and overridden here instead, matching the value About used before
+     the three copies were unified into one component. */
+  .about-tight .dayband-grid {
+    gap: 1.5rem;
+  }
+}
+
+/* CTABand is shared with every other page, so its own padding is left alone
+   and overridden here instead. The utility class is part of the selector on
+   purpose - it names exactly which value is being replaced, and it is what
+   gives these rules the specificity to win. The `sm` rule has to be restated
+   inside its own media query, because a bare (0,3,0) selector would otherwise
+   beat `sm:py-14` at every width.
+
+   PageHero (`.container-page.py-10`) is deliberately NOT in this list. The
+   hero band keeps the site-wide rhythm on this page - it was tightened once
+   and put back on request. */
+.about-tight .container-page.py-12 /* CTABand */ {
+  padding-block: 2rem;
+}
+
+@media (min-width: 640px) {
+  .about-tight .container-page.py-12 {
+    padding-block: 2.5rem;
+  }
+}
