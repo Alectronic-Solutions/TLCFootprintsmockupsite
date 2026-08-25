@@ -178,7 +178,12 @@ export function PageHero({
         </>
       ) : null}
 
-      <div className="container-page relative py-10 pointer-events-auto sm:py-14">
+      <div
+        className={cn(
+          "container-page relative py-10 sm:py-14",
+          responsiveBackdrop ? "pointer-events-none" : "pointer-events-auto",
+        )}
+      >
         {/* Centered on phones and tablets, where a left-aligned block under a
             centered navbar reads as a misalignment rather than a choice. Back
             to flush-left at lg, the same flip the body sections use. */}
@@ -187,6 +192,7 @@ export function PageHero({
             "mx-auto max-w-3xl text-center",
             align === "responsive" && "lg:mx-0 lg:text-left",
             align === "xl-responsive" && "xl:mx-0 xl:text-left",
+            responsiveBackdrop ? "pointer-events-auto" : null,
             contentClassName,
           )}
         >
