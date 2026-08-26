@@ -376,27 +376,41 @@ export function PuzzleTile({
       style={{ touchAction: "pan-y", WebkitTouchCallout: "none" }}
       aria-label={`${label}. Tap to place this piece, or press and hold, then drag it onto the footprint.`}
       className={cn(
-        "group flex min-h-[7.5rem] min-w-0 w-full cursor-grab select-none flex-col items-center justify-center gap-2 rounded-2xl border border-transparent p-2 text-center transition-[transform,filter,opacity,border-color] duration-200 sm:min-h-[8rem]",
-        "hover:-translate-y-1 hover:border-cocoa/10 hover:bg-white/70 hover:drop-shadow-md active:translate-y-0 active:scale-[0.97] active:cursor-grabbing focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-leaf-dark focus-visible:ring-offset-2",
-        pressing && !dragging && "-translate-y-1 scale-[1.04] border-leaf/25 bg-white/80 drop-shadow-md",
+        // No card chrome on the button itself - no fill, no border, no
+        // rounded box - so nothing but the piece's own cutout and its label
+        // are ever visible. `rounded-2xl` only shapes the keyboard focus
+        // ring below; it draws no background, so it stays invisible until a
+        // keyboard user actually tabs to the tile.
+        "group flex min-h-[7.5rem] min-w-0 w-full flex-col items-center justify-center gap-2 rounded-2xl p-1 text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-leaf-dark focus-visible:ring-offset-2 sm:min-h-[8rem]",
         dragging && "pointer-events-none opacity-25",
       )}
     >
+      {/* The lift/scale feedback lives on the piece's own content, not a
+          surrounding box, so hovering, pressing, or long-pressing reads as
+          picking up that exact cutout - never as tapping into a card. */}
       <span
-        aria-hidden="true"
-        className="flex gap-1 opacity-40 transition-opacity group-hover:opacity-75"
+        className={cn(
+          "flex cursor-grab select-none flex-col items-center gap-2 transition-transform duration-200",
+          "group-hover:-translate-y-1 group-active:translate-y-0 group-active:scale-[0.97] group-active:cursor-grabbing",
+          pressing && !dragging && "-translate-y-1 scale-[1.04]",
+        )}
       >
-        <span className={cn("h-1 w-1 rounded-full", TONE_DOT[tone])} />
-        <span className={cn("h-1 w-1 rounded-full", TONE_DOT[tone])} />
-        <span className={cn("h-1 w-1 rounded-full", TONE_DOT[tone])} />
-      </span>
-      <RegionCutout
-        region={region}
-        tone={tone}
-        style={{ height: "clamp(2.9rem, 13vw, 3.7rem)", width: "auto", aspectRatio: REGION_RATIO[region] }}
-      />
-      <span className="whitespace-pre-line text-sm font-bold leading-tight text-cocoa sm:text-base">
-        {label}
+        <span
+          aria-hidden="true"
+          className="flex gap-1 opacity-40 transition-opacity group-hover:opacity-75"
+        >
+          <span className={cn("h-1 w-1 rounded-full", TONE_DOT[tone])} />
+          <span className={cn("h-1 w-1 rounded-full", TONE_DOT[tone])} />
+          <span className={cn("h-1 w-1 rounded-full", TONE_DOT[tone])} />
+        </span>
+        <RegionCutout
+          region={region}
+          tone={tone}
+          style={{ height: "clamp(2.9rem, 13vw, 3.7rem)", width: "auto", aspectRatio: REGION_RATIO[region] }}
+        />
+        <span className="whitespace-pre-line text-sm font-bold leading-tight text-cocoa sm:text-base">
+          {label}
+        </span>
       </span>
     </button>
   );

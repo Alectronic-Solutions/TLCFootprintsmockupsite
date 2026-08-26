@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Check, RotateCcw } from "lucide-react";
+import { cn } from "@/lib/cn";
 import { FootShape } from "./FootShape";
 import { PuzzleTile, RegionCutout, type PieceTone } from "./PuzzleTile";
 import { IncludedClipboard } from "./IncludedClipboard";
@@ -282,7 +283,12 @@ export function FootprintChecklist() {
               <p className="font-display text-lg font-semibold text-cocoa">Live checklist</p>
               <p className="text-sm text-cocoa-mid">Updates as you play.</p>
             </div>
-            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-pink-light text-pink-dark">
+            <span
+              className={cn(
+                "grid h-9 w-9 shrink-0 place-items-center rounded-full transition-colors duration-300",
+                complete ? "bg-leaf-dark text-white" : "bg-pink-light text-pink-dark",
+              )}
+            >
               <Check className="h-4 w-4" strokeWidth={2.5} aria-hidden="true" />
             </span>
           </div>
