@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useRef, type CSSProperties, type PointerEvent as ReactPointerEvent } from "react";
+import { useId, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent } from "react";
 import { cn } from "@/lib/cn";
 import type { FootRegion } from "./checklistPieces";
 import {
@@ -189,6 +189,16 @@ export function RegionCutout({
 const DRAG_THRESHOLD_PX = 7;
 
 /**
+ * How long a touch has to hold still before it arms for dragging. Below this,
+ * a touch that moves is read as the visitor trying to scroll the page, not
+ * pick up a piece - see the long-press gate in handlePointerDown/Move below.
+ */
+const LONG_PRESS_MS = 380;
+
+/** How far a still-unarmed touch may drift before it's read as a scroll, not a hold. */
+const TOUCH_SCROLL_TOLERANCE_PX = 10;
+
+/**
  * One puzzle piece in the tray: its own foot-region cutout, large and solid,
  * with its label as a caption underneath - one draggable, tappable piece,
  * intentionally left open on the tray rather than boxed into a card.
@@ -206,6 +216,14 @@ const DRAG_THRESHOLD_PX = 7;
  * position up to `onDragMove`/`onDragEnd` so the parent (FootprintChecklist)
  * can render a floating clone and decide whether it lands on the foot. The
  * underlying `<button>` still handles Enter/Space for keyboard users.
+ *
+ * On touch, dragging is additionally gated behind a long press: a phone
+ * visitor's finger regularly lands on the tray while scrolling *past* the
+ * puzzle, not to play it, so a touch only "arms" for dragging after holding
+ * roughly `LONG_PRESS_MS` still - anything that moves before then is read as
+ * a scroll and released back to the page untouched, with no `preventDefault`
+ * ever called. A mouse or pen has no such conflict with page scrolling, so
+ * both arm immediately, exactly as before.
  */
 export function PuzzleTile({
   id,
@@ -229,15 +247,61 @@ export function PuzzleTile({
   onDragMove: (x: number, y: number) => void;
   onDragEnd: (x: number, y: number) => void;
 }) {
-  const pointerState = useRef<{ id: number; startX: number; startY: number; dragged: boolean } | null>(null);
+  const pointerState = useRef<{
+    id: number;
+    startX: number;
+    startY: number;
+    dragged: boolean;
+    armed: boolean;
+    target: HTMLButtonElement;
+  } | null>(null);
+  const longPressTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   // Guards against the browser's own synthetic `click` firing a second
   // placement right after a pointer-driven tap already placed the piece.
   const suppressNextClick = useRef(false);
+  // True the moment a touch long-press arms, before any actual drag motion -
+  // a quick "picked up, you can move me now" cue distinct from `dragging`.
+  const [pressing, setPressing] = useState(false);
+
+  function clearLongPressTimer() {
+    if (longPressTimer.current !== null) {
+      clearTimeout(longPressTimer.current);
+      longPressTimer.current = null;
+    }
+  }
 
   function handlePointerDown(e: ReactPointerEvent<HTMLButtonElement>) {
     if (e.button !== undefined && e.button !== 0 && e.pointerType === "mouse") return;
-    pointerState.current = { id: e.pointerId, startX: e.clientX, startY: e.clientY, dragged: false };
-    e.currentTarget.setPointerCapture(e.pointerId);
+    const isTouch = e.pointerType === "touch";
+    pointerState.current = {
+      id: e.pointerId,
+      startX: e.clientX,
+      startY: e.clientY,
+      dragged: false,
+      armed: !isTouch,
+      target: e.currentTarget,
+    };
+
+    if (!isTouch) {
+      e.currentTarget.setPointerCapture(e.pointerId);
+      return;
+    }
+
+    // Touch: leave the pointer uncaptured and don't prevent anything yet, so
+    // a finger passing through on its way to scrolling the page behaves like
+    // normal page content. Only arm for dragging once held still long enough.
+    const pointerId = e.pointerId;
+    longPressTimer.current = setTimeout(() => {
+      const state = pointerState.current;
+      if (!state || state.id !== pointerId || state.armed) return;
+      state.armed = true;
+      try {
+        state.target.setPointerCapture(pointerId);
+      } catch {
+        // Pointer may already have been released; nothing to capture.
+      }
+      setPressing(true);
+    }, LONG_PRESS_MS);
   }
 
   function handlePointerMove(e: ReactPointerEvent<HTMLButtonElement>) {
@@ -245,6 +309,19 @@ export function PuzzleTile({
     if (!state || state.id !== e.pointerId) return;
     const dx = e.clientX - state.startX;
     const dy = e.clientY - state.startY;
+
+    if (!state.armed) {
+      // Still waiting out the long press: enough drift means this is a
+      // scroll, not a hold, so let go entirely and leave the page's own
+      // scrolling untouched.
+      if (Math.hypot(dx, dy) > TOUCH_SCROLL_TOLERANCE_PX) {
+        clearLongPressTimer();
+        pointerState.current = null;
+      }
+      return;
+    }
+
+    e.preventDefault();
     if (!state.dragged && Math.hypot(dx, dy) > DRAG_THRESHOLD_PX) {
       state.dragged = true;
       onDragStart(id, tone, region, e.clientX, e.clientY);
@@ -256,6 +333,8 @@ export function PuzzleTile({
 
   function handlePointerUp(e: ReactPointerEvent<HTMLButtonElement>) {
     const state = pointerState.current;
+    clearLongPressTimer();
+    setPressing(false);
     if (!state || state.id !== e.pointerId) return;
     pointerState.current = null;
     if (state.dragged) {
@@ -268,6 +347,8 @@ export function PuzzleTile({
 
   function handlePointerCancel(e: ReactPointerEvent<HTMLButtonElement>) {
     const state = pointerState.current;
+    clearLongPressTimer();
+    setPressing(false);
     if (!state || state.id !== e.pointerId) return;
     pointerState.current = null;
     if (state.dragged) onDragEnd(e.clientX, e.clientY);
@@ -292,11 +373,12 @@ export function PuzzleTile({
       onPointerUp={handlePointerUp}
       onPointerCancel={handlePointerCancel}
       onClick={handleClick}
-      style={{ touchAction: "none" }}
-      aria-label={`${label}. Tap to place this piece, or press and drag it onto the footprint.`}
+      style={{ touchAction: "pan-y", WebkitTouchCallout: "none" }}
+      aria-label={`${label}. Tap to place this piece, or press and hold, then drag it onto the footprint.`}
       className={cn(
         "group flex min-h-[7.5rem] min-w-0 w-full cursor-grab select-none flex-col items-center justify-center gap-2 rounded-2xl border border-transparent p-2 text-center transition-[transform,filter,opacity,border-color] duration-200 sm:min-h-[8rem]",
         "hover:-translate-y-1 hover:border-cocoa/10 hover:bg-white/70 hover:drop-shadow-md active:translate-y-0 active:scale-[0.97] active:cursor-grabbing focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-leaf-dark focus-visible:ring-offset-2",
+        pressing && !dragging && "-translate-y-1 scale-[1.04] border-leaf/25 bg-white/80 drop-shadow-md",
         dragging && "pointer-events-none opacity-25",
       )}
     >
