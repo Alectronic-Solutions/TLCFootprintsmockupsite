@@ -7,7 +7,6 @@ import { Footprint } from "@/components/brand/Footprints";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { EASE } from "@/components/ui/AnimatedSection";
 import { BUSINESS, EXPECTATIONS, type ExpectGroup } from "@/lib/constants";
-import "./book.css";
 
 /**
  * The page's distinct care, learning, and safety promises, as a book instead

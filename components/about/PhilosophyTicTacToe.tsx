@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Footprint } from "@/components/brand/Footprints";
-import "./tictac.css";
 
 /**
  * A card-sized game of tic-tac-toe, played with footprints.

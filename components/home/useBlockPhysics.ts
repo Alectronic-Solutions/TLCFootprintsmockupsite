@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Body, Constraint } from "matter-js";
-import "./toy-pen.css";
 
 /**
  * Rigid-body physics for the block pen, with the blocks staying real DOM nodes.
