@@ -19,7 +19,8 @@ export function Footer() {
             <Logo variant="compact" asLink={false} />
             <p className="mt-4 text-sm text-cocoa-mid md:max-w-xs">
               A licensed California Family Child Care Home in {BUSINESS.city}, offering
-              play-based, child-led care for children birth through age five.
+              play-based, child-led care for children birth through age five and welcoming
+              Child Action families.
             </p>
             <p className="mt-4 text-sm text-cocoa-mid">
               License{" "}
@@ -106,13 +107,6 @@ export function Footer() {
         </div>
 
         <HeartDots className="mt-9" />
-
-        <p className="mt-6 text-center text-xs text-cocoa-mid">
-          T.L.C. Footprints Home Daycare provides licensed home daycare, infant daycare,
-          toddler care, and preschool-age childcare in Elk Grove, CA, serving families
-          searching for a licensed family child care home, home childcare, or Child Action
-          provider in the Elk Grove area.
-        </p>
 
         <div className="mt-6 flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left">
           <p className="text-xs text-cocoa-mid">

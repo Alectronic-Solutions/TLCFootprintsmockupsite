@@ -93,7 +93,7 @@ export default function WhatToExpectPage() {
           contentClassName="lg:rounded-2xl lg:border lg:border-cocoa/10 lg:bg-cream/85 lg:px-10 lg:py-8 lg:shadow-soft lg:backdrop-blur-sm"
           label="A look inside T.L.C. Footprints"
           title="What Families Can Expect"
-          subtitle="Choosing childcare is easier when you know what everyday care feels like. T.L.C. Footprints is a small, welcoming home program where children are known, supported, and free to be children."
+          subtitle="Choosing childcare is easier when you know what everyday care feels like. I run a small, welcoming home program where children are known, supported, and free to be children."
         />
       </div>
 
@@ -144,7 +144,7 @@ export default function WhatToExpectPage() {
                 <UtensilsCrossed className="mx-auto h-8 w-8 text-leaf-dark" aria-hidden="true" />
                 <p className="mt-5 text-eyebrow font-semibold uppercase tracking-[0.12em] text-leaf-dark">Meals and snacks</p>
                 <h2 className="text-3d mt-3 text-h2">Simple planning for the day</h2>
-                <p className="mt-4 text-lead text-ink">T.L.C. Footprints provides:</p>
+                <p className="mt-4 text-lead text-ink">I provide:</p>
                 <ul className="mx-auto mt-5 w-fit space-y-4 text-left">
                   {[
                     { label: MEALS.provided[0], Icon: Croissant },
@@ -177,7 +177,10 @@ export default function WhatToExpectPage() {
             </p>
             <h2 className="text-3d mt-3 text-h2">A partnership with your family</h2>
             <p className="mx-auto mt-5 max-w-[56ch] text-lead text-ink">
-              Questions are welcome. LaTrell is available by phone, text, email, and in person so families can stay informed about their child&apos;s care. When something important comes up, you will hear it clearly and have a partner in figuring out what comes next.
+              Questions are welcome. I&apos;m available by phone, text, email, and in person so you can stay informed about your child&apos;s care. When something important comes up, I&apos;ll communicate openly with you so we can work together on what your child needs.
+            </p>
+            <p className="mx-auto mt-4 max-w-[56ch] text-lead text-ink">
+              Families can expect regular communication about their child&apos;s day, including anything important regarding meals, rest, behavior, activities, or overall well-being.
             </p>
           </AnimatedSection>
         </div>

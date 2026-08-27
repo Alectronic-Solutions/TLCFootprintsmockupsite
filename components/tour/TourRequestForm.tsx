@@ -16,7 +16,7 @@ interface FormValues {
   email: string;
   contactPreference: "phone" | "text" | "email";
   careType: string;
-  schedule: "full-time" | "part-time" | "not-sure";
+  schedule: "full-time" | "part-time";
   startDate: string;
   tourTimes: string;
   message: string;
@@ -71,13 +71,14 @@ function FieldError({ id, message }: { id: string; message?: string }) {
 
 export function TourRequestForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [intent, setIntent] = useState<"tour" | "availability">("tour");
   const reduce = useReducedMotion();
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
-    defaultValues: { contactPreference: "phone", schedule: "not-sure", careType: "" },
+    defaultValues: { contactPreference: "phone", schedule: "full-time", careType: "" },
   });
 
   const onSubmit = async (data: FormValues) => {
@@ -87,7 +88,8 @@ export function TourRequestForm() {
       return;
     }
     // Demo build. Nothing is transmitted. See README for wiring this to a real
-    // endpoint at launch.
+    // endpoint at launch. `intent` records whether the parent asked to
+    // schedule a tour or just check availability.
     await new Promise((r) => setTimeout(r, 700));
     setSubmitted(true);
   };
@@ -113,7 +115,9 @@ export function TourRequestForm() {
             </span>
             <h3 className="mt-5 text-h3">Thanks for reaching out.</h3>
             <p className="mx-auto mt-3 max-w-[38ch] text-cocoa-mid">
-              I will contact you directly to confirm a tour time.
+              {intent === "availability"
+                ? "I will contact you directly with current availability."
+                : "I will contact you directly to confirm a tour time."}
             </p>
           </motion.div>
         ) : (
@@ -124,6 +128,10 @@ export function TourRequestForm() {
             initial={false}
             className="space-y-5"
           >
+            <p className="text-center text-base text-cocoa-mid">
+              Not ready to schedule a tour yet? Contact me to check current availability
+              for your child&apos;s age and schedule.
+            </p>
             <p className="text-center text-base text-cocoa-mid">
               Tell me a little about the care you need and which times work for you. I
               will follow up personally to confirm the appointment.
@@ -155,7 +163,7 @@ export function TourRequestForm() {
               </div>
 
               <div>
-                <Label htmlFor="childAge">Your child&apos;s age</Label>
+                <Label htmlFor="childAge">Child&apos;s age or date of birth</Label>
                 <input
                   id="childAge"
                   type="text"
@@ -278,15 +286,14 @@ export function TourRequestForm() {
 
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
-                <Label htmlFor="schedule">Schedule</Label>
+                <Label htmlFor="schedule">Care Schedule Needed</Label>
                 <select
                   id="schedule"
                   className={cn(inputBase, "border-cocoa/15 focus:border-leaf")}
                   {...register("schedule")}
                 >
-                  <option value="full-time">Full-time</option>
-                  <option value="part-time">Part-time</option>
-                  <option value="not-sure">Not sure yet</option>
+                  <option value="full-time">Full-Time</option>
+                  <option value="part-time">Part-Time</option>
                 </select>
               </div>
 
@@ -333,17 +340,33 @@ export function TourRequestForm() {
             </div>
 
             <div className="pt-1">
-              <Button
-                type="submit"
-                size="lg"
-                disabled={isSubmitting}
-                block
-                className="sm:w-auto"
-              >
-                {isSubmitting ? "Submitting..." : "Request a tour"}
-              </Button>
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <Button
+                  type="submit"
+                  size="lg"
+                  disabled={isSubmitting}
+                  onClick={() => setIntent("availability")}
+                  block
+                  variant="secondary"
+                  className="sm:w-auto"
+                >
+                  {isSubmitting && intent === "availability"
+                    ? "Submitting..."
+                    : "Check Availability"}
+                </Button>
+                <Button
+                  type="submit"
+                  size="lg"
+                  disabled={isSubmitting}
+                  onClick={() => setIntent("tour")}
+                  block
+                  className="sm:w-auto"
+                >
+                  {isSubmitting && intent === "tour" ? "Submitting..." : "Request a Tour"}
+                </Button>
+              </div>
               <p className="mt-3 text-sm text-cocoa-mid">
-                I will use these details only to respond to your tour request.
+                I will use these details only to respond to your request.
               </p>
             </div>
           </motion.form>

@@ -224,7 +224,8 @@ export default function AboutPage() {
                 <p>
                   I also believe in open communication with families. At pickup, I want you to
                   know how your child&apos;s day went, what they enjoyed, and anything important you
-                  should know. If something was hard, I will tell you it was hard.
+                  should know. If your child had a challenging part of the day, I&apos;ll
+                  communicate that openly too.
                 </p>
               </div>
 

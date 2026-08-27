@@ -84,7 +84,7 @@ export function DifferentiatorBlocks({ items }: { items: Differentiator[] }) {
           meant the server and the client disagreed about the markup, which is a
           hydration mismatch for exactly the visitors it was meant to help. */}
       <div className="mx-auto mt-3 flex min-h-[2.5rem] max-w-3xl items-center gap-4">
-        <p className="text-sm text-cocoa-mid">Pick up a block. Stack them if you can.</p>
+        <p className="text-sm text-cocoa-mid">Pick up a block, try to stack them.</p>
         {disturbed && (
           <button
             type="button"

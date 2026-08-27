@@ -3,7 +3,7 @@ import { FootprintGlyph } from "@/components/brand/Footprints";
 import { cn } from "@/lib/cn";
 
 /**
- * The five marks on the resource card icon badges.
+ * The marks on the resource card icon badges.
  *
  * Same system as HighlightIcon and ProgramIcon: one stroke weight (1.75 at a
  * 24px canvas), round caps and joins, geometry built from circles and arcs,
@@ -93,12 +93,37 @@ function DayToDay() {
   );
 }
 
+function Health() {
+  return (
+    <>
+      <path
+        d="M12 20s-7-4.2-7-10.1A3.9 3.9 0 0 1 12 7.5 3.9 3.9 0 0 1 19 9.9C19 15.8 12 20 12 20Z"
+        className="stroke-leaf-dark"
+        {...STROKE}
+      />
+      <path d="M12 9v6M9 12h6" className="stroke-pink" {...STROKE} />
+    </>
+  );
+}
+
+function Family() {
+  return (
+    <>
+      <rect x="5" y="4.5" width="14" height="15" rx="2" className="stroke-leaf-dark" {...STROKE} />
+      <circle cx="9" cy="9" r="1.8" className="stroke-amber-dark" {...STROKE} />
+      <path d="M6.8 14c.7-1.6 1.8-2.4 3.2-2.4s2.5.8 3.2 2.4M14.5 8h2M14.5 11h2M14.5 14h2" className="stroke-leaf-dark" {...STROKE} />
+    </>
+  );
+}
+
 const ICONS: Record<ArticleTopic, () => React.JSX.Element> = {
   choosing: Choosing,
   cost: Cost,
   licensing: Licensing,
   starting: Starting,
   "day-to-day": DayToDay,
+  health: Health,
+  family: Family,
 };
 
 export function ResourceIcon({

@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { Hero } from "@/components/home/Hero";
+import { ChildActionSection } from "@/components/home/ChildActionSection";
 import { HighlightsBar } from "@/components/home/HighlightsBar";
 import { ThelmaStory } from "@/components/home/ThelmaStory";
 import {
@@ -32,15 +33,16 @@ export const metadata = pageMeta({
 });
 
 /**
- * The home page answers five questions in order, and nothing else:
+ * The home page answers six questions in order, and nothing else:
  *
  *   Is there room for my child?      The hero status pill, the highlights bar
+ *   Can I get help paying?           The Child Action starting path
  *   Why a home instead of a center?  Differentiators
  *   What does it cost?               Rates
  *   What is the day like?            Inside the day
  *   Can I trust her?                 The name, the process, the FAQ
  *
- * Anything that is not one of those five belongs on an interior page. The full
+ * Anything that is not one of those six belongs on an interior page. The full
  * thirteen-point expectations list and the meals breakdown both used to sit
  * here; they are now only on /what-to-expect, where a parent who wants that
  * level of detail goes looking for it. The home page had grown to twelve
@@ -77,8 +79,8 @@ const DIFFERENTIATORS: Differentiator[] = [
        "small" is the subject of the block below this one and of the heading
        above it. What is left is the actual claim - continuity - which is the
        one thing here a centre cannot offer. */
-    title: "The same home the whole time",
-    titleBreakAfter: "The same home",
+    title: "Consistent care in a familiar home setting",
+    titleBreakAfter: "Consistent care",
     body: "No moving up to a different room every September. Your child stays where they started, first day to last.",
   },
   {
@@ -104,8 +106,10 @@ export default function HomePage() {
       <HighlightsBar />
       {/* The highlights bar fades cream -> cream-deep and was built as a seam
           into the cream-deep availability section. That section is gone, so
-          this divider now takes the handoff directly and lands the same way. */}
+          this divider now lands in the Child Action section instead. */}
       <ArcDivider variant="shallow" from="bg-cream-deep" to="fill-cream" />
+
+      <ChildActionSection />
 
       {/* Why a home */}
       <section className="section-y relative overflow-hidden bg-cream">
@@ -168,11 +172,12 @@ export default function HomePage() {
         }
         /* The infant half of the home, which the rest of this section would
            otherwise leave out: everything above it describes a child who is
-           walking around. Verbatim from PROGRAMS[0].detail. */
+           walking around. */
         body={
           <span className="block text-balance">
-            Babies eat and sleep when they are hungry and tired, not when a chart
-            says so.
+            Infant routines are responsive to each child&apos;s individual
+            feeding and sleep needs while following safe-sleep and licensing
+            guidelines.
           </span>
         }
         link={{ href: "/what-to-expect", label: "What families can expect" }}

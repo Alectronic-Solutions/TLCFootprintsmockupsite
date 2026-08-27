@@ -24,6 +24,8 @@ const TOPIC_TINT: Record<ArticleMeta["topic"], string> = {
   licensing: "bg-leaf-light",
   starting: "bg-pink-light",
   "day-to-day": "bg-amber-light",
+  health: "bg-leaf-light",
+  family: "bg-leaf-light",
 };
 
 export function ResourceCard({ article }: { article: ArticleMeta }) {

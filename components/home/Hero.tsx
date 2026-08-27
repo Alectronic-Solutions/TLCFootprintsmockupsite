@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, Phone } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Footprint } from "@/components/brand/Footprints";
 import { HandwrittenLine } from "@/components/brand/SignatureName";
@@ -402,21 +402,12 @@ export function Hero() {
                 aria-hidden="true"
               />
             </Button>
-            {/* Was "See Openings", pointing at #availability - a section that
-                no longer exists. The phone takes the slot instead, which the
-                hero was carrying twice anyway: as this button's neighbour on
-                phones, in a separate underlined line below it. One treatment,
-                at every width, and the second hero action is now something a
-                parent can actually do rather than a jump down the page. */}
-            <Button
-              href={BUSINESS.phoneHref}
-              size="lg"
-              variant="secondary"
-              block
-              className="sm:w-auto"
-            >
-              <Phone className="h-4 w-4 text-pink-dark" aria-hidden="true" />
-              Call {BUSINESS.phone}
+            {/* Was "Call {phone}". The phone number stays reachable in the
+                contact strip on /tour and in the footer; this slot now carries
+                the second thing a parent on the fence actually wants, which is
+                to know whether there is room before they commit to a tour. */}
+            <Button href="/tour" size="lg" variant="secondary" block className="sm:w-auto">
+              Check Availability
             </Button>
           </motion.div>
         </motion.div>

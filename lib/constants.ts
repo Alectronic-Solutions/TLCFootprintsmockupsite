@@ -159,12 +159,15 @@ export const PROGRAMS: Program[] = [
 
 export const TUITION = {
   depositAmount: 150,
-  depositNote: "Non-refundable enrollment deposit, due when you reserve the space.",
+  depositNote: "A $150 non-refundable enrollment deposit is required to reserve your child's childcare space.",
   schedule: "Tuition may be paid weekly or bi-weekly.",
   /** The single biggest source of parent misunderstanding in home childcare. */
   basisHeadline: "Tuition is based on enrollment, not attendance.",
   basisDetail:
     "Your rate reserves your child's space in my home. It stays the same whether your child attends every day that week or not, because the space is held for you either way.",
+  partTimeNote: "Part-time care is based on an agreed weekly schedule and availability.",
+  /** Sits beside the rates so a parent reading a price does not mistake it for a guaranteed opening. */
+  availabilityNote: "Availability varies by age and schedule. Contact T.L.C. Footprints to confirm current openings.",
   subsidy: "Child Action childcare subsidy assistance is accepted.",
   transportation: "Transportation is not provided.",
 } as const;
@@ -175,10 +178,10 @@ export function monthlyEquivalent(weekly: number): number {
 }
 
 export const MEALS = {
-  provided: ["Breakfast", "Morning snack", "Afternoon snack"],
+  provided: ["Breakfast", "AM snack", "PM snack"],
   /** The same three as one sentence, for places that want a line not a list. */
-  providedSummary: "Breakfast, with morning and afternoon snack.",
-  parentProvides: "Families provide their child's lunch.",
+  providedSummary: "Breakfast, AM snack, and PM snack are provided.",
+  parentProvides: "Parents provide lunch.",
 } as const;
 
 /**
@@ -188,10 +191,10 @@ export const MEALS = {
  * directly into a component.
  */
 export const RATE_INCLUSIONS = {
-  included: ["Breakfast", "Morning snack", "Afternoon snack"],
+  included: ["Breakfast", "AM snack", "PM snack"],
   notIncluded: ["Lunch"],
   enrollment: [
-    "$150 non-refundable enrollment deposit to reserve a space",
+    "A $150 non-refundable enrollment deposit is required to reserve your child's childcare space",
     "Tuition may be paid weekly or bi-weekly",
     "Child Action childcare subsidy assistance accepted",
   ],
@@ -230,17 +233,17 @@ export const EXPECTATIONS: Expectation[] = [
     group: "Care",
     title: "A small, familiar setting",
     detail:
-      "T.L.C. Footprints is a home child care program, designed to give children a warm and familiar place to spend their day.",
+      "A home child care program, designed to give your child a warm and familiar place to spend their day.",
   },
   {
     group: "Care",
     title: "Individual attention",
-    detail: "A small-group setting allows care to stay personal and responsive to each child.",
+    detail: "A small group keeps care personal and responsive to each child.",
   },
   {
     group: "Care",
     title: "Warm, responsive care",
-    detail: "Children are cared for in an environment built around comfort, connection, and reassurance.",
+    detail: "Days built around comfort, connection, and reassurance for your child.",
   },
   {
     group: "Learning",
@@ -250,27 +253,27 @@ export const EXPECTATIONS: Expectation[] = [
   {
     group: "Learning",
     title: "Room for curiosity",
-    detail: "Children have opportunities to follow their interests and explore at their own developmental pace.",
+    detail: "Children get to follow their interests and explore at their own developmental pace.",
   },
   {
     group: "Learning",
     title: "Right for each stage",
-    detail: "Activities are designed around the ages and developmental stages of the children in care.",
+    detail: "Activities designed around the ages and developmental stages of the children in care.",
   },
   {
     group: "Safety",
     title: "State licensed",
-    detail: "T.L.C. Footprints is a licensed California Family Child Care Home.",
+    detail: "A licensed California Family Child Care Home.",
   },
   {
     group: "Safety",
     title: "CPR certified",
-    detail: "LaTrell is CPR certified.",
+    detail: "CPR certified.",
   },
   {
     group: "Safety",
     title: "Mandated reporter",
-    detail: "LaTrell is a mandated reporter.",
+    detail: "A mandated reporter.",
   },
   {
     group: "Safety",
@@ -322,7 +325,7 @@ export const ENROLLMENT_STEPS: EnrollmentStep[] = [
      * back into the deposit FAQ if LaTrell wants it stated.
      */
     detail:
-      "A $150 non-refundable deposit holds the spot. We then complete the required forms, emergency contacts, and immunization records together.",
+      "A $150 non-refundable enrollment deposit is required to reserve your child's childcare space. We then complete the required forms, emergency contacts, and immunization records together.",
     strong: "$150",
   },
   {
@@ -342,59 +345,67 @@ export interface Faq {
 export const FAQS: Faq[] = [
   {
     q: "Are you licensed?",
-    a: "Yes. T.L.C. Footprints Home Daycare is a licensed California Family Child Care Home, license #394501929. You can look that license up yourself through the California Department of Social Services, and I would encourage you to do it.",
+    a: "Yes! T.L.C. Footprints Home Daycare is a licensed California Family Child Care Home, license #394501929. You're welcome to look up that license through the California Department of Social Services, and I'd genuinely encourage you to do it.",
   },
   {
     q: "Are you currently enrolling?",
-    a: "Yes. T.L.C. Footprints is currently enrolling with limited openings. Availability depends on your child's age and schedule, so call or text me for the most current information.",
+    a: "T.L.C. Footprints is currently enrolling. Availability varies based on your child's age and requested schedule, so please contact me for current openings.",
   },
   {
     q: "What ages do you accept?",
-    a: "Children from birth through age 5.",
+    a: "I welcome children from birth through age 5.",
   },
   {
     q: "What are your hours?",
-    a: "Monday through Friday, 7:30 AM to 6:00 PM. Closed weekends and designated holidays.",
+    a: "I'm open Monday through Friday, 7:30 AM to 6:00 PM, and closed on weekends and designated holidays.",
   },
   {
     q: "Do you offer full-time and part-time care?",
-    a: "Yes, both. Rates for each are published on the Programs and Rates page.",
+    a: "Yes, both! Rates for each are published on the Programs and Rates page.",
+  },
+  {
+    q: "How many children do you care for at one time?",
+    a: "T.L.C. Footprints is intentionally kept small so children can receive individualized attention in a familiar home setting. Current availability depends on the ages of the children enrolled and California licensing requirements.",
+  },
+  {
+    q: "Do you follow a daily schedule?",
+    a: "Yes. Children have a predictable daily rhythm that includes meals and snacks, play, age-appropriate activities, rest, and outdoor or movement opportunities, while still allowing flexibility for individual needs.",
   },
   {
     q: "Do you provide meals?",
-    a: "Breakfast, a morning snack, and an afternoon snack are provided. Families provide their child's lunch.",
+    a: "I provide breakfast, an AM snack, and a PM snack. Families provide lunch.",
   },
   {
     q: "Do you accept Child Action?",
-    a: "Yes. I accept Child Action assistance. Eligibility and payment details depend on the assistance program, so Child Action can confirm what applies to your family.",
+    a: "Yes, I'm happy to accept Child Action assistance. Eligibility and payment details depend on your specific program, so Child Action can confirm what applies to your family.",
   },
   {
     q: "What is your teaching philosophy?",
-    a: "My approach is play-based and child-led, within a predictable daily rhythm. Children learn through exploration, creativity, interaction, and everyday experiences.",
+    a: "My approach is play-based and child-led, within a predictable daily rhythm. Children learn best through exploration, creativity, interaction, and everyday experiences, and I love watching that happen.",
   },
   {
     q: "How do I request a tour?",
-    a: "Use the tour request form, or call, text, or email me directly. Tours are by appointment, and I will confirm the time with you.",
+    a: "I'd love to show you around! Use the tour request form, or call, text, or email me directly, and I'll confirm a time that works for you.",
   },
   {
     q: "Is tuition based on attendance?",
-    a: "No. Tuition is based on enrollment and reserving your child's space, so the rate is the same whether your child attends every day that week or not.",
+    a: "Tuition is based on enrollment and reserving your child's space, so your rate stays the same whether your child attends every day that week or not.",
   },
   {
     q: "Is there an enrollment deposit?",
-    a: "Yes. A $150 non-refundable enrollment deposit reserves your child's space.",
+    a: "Yes. A $150 non-refundable enrollment deposit reserves your child's spot in our daycare family.",
   },
   {
     q: "What should my child bring?",
-    a: "Families provide lunch. Before the first day, we will review an age-appropriate packing list together so you know exactly what to send.",
+    a: "Families provide their child's lunch along with any needed diapers, wipes, extra clothing, blanket, sunscreen, and water bottle. Additional age-specific items will be reviewed with families before the child's first day.",
   },
   {
     q: "What happens if my child is sick?",
-    a: "A child who is ill may need to stay home to rest and to help prevent illness from spreading through the group. We review the illness policy during enrollment so you know which symptoms require staying home and when your child may return.",
+    a: "A child who isn't feeling well may need to stay home to rest and to help keep the rest of our group healthy. We'll review the full illness policy together during enrollment, so you'll know exactly which symptoms call for a day home and when your child is welcome back.",
   },
   {
     q: "Do you provide transportation?",
-    a: "No. Transportation is not provided.",
+    a: "Transportation isn't provided, so drop-off and pickup are handled by families.",
   },
 ];
 

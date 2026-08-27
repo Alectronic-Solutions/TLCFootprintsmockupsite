@@ -71,8 +71,15 @@ export function RateBoard() {
         </div>
 
         <p className="mt-8 text-balance border-t-hair border-cocoa/10 pt-5 text-center text-sm text-cocoa-mid">
-          {MEALS.providedSummary} &middot; ${TUITION.depositAmount} one-time
-          deposit holds your child&rsquo;s space &middot; {TUITION.subsidy}
+          {MEALS.providedSummary} &middot; A ${TUITION.depositAmount}{" "}
+          non-refundable enrollment deposit is required to reserve your
+          child&rsquo;s childcare space &middot; {TUITION.subsidy}
+        </p>
+        <p className="mt-2 text-balance text-center text-sm text-cocoa-mid">
+          {TUITION.partTimeNote}
+        </p>
+        <p className="mt-2 text-balance text-center text-sm text-cocoa-mid">
+          {TUITION.availabilityNote}
         </p>
       </div>
 

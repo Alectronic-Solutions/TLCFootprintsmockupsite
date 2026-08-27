@@ -13,11 +13,26 @@ import matter from "gray-matter";
 
 const CONTENT_DIR = path.join(process.cwd(), "content", "resources");
 
-/** The five topics the resource library sorts into. Authored per article in
+/** The resource topics are authored per article in
  *  frontmatter, not inferred, so a new article has to be filed on purpose. */
-export type ArticleTopic = "choosing" | "cost" | "licensing" | "starting" | "day-to-day";
+export type ArticleTopic =
+  | "choosing"
+  | "cost"
+  | "licensing"
+  | "starting"
+  | "day-to-day"
+  | "health"
+  | "family";
 
-const TOPICS: ArticleTopic[] = ["choosing", "cost", "licensing", "starting", "day-to-day"];
+const TOPICS: ArticleTopic[] = [
+  "choosing",
+  "cost",
+  "licensing",
+  "starting",
+  "day-to-day",
+  "health",
+  "family",
+];
 
 /** Display label for each topic, in the order the filter/eyebrow should use. */
 export const TOPIC_LABELS: Record<ArticleTopic, string> = {
@@ -26,6 +41,8 @@ export const TOPIC_LABELS: Record<ArticleTopic, string> = {
   licensing: "Licensing",
   starting: "Starting out",
   "day-to-day": "Day to day",
+  health: "Health and safety",
+  family: "Family records",
 };
 
 function parseTopic(value: unknown): ArticleTopic {

@@ -66,7 +66,7 @@ const GRID_GAP = 24;
 export function Credentials({
   surface = "bg-cream-deep",
   label = "Before you take my word for it",
-  title = "What I actually hold",
+  title = "Licensed, Certified & Prepared",
   lead,
   licenseButtonLabel,
 }: {

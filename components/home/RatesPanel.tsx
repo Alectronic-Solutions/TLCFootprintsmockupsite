@@ -251,6 +251,9 @@ export function RatesPanel() {
                       ${program.fullTime} / week full-time
                       <br />${program.partTime} / week part-time
                     </p>
+                    <p className="hidden text-xs text-cocoa-mid print:block">
+                      {TUITION.partTimeNote}
+                    </p>
                   </div>
                 </Card>
               </AnimatedSection>
@@ -274,6 +277,14 @@ export function RatesPanel() {
               parent who wants it. */}
           <p className="mt-1 hidden text-balance text-sm text-cocoa-mid sm:block">
             {TUITION.basisDetail.split(". ")[0]}.
+          </p>
+          {schedule === "part" ? (
+            <p className="mt-1 text-balance text-sm text-cocoa-mid">
+              {TUITION.partTimeNote}
+            </p>
+          ) : null}
+          <p className="mt-1 text-balance text-sm text-cocoa-mid">
+            {TUITION.availabilityNote}
           </p>
         </AnimatedSection>
 
