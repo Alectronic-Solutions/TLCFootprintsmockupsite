@@ -50,13 +50,13 @@ const components = {
   ),
   ul: (p: React.ComponentProps<"ul">) => (
     <ul
-      className="mt-5 list-outside list-disc space-y-2.5 pl-6 marker:text-leaf-dark"
+      className="mx-auto mt-5 max-w-[60ch] list-outside list-disc space-y-2.5 pl-6 text-left marker:text-leaf-dark"
       {...p}
     />
   ),
   ol: (p: React.ComponentProps<"ol">) => (
     <ol
-      className="mt-5 list-outside list-decimal space-y-2.5 pl-6 marker:font-semibold marker:text-leaf-dark"
+      className="mx-auto mt-5 max-w-[60ch] list-outside list-decimal space-y-2.5 pl-6 text-left marker:font-semibold marker:text-leaf-dark"
       {...p}
     />
   ),
@@ -78,7 +78,7 @@ const components = {
   ),
   blockquote: (p: React.ComponentProps<"blockquote">) => (
     <blockquote
-      className="mt-6 rounded-r-xl border-l-4 border-l-leaf bg-leaf-light/40 py-4 pl-5 pr-4 [&>p]:mt-0 [&>p+p]:mt-3"
+      className="mx-auto mt-6 max-w-[60ch] rounded-r-xl border-l-4 border-l-leaf bg-leaf-light/40 py-4 pl-5 pr-4 text-left [&>p]:mt-0 [&>p+p]:mt-3"
       {...p}
     />
   ),
@@ -186,7 +186,7 @@ export default async function ArticlePage({
 
         <div className="bg-cream-deep py-10 sm:py-12">
           <div className="container-prose">
-            <div className="rounded-2xl border-hair border-cocoa/10 bg-cream p-7 text-left shadow-soft sm:p-10">
+            <div className="rounded-2xl border-hair border-cocoa/10 bg-cream p-7 text-center shadow-soft sm:p-10">
               <MDXRemote source={article.body} components={components} />
             </div>
           </div>

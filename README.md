@@ -266,16 +266,21 @@ the form endpoint, submit `https://tlcfootprints.com/sitemap.xml` in Google
 Search Console, and create or claim the Google Business Profile with a hidden
 home address.
 
-### Wiring up the tour form
+### Wiring up the inquiry forms
 
-The form validates properly and shows a simple thank-you state, but **it does not send anything yet**. It is presentation-only until a form endpoint is connected.
+The tour and availability forms validate properly and show a simple thank-you
+state, but **they do not send anything yet**. They are presentation-only until
+a form endpoint is connected.
 
 For production, prefer a Cloudflare Pages Function so validation, rate limiting,
 Turnstile verification, and delivery credentials stay server-side. In
-`components/tour/TourRequestForm.tsx`, replace the simulated delay in `onSubmit`
-with a request to that function.
+`components/tour/TourRequestForm.tsx` and
+`components/availability/AvailabilityRequestForm.tsx`, replace the simulated
+delay in `onSubmit` with a request to that function. Include an explicit request
+type in each payload so tour and availability inquiries can be routed correctly.
 
-The honeypot field is already in place. Leave it, because form endpoints on public sites start receiving spam within weeks.
+The honeypot fields are already in place. Leave them, because form endpoints on
+public sites start receiving spam within weeks.
 
 ### The thing that matters most for being found
 

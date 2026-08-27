@@ -406,7 +406,7 @@ export function Hero() {
                 contact strip on /tour and in the footer; this slot now carries
                 the second thing a parent on the fence actually wants, which is
                 to know whether there is room before they commit to a tour. */}
-            <Button href="/tour" size="lg" variant="secondary" block className="sm:w-auto">
+            <Button href="/availability" size="lg" variant="secondary" block className="sm:w-auto">
               Check Availability
             </Button>
           </motion.div>

@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { AlertCircle, Check } from "lucide-react";
+import { AlertCircle, ArrowRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { PROGRAMS } from "@/lib/constants";
 import { cn } from "@/lib/cn";
@@ -13,25 +12,18 @@ import { EASE } from "@/components/ui/AnimatedSection";
 interface FormValues {
   parentName: string;
   childAge: string;
+  careType: string;
+  schedule: "full-time" | "part-time" | "not-sure";
+  daysNeeded: string;
+  startDate: string;
   phone: string;
   email: string;
   contactPreference: "phone" | "text" | "email";
-  careType: string;
-  schedule: "full-time" | "part-time";
-  startDate: string;
-  tourTimes: string;
   message: string;
   /** Honeypot. Real people never fill this in. */
   website: string;
 }
 
-/**
- * Fields are recessed rather than raised: an inset shadow reads as a slot cut
- * into the card, which is the opposite of the buttons and keeps the two from
- * competing. `focus:outline-none` is only safe because the ring below replaces
- * it; the ring is leaf-dark, the one focus colour legible on every surface
- * this site uses.
- */
 const inputBase =
   "w-full min-h-[48px] rounded-xl border-hair bg-cream-deep px-4 py-3 text-cocoa " +
   "shadow-[inset_0_1px_2px_rgba(62,42,33,0.06)] " +
@@ -61,16 +53,16 @@ function Label({
 
 function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
+
   return (
     <p id={id} className="mt-1.5 flex items-center gap-1.5 text-sm text-pink-dark">
-      {/* An icon as well as colour, so the error is never signalled by colour alone. */}
       <AlertCircle className="h-4 w-4 shrink-0" aria-hidden="true" />
       {message}
     </p>
   );
 }
 
-export function TourRequestForm() {
+export function AvailabilityRequestForm() {
   const [submitted, setSubmitted] = useState(false);
   const reduce = useReducedMotion();
   const {
@@ -78,18 +70,22 @@ export function TourRequestForm() {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
-    defaultValues: { contactPreference: "phone", schedule: "full-time", careType: "" },
+    defaultValues: {
+      careType: "",
+      schedule: "full-time",
+      contactPreference: "phone",
+    },
   });
 
   const onSubmit = async (data: FormValues) => {
-    // Honeypot: silently accept and discard.
     if (data.website) {
       setSubmitted(true);
       return;
     }
-    // Demo build. Nothing is transmitted. See README for wiring this to a real
-    // endpoint at launch.
-    await new Promise((r) => setTimeout(r, 700));
+
+    // Demo build. Nothing is transmitted. See README for wiring this to a
+    // real endpoint before launch.
+    await new Promise((resolve) => setTimeout(resolve, 700));
     setSubmitted(true);
   };
 
@@ -105,16 +101,17 @@ export function TourRequestForm() {
             initial={reduce ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: EASE }}
-            className="py-6 text-center"
+            className="py-8 text-center"
             role="status"
             aria-live="polite"
           >
             <span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-leaf-light">
               <Check className="h-8 w-8 text-leaf-dark" aria-hidden="true" strokeWidth={2.5} />
             </span>
-            <h3 className="mt-5 text-h3">Thanks for reaching out.</h3>
-            <p className="mx-auto mt-3 max-w-[38ch] text-cocoa-mid">
-              I will contact you directly to confirm a tour time.
+            <h3 className="mt-5 text-h3">Your request is ready.</h3>
+            <p className="mx-auto mt-3 max-w-[40ch] text-cocoa-mid">
+              Thank you for sharing what your family needs. I will contact you directly
+              about current availability.
             </p>
           </motion.div>
         ) : (
@@ -126,120 +123,164 @@ export function TourRequestForm() {
             className="space-y-5"
           >
             <p className="text-center text-base text-cocoa-mid">
-              <span className="block [text-wrap:balance]">
-                Not ready to schedule a tour?
-              </span>
-              <span className="mt-1 block [text-wrap:balance]">
-                <Link
-                  href="/availability"
-                  className="whitespace-nowrap font-semibold text-cocoa underline decoration-pink/45 underline-offset-4 transition-colors hover:text-pink-dark"
-                >
-                  Check current availability
-                </Link>{" "}
-                for your child&apos;s age and schedule.
-              </span>
-            </p>
-            <p className="text-center text-base text-cocoa-mid">
-              <span className="block [text-wrap:balance]">
-                Tell me a little about the care you need and which times work for you.
-              </span>
-              <span className="mt-1 block [text-wrap:balance]">
-                I will follow up personally to confirm the appointment.
-              </span>
+              Tell me about your child, schedule, and preferred start date. I will reply
+              personally with the openings that may fit.
             </p>
 
-            {/* Honeypot, hidden from people and from screen readers. */}
             <div aria-hidden="true" className="absolute left-[-9999px]">
-              <label htmlFor="website">Do not fill this in</label>
-              <input id="website" type="text" tabIndex={-1} autoComplete="off" {...register("website")} />
+              <label htmlFor="availability-website">Do not fill this in</label>
+              <input
+                id="availability-website"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                {...register("website")}
+              />
             </div>
 
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
-                <Label htmlFor="parentName">Your name</Label>
+                <Label htmlFor="availability-parent-name">Your name</Label>
                 <input
-                  id="parentName"
+                  id="availability-parent-name"
                   type="text"
                   autoComplete="name"
                   maxLength={100}
                   aria-invalid={!!errors.parentName}
-                  aria-describedby={errors.parentName ? "err-parentName" : undefined}
+                  aria-describedby={errors.parentName ? "availability-error-parent-name" : undefined}
                   className={cn(inputBase, errClass("parentName"))}
                   {...register("parentName", {
                     required: "Please tell me your name.",
                     maxLength: { value: 100, message: "Please use 100 characters or fewer." },
                   })}
                 />
-                <FieldError id="err-parentName" message={errors.parentName?.message} />
+                <FieldError
+                  id="availability-error-parent-name"
+                  message={errors.parentName?.message}
+                />
               </div>
 
               <div>
-                <Label htmlFor="childAge">Child&apos;s age or date of birth</Label>
+                <Label htmlFor="availability-child-age">Child&apos;s age or date of birth</Label>
                 <input
-                  id="childAge"
+                  id="availability-child-age"
                   type="text"
                   placeholder="14 months, or 3 years"
                   maxLength={40}
                   aria-invalid={!!errors.childAge}
-                  aria-describedby={errors.childAge ? "err-childAge" : undefined}
+                  aria-describedby={errors.childAge ? "availability-error-child-age" : undefined}
                   className={cn(inputBase, errClass("childAge"))}
                   {...register("childAge", {
                     required: "Please add your child's age.",
                     maxLength: { value: 40, message: "Please use 40 characters or fewer." },
                   })}
                 />
-                <FieldError id="err-childAge" message={errors.childAge?.message} />
+                <FieldError
+                  id="availability-error-child-age"
+                  message={errors.childAge?.message}
+                />
               </div>
 
               <div>
-                <Label htmlFor="careType">Care needed</Label>
+                <Label htmlFor="availability-care-type">Care needed</Label>
                 <select
-                  id="careType"
+                  id="availability-care-type"
                   aria-invalid={!!errors.careType}
-                  aria-describedby={errors.careType ? "err-careType" : undefined}
+                  aria-describedby={errors.careType ? "availability-error-care-type" : undefined}
                   className={cn(inputBase, errClass("careType"))}
                   {...register("careType", { required: "Please choose a care type." })}
                 >
                   <option value="">Choose one</option>
-                  {PROGRAMS.map((p) => (
-                    <option key={p.slug} value={p.name}>
-                      {p.name}
+                  {PROGRAMS.map((program) => (
+                    <option key={program.slug} value={program.name}>
+                      {program.name}
                     </option>
                   ))}
                   <option value="Not sure">Not sure yet</option>
                 </select>
-                <FieldError id="err-careType" message={errors.careType?.message} />
+                <FieldError
+                  id="availability-error-care-type"
+                  message={errors.careType?.message}
+                />
               </div>
 
               <div>
-                <Label htmlFor="phone">Phone</Label>
+                <Label htmlFor="availability-schedule">Care schedule needed</Label>
+                <select
+                  id="availability-schedule"
+                  className={cn(inputBase, "border-cocoa/15 focus:border-leaf")}
+                  {...register("schedule")}
+                >
+                  <option value="full-time">Full-time</option>
+                  <option value="part-time">Part-time</option>
+                  <option value="not-sure">Not sure yet</option>
+                </select>
+              </div>
+
+              <div>
+                <Label htmlFor="availability-days-needed" optional>
+                  Days needed
+                </Label>
                 <input
-                  id="phone"
+                  id="availability-days-needed"
+                  type="text"
+                  placeholder="Monday–Friday, or specific days"
+                  maxLength={120}
+                  className={cn(inputBase, "border-cocoa/15 focus:border-leaf")}
+                  {...register("daysNeeded")}
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="availability-start-date">When do you need care?</Label>
+                <input
+                  id="availability-start-date"
+                  type="text"
+                  placeholder="September, or as soon as possible"
+                  maxLength={80}
+                  aria-invalid={!!errors.startDate}
+                  aria-describedby={errors.startDate ? "availability-error-start-date" : undefined}
+                  className={cn(inputBase, errClass("startDate"))}
+                  {...register("startDate", {
+                    required: "Please share your preferred start date.",
+                    maxLength: { value: 80, message: "Please use 80 characters or fewer." },
+                  })}
+                />
+                <FieldError
+                  id="availability-error-start-date"
+                  message={errors.startDate?.message}
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="availability-phone">Phone</Label>
+                <input
+                  id="availability-phone"
                   type="tel"
                   autoComplete="tel"
                   inputMode="tel"
                   maxLength={30}
                   aria-invalid={!!errors.phone}
-                  aria-describedby={errors.phone ? "err-phone" : undefined}
+                  aria-describedby={errors.phone ? "availability-error-phone" : undefined}
                   className={cn(inputBase, errClass("phone"))}
                   {...register("phone", {
                     required: "A phone number helps me reach you quickly.",
                     maxLength: { value: 30, message: "Please use 30 characters or fewer." },
                   })}
                 />
-                <FieldError id="err-phone" message={errors.phone?.message} />
+                <FieldError id="availability-error-phone" message={errors.phone?.message} />
               </div>
 
               <div>
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="availability-email">Email</Label>
                 <input
-                  id="email"
+                  id="availability-email"
                   type="email"
                   autoComplete="email"
                   inputMode="email"
                   maxLength={254}
                   aria-invalid={!!errors.email}
-                  aria-describedby={errors.email ? "err-email" : undefined}
+                  aria-describedby={errors.email ? "availability-error-email" : undefined}
                   className={cn(inputBase, errClass("email"))}
                   {...register("email", {
                     required: "Please add an email address.",
@@ -250,7 +291,7 @@ export function TourRequestForm() {
                     maxLength: { value: 254, message: "Please use 254 characters or fewer." },
                   })}
                 />
-                <FieldError id="err-email" message={errors.email?.message} />
+                <FieldError id="availability-error-email" message={errors.email?.message} />
               </div>
             </div>
 
@@ -269,16 +310,13 @@ export function TourRequestForm() {
                   <label
                     key={value}
                     className={cn(
-                      "min-h-[44px] cursor-pointer select-none rounded-full border-hair",
+                      "inline-flex min-h-[44px] cursor-pointer select-none items-center rounded-full border-hair",
                       "border-cocoa/15 bg-gradient-to-b from-white to-cream-deep px-4",
-                      "inline-flex items-center text-sm font-semibold text-cocoa",
-                      "shadow-[0_1px_0_0_rgba(62,42,33,0.08)]",
-                      "transition-all duration-200",
-                      "has-[:checked]:border-pink has-[:checked]:from-pink-light",
-                      "has-[:checked]:to-pink-light has-[:checked]:text-pink-dark",
+                      "text-sm font-semibold text-cocoa shadow-[0_1px_0_0_rgba(62,42,33,0.08)]",
+                      "transition-all duration-200 has-[:checked]:border-pink",
+                      "has-[:checked]:from-pink-light has-[:checked]:to-pink-light",
+                      "has-[:checked]:text-pink-dark",
                       "has-[:checked]:shadow-[inset_0_1px_2px_rgba(194,43,75,0.15)]",
-                      // The radio itself is sr-only, so the ring has to live on
-                      // the label or keyboard users get no focus indicator.
                       "has-[:focus-visible]:outline has-[:focus-visible]:outline-2",
                       "has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-leaf-dark",
                     )}
@@ -295,56 +333,15 @@ export function TourRequestForm() {
               </div>
             </fieldset>
 
-            <div className="grid gap-5 sm:grid-cols-2">
-              <div>
-                <Label htmlFor="schedule">Care Schedule Needed</Label>
-                <select
-                  id="schedule"
-                  className={cn(inputBase, "border-cocoa/15 focus:border-leaf")}
-                  {...register("schedule")}
-                >
-                  <option value="full-time">Full-Time</option>
-                  <option value="part-time">Part-Time</option>
-                </select>
-              </div>
-
-              <div>
-                <Label htmlFor="startDate" optional>
-                  Ideal start date
-                </Label>
-                <input
-                  id="startDate"
-                  type="text"
-                  placeholder="September, or as soon as possible"
-                  maxLength={80}
-                  className={cn(inputBase, "border-cocoa/15 focus:border-leaf")}
-                  {...register("startDate")}
-                />
-              </div>
-            </div>
-
             <div>
-              <Label htmlFor="tourTimes" optional>
-                Days or times that work for a tour
-              </Label>
-              <input
-                id="tourTimes"
-                type="text"
-                placeholder="Share a few days and times that work for you"
-                maxLength={200}
-                className={cn(inputBase, "border-cocoa/15 focus:border-leaf")}
-                {...register("tourTimes")}
-              />
-            </div>
-
-            <div>
-              <Label htmlFor="message" optional>
-                Anything you want me to know
+              <Label htmlFor="availability-message" optional>
+                Anything else I should know
               </Label>
               <textarea
-                id="message"
+                id="availability-message"
                 rows={4}
                 maxLength={2000}
+                placeholder="Share schedule details, questions, or anything that would help me understand your needs."
                 className={cn(inputBase, "resize-none border-cocoa/15 focus:border-leaf")}
                 {...register("message")}
               />
@@ -352,7 +349,8 @@ export function TourRequestForm() {
 
             <div className="pt-1">
               <Button type="submit" size="lg" disabled={isSubmitting} block>
-                {isSubmitting ? "Submitting..." : "Request a Tour"}
+                {isSubmitting ? "Submitting..." : "Check Availability"}
+                {!isSubmitting ? <ArrowRight className="h-4 w-4" aria-hidden="true" /> : null}
               </Button>
               <p className="mt-3 text-center text-sm text-cocoa-mid">
                 I will use these details only to respond to your request.

@@ -6,7 +6,7 @@ import { cn } from "@/lib/cn";
 /**
  * The strip above the navbar. One line, one job: tell a parent landing on any
  * page whether this home is taking children right now, and give them a single
- * tap to the tour form.
+ * tap to the availability form.
  *
  * It is driven by `AVAILABILITY.status`, the same value the home page pill
  * reads, so LaTrell keeps both current by editing one field in constants.ts.
@@ -31,14 +31,14 @@ const STYLES: Record<
     dot: "bg-leaf-light",
     lead: "Now enrolling",
     detail: "openings available",
-    href: "/tour",
+    href: "/availability",
   },
   limited: {
     bar: "bg-leaf-dark text-cream",
     dot: "bg-amber",
     lead: "Now enrolling",
     detail: "limited openings",
-    href: "/tour",
+    href: "/availability",
   },
   /* No link and no green when the home is full: a bar that announces there is
      no room and then invites a tour is a bait. It states the fact and stops. */
@@ -105,7 +105,7 @@ export function AnnouncementBar({ collapsed = false }: { collapsed?: boolean }) 
               aria-hidden="true"
               className="h-3.5 w-3.5 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 max-sm:hidden"
             />
-            <span className="sr-only">Request a tour</span>
+            <span className="sr-only">Check current availability</span>
           </Link>
         ) : (
           <p className="flex items-center gap-2 whitespace-nowrap text-xs">{line}</p>
