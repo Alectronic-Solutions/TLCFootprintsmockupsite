@@ -281,8 +281,17 @@ export function Navbar() {
                 </a>
               </div>
 
-              <Button href="/tour" size="md" block className="mb-4 mt-3">
+              <Button href="/tour" size="md" block className="mt-3">
                 Request a Tour
+              </Button>
+              <Button
+                href="/availability"
+                variant="secondary"
+                size="md"
+                block
+                className="mb-4 mt-3"
+              >
+                Check Availability
               </Button>
             </nav>
           </motion.div>
