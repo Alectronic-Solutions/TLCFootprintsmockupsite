@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { AlertCircle } from "lucide-react";
@@ -146,20 +145,6 @@ export function TourRequestForm() {
               instead.
             </div>
 
-            <p className="text-center text-base text-cocoa-mid">
-              <span className="block [text-wrap:balance]">
-                Not ready to schedule a tour?
-              </span>{" "}
-              <span className="mt-1 block [text-wrap:balance]">
-                <Link
-                  href="/availability"
-                  className="whitespace-nowrap font-semibold text-cocoa underline decoration-pink/45 underline-offset-4 transition-colors hover:text-pink-dark"
-                >
-                  Check current availability
-                </Link>{" "}
-                for your child&apos;s age and schedule.
-              </span>
-            </p>
             <p className="text-center text-base text-cocoa-mid">
               <span className="block [text-wrap:balance]">
                 These fields preview the details needed to arrange a tour.
@@ -318,14 +303,14 @@ export function TourRequestForm() {
 
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
-                <Label htmlFor="schedule">Care schedule needed</Label>
+                <Label htmlFor="schedule">Care Schedule Needed</Label>
                 <select
                   id="schedule"
                   className={cn(inputBase, "border-cocoa/15 focus:border-leaf")}
                   {...register("schedule")}
                 >
-                  <option value="full-time">Full-time</option>
-                  <option value="part-time">Part-time</option>
+                  <option value="full-time">Full-Time</option>
+                  <option value="part-time">Part-Time</option>
                 </select>
               </div>
 

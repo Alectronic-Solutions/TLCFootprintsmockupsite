@@ -76,7 +76,7 @@ export const BUSINESS = {
     closed: "Closed weekends and designated holidays",
   },
 
-  ages: "Birth through 5 years",
+  ages: "Birth through age 5",
 
   responseTime: "I will reply as soon as I can.",
 } as const;
@@ -111,12 +111,7 @@ export interface Program {
   slug: string;
   name: string;
   icon: ProgramIconName;
-  /**
-   * The boundary between the two rate tiers. Confirmed by LaTrell: infant
-   * care runs birth to about 24 months, toddler/preschool-age care covers
-   * ages 2 to 5 - together spanning the brief's overall "birth through 5
-   * years" statement.
-   */
+  /** Optional only when LaTrell confirms the boundary between rate tiers. */
   ageRange?: string;
   summary: string;
   detail: string;
@@ -134,7 +129,6 @@ export const PROGRAMS: Program[] = [
     slug: "infant",
     name: "Infant Care",
     icon: "infant",
-    ageRange: "birth to about 24 months",
     summary: "Warm, nurturing infant care in Elk Grove in a small home setting.",
     detail:
       "A warm, nurturing home environment for infants, with individual attention and care appropriate to each child's developmental stage.",
@@ -144,9 +138,8 @@ export const PROGRAMS: Program[] = [
   },
   {
     slug: "toddler-preschool",
-    name: "Toddler + Preschool-Age Care",
+    name: "Toddler/Preschool-Age Care",
     icon: "toddler",
-    ageRange: "ages 2 to 5",
     summary: "Play-based, child-led toddler and preschool-age care in Elk Grove.",
     detail:
       "Toddlers and preschool-age children are encouraged to learn naturally through play, exploration, creativity, interaction, and age-appropriate experiences.",
@@ -163,7 +156,7 @@ export const PROGRAMS: Program[] = [
 
 export const TUITION = {
   depositAmount: 150,
-  depositNote: "A $150 non-refundable enrollment deposit is required to reserve your child's child care space.",
+  depositNote: "A $150 non-refundable enrollment deposit is required to reserve your child's childcare space.",
   schedule: "Tuition may be paid weekly or bi-weekly.",
   /** The single biggest source of parent misunderstanding in home childcare. */
   basisHeadline: "Tuition is based on enrollment, not attendance.",
@@ -198,7 +191,7 @@ export const RATE_INCLUSIONS = {
   included: ["Breakfast", "AM snack", "PM snack"],
   notIncluded: ["Lunch"],
   enrollment: [
-    "A $150 non-refundable enrollment deposit is required to reserve your child's child care space",
+    "A $150 non-refundable enrollment deposit is required to reserve your child's childcare space",
     "Tuition may be paid weekly or bi-weekly",
     "Child Action child care subsidy assistance accepted",
   ],
@@ -329,7 +322,7 @@ export const ENROLLMENT_STEPS: EnrollmentStep[] = [
      * back into the deposit FAQ if LaTrell wants it stated.
      */
     detail:
-      "A $150 non-refundable enrollment deposit is required to reserve your child's child care space. We then complete the required forms, emergency contacts, and immunization records together.",
+      "A $150 non-refundable enrollment deposit is required to reserve your child's childcare space. We then complete the required forms, emergency contacts, and immunization records together.",
     strong: "$150",
   },
   {
@@ -373,7 +366,7 @@ export const FAQS: Faq[] = [
   },
   {
     q: "Do you follow a daily schedule?",
-    a: "Yes. Children have a predictable daily rhythm that includes meals and snacks, play, age-appropriate activities, rest, and outdoor or movement opportunities, while still allowing flexibility for individual needs.",
+    a: "Yes. Children have a predictable daily rhythm that includes meals and snacks, play, age-appropriate activities, rest, and outdoor or movement opportunities while still allowing flexibility for individual needs.",
   },
   {
     q: "Do you provide meals?",
@@ -397,11 +390,11 @@ export const FAQS: Faq[] = [
   },
   {
     q: "Is there an enrollment deposit?",
-    a: "Yes. A $150 non-refundable enrollment deposit reserves your child's spot in our daycare family.",
+    a: "A $150 non-refundable enrollment deposit is required to reserve your child's childcare space.",
   },
   {
     q: "What should my child bring?",
-    a: "Families provide their child's lunch along with any needed diapers, wipes, extra clothing, sunscreen, and a water bottle. Additional age-specific items will be reviewed with families before the child's first day.",
+    a: "Families provide their child's lunch along with any needed diapers, wipes, extra clothing, blanket, sunscreen, and water bottle. Additional age-specific items will be reviewed with families before the child's first day.",
   },
   {
     q: "What happens if my child is sick?",

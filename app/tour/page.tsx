@@ -6,6 +6,7 @@ import { TourHeroBackdrop } from "@/components/tour/TourHeroBackdrop";
 import { ArcDivider } from "@/components/brand/ArcDivider";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
+import { Button } from "@/components/ui/Button";
 import { BUSINESS, ENROLLMENT_STEPS } from "@/lib/constants";
 import { breadcrumbJsonLd, jsonLdScript, pageMeta } from "@/lib/seo";
 
@@ -81,7 +82,14 @@ export default function TourPage() {
           decor={false}
           surface="bg-transparent"
           contentClassName="rounded-2xl border-hair border-cocoa/10 bg-cream/90 px-6 py-8 shadow-soft backdrop-blur-sm sm:px-10 sm:py-10"
-        />
+        >
+          <div className="flex flex-col justify-center gap-3 sm:flex-row">
+            <Button href="#tour-request">Request a Tour</Button>
+            <Button href="/availability" variant="secondary">
+              Check Availability
+            </Button>
+          </div>
+        </PageHero>
 
         {/* Three equally prominent direct contact paths. She explicitly does not want
             parents funnelled into a single channel. */}
@@ -115,11 +123,15 @@ export default function TourPage() {
       <ArcDivider variant="shallow" from="bg-cream" to="fill-cream-deep" />
 
       {/* Form plus practical details */}
-      <section className="section-y bg-cream-deep">
+      <section id="tour-request" className="section-y scroll-mt-24 bg-cream-deep">
         <div className="container-page">
           <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-start">
             <AnimatedSection>
               <h2 className="text-h2 text-center">Request a tour</h2>
+              <p className="mx-auto mt-4 max-w-[54ch] text-center text-lead text-ink">
+                Not ready to schedule a tour yet? Contact me to check current availability for
+                your child&apos;s age and schedule.
+              </p>
               <div className="mt-6">
                 <TourRequestForm />
               </div>

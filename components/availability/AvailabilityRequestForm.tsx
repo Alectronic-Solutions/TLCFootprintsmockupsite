@@ -227,14 +227,14 @@ export function AvailabilityRequestForm() {
               </div>
 
               <div>
-                <Label htmlFor="availability-schedule">Care schedule needed</Label>
+                <Label htmlFor="availability-schedule">Care Schedule Needed</Label>
                 <select
                   id="availability-schedule"
                   className={cn(inputBase, "border-cocoa/15 focus:border-leaf")}
                   {...register("schedule")}
                 >
-                  <option value="full-time">Full-time</option>
-                  <option value="part-time">Part-time</option>
+                  <option value="full-time">Full-Time</option>
+                  <option value="part-time">Part-Time</option>
                   <option value="not-sure">Not sure yet</option>
                 </select>
               </div>

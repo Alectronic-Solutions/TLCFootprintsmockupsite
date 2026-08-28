@@ -49,7 +49,7 @@ export default function ProgramsPage() {
       <PageHero
         label="Programs and rates"
         title="Clear tuition. No surprises."
-        subtitle={`${BUSINESS.name} provides full-time and part-time care for children ${BUSINESS.ages.toLowerCase()} in a small, licensed family child care home in ${BUSINESS.city}. Tuition rates are published here so families can decide whether the program is a good fit before scheduling a tour.`}
+        subtitle={`${BUSINESS.shortName} serves children from birth through age 5. Both full-time and part-time care are available in a small, licensed family child care home in ${BUSINESS.city}. Tuition rates are published here so families can decide whether the program is a good fit before scheduling a tour.`}
         decor={false}
         surface="bg-cream/95"
         align="center"
@@ -64,7 +64,12 @@ export default function ProgramsPage() {
           />
         }
       >
-        <Button href="/tour">Request a tour</Button>
+        <div className="flex flex-col justify-center gap-3 sm:flex-row">
+          <Button href="/availability" variant="secondary">
+            Check Availability
+          </Button>
+          <Button href="/tour">Request a Tour</Button>
+        </div>
       </PageHero>
 
       <ArcDivider variant="shallow" from="bg-cream" to="fill-cream-deep" />

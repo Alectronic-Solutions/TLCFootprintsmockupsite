@@ -34,8 +34,8 @@ import { PROGRAMS, TUITION, monthlyEquivalent } from "@/lib/constants";
  */
 
 const SCHEDULES = [
-  { id: "full", label: "Full-time" },
-  { id: "part", label: "Part-time" },
+  { id: "full", label: "Full-Time" },
+  { id: "part", label: "Part-Time" },
 ] as const;
 
 type ScheduleId = (typeof SCHEDULES)[number]["id"];

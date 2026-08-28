@@ -50,7 +50,7 @@ export default function PrivacyPage() {
       <p>The tour and availability forms ask an adult for:</p>
       <ul>
         <li>The parent or guardian&apos;s name, phone number, and email address</li>
-        <li>The child&apos;s age, but not the child&apos;s name or date of birth</li>
+        <li>The child&apos;s age or date of birth, but not the child&apos;s name</li>
         <li>The type of care, schedule, anticipated start date, and relevant days or times</li>
         <li>Contact preference and anything voluntarily written in the message field</li>
       </ul>

@@ -48,7 +48,7 @@ export function RateBoard() {
 
               <dl className="mt-4 space-y-3">
                 <div className="flex items-baseline justify-between gap-2 border-b border-dotted border-cocoa/25 pb-1">
-                  <dt className="text-sm text-cocoa-mid">Full-time</dt>
+                  <dt className="text-sm text-cocoa-mid">Full-Time</dt>
                   <dd className="tabular font-display text-3xl font-semibold text-cocoa">
                     ${program.fullTime}
                     <span className="ml-1 text-sm font-normal text-cocoa-mid">
@@ -57,7 +57,7 @@ export function RateBoard() {
                   </dd>
                 </div>
                 <div className="flex items-baseline justify-between gap-2 border-b border-dotted border-cocoa/25 pb-1">
-                  <dt className="text-sm text-cocoa-mid">Part-time</dt>
+                  <dt className="text-sm text-cocoa-mid">Part-Time</dt>
                   <dd className="tabular font-display text-3xl font-semibold text-cocoa">
                     ${program.partTime}
                     <span className="ml-1 text-sm font-normal text-cocoa-mid">
@@ -71,9 +71,8 @@ export function RateBoard() {
         </div>
 
         <p className="mt-8 text-balance border-t-hair border-cocoa/10 pt-5 text-center text-sm text-cocoa-mid">
-          {MEALS.providedSummary} &middot; A ${TUITION.depositAmount}{" "}
-          non-refundable enrollment deposit is required to reserve your
-          child&rsquo;s child care space &middot; {TUITION.subsidy}
+          {MEALS.providedSummary} {MEALS.parentProvides} &middot; {TUITION.depositNote}{" "}
+          &middot; {TUITION.subsidy}
         </p>
         <p className="mt-2 text-balance text-center text-sm text-cocoa-mid">
           {TUITION.partTimeNote}
