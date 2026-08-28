@@ -33,6 +33,10 @@ export const BUSINESS = {
   smsHref: "sms:+15104344834",
   email: "tlcfootprints@gmail.com",
   emailHref: "mailto:tlcfootprints@gmail.com",
+  social: {
+    instagram: "https://www.instagram.com/t.l.c.footprints/",
+    tiktok: "https://www.tiktok.com/@tlcfootprints",
+  },
 
   /**
    * City level only, deliberately. Publishing a street address for a home

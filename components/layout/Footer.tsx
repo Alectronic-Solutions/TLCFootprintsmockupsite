@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, MapPin, MessageSquare, Phone } from "lucide-react";
+import { Instagram, Mail, MapPin, MessageSquare, Phone } from "lucide-react";
 import { Logo } from "./Logo";
 import { HeartDots } from "@/components/brand/HeartDots";
 import { BUSINESS, NAV_LINKS } from "@/lib/constants";
@@ -9,6 +9,24 @@ const LEGAL_LINKS = [
   { href: "/terms", label: "Terms" },
   { href: "/accessibility", label: "Accessibility" },
 ];
+
+function TikTokIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M14.5 4v11.5a5.5 5.5 0 1 1-5.5-5.5" />
+      <path d="M14.5 4c.6 2.8 2.3 4.4 5 4.5" />
+    </svg>
+  );
+}
 
 export function Footer() {
   return (
@@ -33,6 +51,38 @@ export function Footer() {
                 #{BUSINESS.license}
               </a>
             </p>
+
+            <div className="mt-5">
+              <p className="text-eyebrow font-bold uppercase tracking-[0.12em] text-leaf-dark">
+                Follow along
+              </p>
+              <ul className="mt-3 flex items-center justify-center gap-3 md:justify-start">
+                <li>
+                  <a
+                    href={BUSINESS.social.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Follow T.L.C. Footprints on Instagram"
+                    title="Instagram"
+                    className="grid h-11 w-11 place-items-center rounded-full border-hair border-cocoa/15 bg-cream text-cocoa shadow-[0_2px_0_0_rgba(62,42,33,0.08)] transition-colors hover:border-pink/40 hover:text-pink-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-dark focus-visible:ring-offset-2 focus-visible:ring-offset-cream-deep"
+                  >
+                    <Instagram className="h-5 w-5" aria-hidden="true" />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={BUSINESS.social.tiktok}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Follow T.L.C. Footprints on TikTok"
+                    title="TikTok"
+                    className="grid h-11 w-11 place-items-center rounded-full border-hair border-cocoa/15 bg-cream text-cocoa shadow-[0_2px_0_0_rgba(62,42,33,0.08)] transition-colors hover:border-pink/40 hover:text-pink-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-dark focus-visible:ring-offset-2 focus-visible:ring-offset-cream-deep"
+                  >
+                    <TikTokIcon className="h-5 w-5" />
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
 
           <div className="grid grid-cols-[2fr_3fr] items-start gap-x-4 gap-y-8 md:contents">

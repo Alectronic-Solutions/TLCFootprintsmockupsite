@@ -27,7 +27,7 @@ export function PolicyPage({
   return (
     <>
       <div className="relative isolate overflow-hidden">
-        <PageHero label={label} title={title} subtitle={subtitle} />
+        <PageHero label={label} title={title} subtitle={subtitle} align="center" />
       </div>
       <ArcDivider variant="shallow" from="bg-cream" to="fill-cream-deep" />
 
@@ -35,18 +35,18 @@ export function PolicyPage({
         <div className="container-prose">
           <AnimatedSection>
             <div
-              className="rounded-2xl border-hair border-cocoa/10 bg-cream p-7 shadow-soft sm:p-10
-                         [&_h2]:mt-8 [&_h2]:text-h3 [&_h2:first-child]:mt-0
-                         [&_li]:[&_li]:text-ink
-                         [&_p]:mt-4 [&_p]:[&_p]:text-ink
-                         [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5
+              className="break-words rounded-2xl border-hair border-cocoa/10 bg-cream p-7 text-center shadow-soft sm:p-10
+                         [&_h2]:mx-auto [&_h2]:mt-8 [&_h2]:max-w-[24ch] [&_h2]:text-balance [&_h2]:text-h3 [&_h2:first-child]:mt-0
+                         [&_li]:text-pretty [&_li]:text-ink
+                         [&_p]:mx-auto [&_p]:mt-4 [&_p]:max-w-[62ch] [&_p]:text-pretty [&_p]:text-ink
+                         [&_ul]:mx-auto [&_ul]:mt-4 [&_ul]:max-w-[58ch] [&_ul]:list-inside [&_ul]:list-disc [&_ul]:space-y-2
                          [&_ul]:marker:text-leaf-dark
-                         [&_a]:font-semibold [&_a]:text-cocoa [&_a]:underline
+                         [&_a]:[overflow-wrap:anywhere] [&_a]:font-semibold [&_a]:text-cocoa [&_a]:underline
                          [&_a]:underline-offset-4 hover:[&_a]:text-pink-dark"
             >
               {children}
             </div>
-            <p className="mt-6 text-sm text-cocoa-mid">Last updated {updated}.</p>
+            <p className="mt-6 text-center text-sm text-cocoa-mid">Last updated {updated}.</p>
           </AnimatedSection>
         </div>
       </section>

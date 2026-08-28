@@ -116,6 +116,7 @@ export const localBusinessJsonLd = {
     value: BUSINESS.license,
   },
   founder: { "@type": "Person", name: BUSINESS.owner },
+  sameAs: [BUSINESS.social.instagram, BUSINESS.social.tiktok],
   audience: {
     "@type": "PeopleAudience",
     suggestedMinAge: 0,
