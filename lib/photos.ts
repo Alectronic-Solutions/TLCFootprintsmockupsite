@@ -6,9 +6,9 @@
  * photo with no component changes and no layout shift, because the aspect
  * ratio is declared here rather than measured from the file.
  *
- * `src: null` renders a designed placeholder that states the shot spec, so an
- * empty slot reads as reserved rather than broken. That is the state the mock
- * ships in.
+ * `src: null` renders a designed, unlabeled placeholder. Shot specifications
+ * remain here for the person supplying photography and are not exposed on the
+ * public site.
  *
  * ART DIRECTION, and the reason it is written down here rather than assumed:
  *
@@ -33,7 +33,7 @@ export interface PhotoSlot {
   alt: string;
   /** Declared, never measured, so filling a slot causes no layout shift. */
   ratio: "4/3" | "3/2" | "4/5" | "1/1" | "16/9";
-  /** Shown inside the placeholder so whoever shoots it knows what is wanted. */
+  /** Internal shot guidance for whoever supplies the final photograph. */
   spec: string;
 }
 

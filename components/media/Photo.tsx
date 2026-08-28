@@ -52,15 +52,15 @@ export function Photo({
    */
   fill = false,
   /**
-   * Whether a full-bleed empty slot shows its "photo goes here" label.
+   * Whether a full-bleed empty slot shows a simple camera marker.
    *
    * The hero has copy in its left half and an empty right half, so the label
    * has somewhere to live. The hours sections have copy on the right and a
    * clock dial with its legend filling the left, and no empty region at any
    * width - a label there lands behind something whichever corner you pick.
-   * They pass "none", and the hatched fill carries the message on its own.
-   * The shot spec is in lib/photos.ts and the README photo table, which is
-   * where anyone filling the slot is reading anyway.
+   * They pass "none", and the hatched fill carries the visual on its own.
+   * Shot specifications stay in lib/photos.ts and the README photo table so
+   * internal production notes are never exposed on the public site.
    *
    * Ignored unless `fill` is set: a framed slot has no copy over it.
    */
@@ -95,12 +95,6 @@ export function Photo({
               className="hidden px-6 text-center lg:absolute lg:right-[8%] lg:top-[30%] lg:block lg:w-[26%] lg:min-w-[16rem]"
             >
               <Camera className="mx-auto h-7 w-7 text-cocoa/25" />
-              <p className="mt-3 text-eyebrow font-bold uppercase text-leaf-dark/70">
-                Photo goes here
-              </p>
-              <p className="mx-auto mt-1.5 max-w-[24ch] text-sm leading-snug text-cocoa-mid/80">
-                {photo.spec}
-              </p>
             </div>
           )}
         </div>
@@ -126,12 +120,6 @@ export function Photo({
             "photo placeholder" to a screen reader is noise, not information. */}
         <div aria-hidden="true" className="text-center">
           <Camera className="mx-auto h-7 w-7 text-cocoa/25" />
-          <p className="mt-3 text-eyebrow font-bold uppercase text-leaf-dark/70">
-            Photo goes here
-          </p>
-          <p className="mx-auto mt-1.5 max-w-[24ch] text-sm leading-snug text-cocoa-mid/80">
-            {photo.spec}
-          </p>
         </div>
       </div>
     );

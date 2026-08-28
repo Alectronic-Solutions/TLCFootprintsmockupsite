@@ -40,7 +40,7 @@ export const metadata = pageMeta({
 const PHILOSOPHY = [
   {
     title: "Children learn through play",
-    body: "Play is not separate from learning here. Building a tower, pretending, creating, exploring outside, and interacting with other children all give children opportunities to practice communication, problem-solving, coordination, patience, and confidence.",
+    body: "Learning is woven into the day here. Building a tower, pretending, creating, exploring outside, and interacting with other children all give children opportunities to practice communication, problem-solving, coordination, patience, and confidence.",
     tint: "fill-pink",
     /** The one card whose own sentence is an invitation to try it. */
     withBlocks: true,
@@ -59,7 +59,7 @@ const PHILOSOPHY = [
   },
   {
     title: "Small is intentional",
-    body: "A small home-daycare setting lets me notice the little things: when someone is quieter than usual, when a new skill is starting to appear, or when a child needs help joining a game. That individual attention is an important part of T.L.C. Footprints.",
+    body: "A small home daycare setting lets me notice the little things: when someone is quieter than usual, when a new skill is starting to appear, or when a child needs help joining a game. That individual attention is an important part of T.L.C. Footprints.",
     tint: "fill-pink",
   },
 ] as const;
@@ -263,7 +263,7 @@ export default function AboutPage() {
         <div className="container-page">
           <AnimatedSection className="mx-auto max-w-2xl text-center">
             <SectionLabel className="text-center">How I work</SectionLabel>
-            <h2 className="text-3d mt-3 text-h2">Play-based, and child-led</h2>
+            <h2 className="text-3d mt-3 text-h2">Play-based and child-led</h2>
             <p className="mx-auto mt-4 max-w-[52ch] text-lead text-ink">
               Those two phrases get used loosely, so here is what they mean in this house.
             </p>
@@ -323,7 +323,7 @@ export default function AboutPage() {
           child" was never confirmed by her, so it is not promised here. */}
       <CTABand
         title={`Come see if ${BUSINESS.shortName} is right for your family`}
-        body="A website can tell you a lot, but visiting is the best way to get a feel for the place. Tours are by appointment. Submit a request and LaTrell will contact you to confirm a time."
+        body="A website can tell you a lot, but visiting is the best way to get a feel for the place. Tours are by appointment. Call, text, or email LaTrell to request a time."
       />
     </div>
   );

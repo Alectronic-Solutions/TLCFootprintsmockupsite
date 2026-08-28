@@ -163,8 +163,8 @@ export default function HomePage() {
         lead={
           <>
             <span className="block text-balance font-semibold text-cocoa">
-              Sensory play, building, music, and story book time.
-            </span>
+              Sensory play, building, music, and storybook time.
+            </span>{" "}
             <span className="mt-1 block text-balance">
               The same rhythm every day, so your child knows what comes next.
             </span>

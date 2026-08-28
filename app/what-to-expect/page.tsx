@@ -93,7 +93,7 @@ export default function WhatToExpectPage() {
           contentClassName="lg:rounded-2xl lg:border lg:border-cocoa/10 lg:bg-cream/85 lg:px-10 lg:py-8 lg:shadow-soft lg:backdrop-blur-sm"
           label="A look inside T.L.C. Footprints"
           title="What Families Can Expect"
-          subtitle="Choosing childcare is easier when you know what everyday care feels like. I run a small, welcoming home program where children are known, supported, and free to be children."
+          subtitle="Choosing child care is easier when you know what everyday care feels like. I run a small, welcoming home program where children are known, supported, and free to be children."
         />
       </div>
 
@@ -117,7 +117,7 @@ export default function WhatToExpectPage() {
           <>
             <span className="block text-balance">
               {BUSINESS.hours.days}, {BUSINESS.hours.open} to {BUSINESS.hours.close}.
-            </span>
+            </span>{" "}
             <span className="mt-1 block text-balance">The program is closed on weekends and designated holidays.</span>
           </>
         }
@@ -188,7 +188,7 @@ export default function WhatToExpectPage() {
 
       <CTABand
         from="bg-cream"
-        title="Come See T.L.C. Footprints"
+        title="Come see T.L.C. Footprints"
         body="The best way to decide whether a home daycare feels right for your family is to see the environment and ask your questions. Tours are available by appointment."
       />
     </>

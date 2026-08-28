@@ -72,6 +72,7 @@ export default function ProgramsPage() {
       {/* Rate board: the one place the big numbers live. */}
       <section className="section-y bg-cream-deep">
         <div className="container-page">
+          <h2 className="sr-only">Weekly child care rates</h2>
           <RateBoard />
         </div>
       </section>
@@ -91,7 +92,7 @@ export default function ProgramsPage() {
             <p className="mx-auto mt-3 max-w-[52ch] text-lead text-ink">
               The details that help your day run smoothly,
               <br className="hidden lg:block" />
-              collected in one simple place.
+              {" "}collected in one simple place.
             </p>
           </AnimatedSection>
 
@@ -102,8 +103,8 @@ export default function ProgramsPage() {
       </section>
 
       <CTABand
-        title="Come See T.L.C. Footprints"
-        body="Choosing childcare is personal. A tour gives you the opportunity to see the environment, ask questions, and decide whether T.L.C. Footprints feels right for your family. Tours are available by appointment."
+        title="Come see T.L.C. Footprints"
+        body="Choosing child care is personal. A tour gives you the opportunity to see the environment, ask questions, and decide whether T.L.C. Footprints feels right for your family. Tours are available by appointment."
       />
     </>
   );

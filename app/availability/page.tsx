@@ -125,8 +125,8 @@ export default function AvailabilityPage() {
                       <method.Icon className="h-5 w-5 text-pink-dark" aria-hidden="true" />
                     </span>
                     <span className="min-w-0">
-                      <span className="block font-semibold text-cocoa">{method.label}</span>
-                      <span className="block break-all text-base text-cocoa">{method.value}</span>
+                      <span className="block font-semibold text-cocoa">{method.label}</span>{" "}
+                      <span className="block break-all text-base text-cocoa">{method.value}</span>{" "}
                       <span className="mt-0.5 block text-xs text-cocoa-mid">{method.note}</span>
                     </span>
                   </a>

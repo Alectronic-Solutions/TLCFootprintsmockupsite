@@ -4,9 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { AlertCircle, Check } from "lucide-react";
+import { AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { PROGRAMS } from "@/lib/constants";
+import { BUSINESS, PROGRAMS } from "@/lib/constants";
 import { cn } from "@/lib/cn";
 import { EASE } from "@/components/ui/AnimatedSection";
 
@@ -109,12 +109,24 @@ export function TourRequestForm() {
             role="status"
             aria-live="polite"
           >
-            <span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-leaf-light">
-              <Check className="h-8 w-8 text-leaf-dark" aria-hidden="true" strokeWidth={2.5} />
+            <span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-amber-light">
+              <AlertCircle
+                className="h-8 w-8 text-amber-dark"
+                aria-hidden="true"
+                strokeWidth={2.5}
+              />
             </span>
-            <h3 className="mt-5 text-h3">Thanks for reaching out.</h3>
+            <h3 className="mt-5 text-h3">Nothing was sent.</h3>
             <p className="mx-auto mt-3 max-w-[38ch] text-cocoa-mid">
-              I will contact you directly to confirm a tour time.
+              This online form is still a preview. To request a tour, call or text{" "}
+              <a className="font-semibold underline" href={BUSINESS.phoneHref}>
+                {BUSINESS.phone}
+              </a>{" "}
+              or email{" "}
+              <a className="font-semibold underline" href={BUSINESS.emailHref}>
+                {BUSINESS.email}
+              </a>
+              .
             </p>
           </motion.div>
         ) : (
@@ -125,10 +137,19 @@ export function TourRequestForm() {
             initial={false}
             className="space-y-5"
           >
+            <div
+              role="note"
+              className="rounded-xl border border-amber-dark/20 bg-amber-light/55 p-4 text-center text-sm text-cocoa"
+            >
+              <strong className="font-bold">Online requests are not live yet.</strong>{" "}
+              This preview form does not send or store entries. Please call, text, or email
+              instead.
+            </div>
+
             <p className="text-center text-base text-cocoa-mid">
               <span className="block [text-wrap:balance]">
                 Not ready to schedule a tour?
-              </span>
+              </span>{" "}
               <span className="mt-1 block [text-wrap:balance]">
                 <Link
                   href="/availability"
@@ -141,10 +162,10 @@ export function TourRequestForm() {
             </p>
             <p className="text-center text-base text-cocoa-mid">
               <span className="block [text-wrap:balance]">
-                Tell me a little about the care you need and which times work for you.
-              </span>
+                These fields preview the details needed to arrange a tour.
+              </span>{" "}
               <span className="mt-1 block [text-wrap:balance]">
-                I will follow up personally to confirm the appointment.
+                To receive a response now, call, text, or email me instead.
               </span>
             </p>
 
@@ -174,7 +195,7 @@ export function TourRequestForm() {
               </div>
 
               <div>
-                <Label htmlFor="childAge">Child&apos;s age or date of birth</Label>
+                <Label htmlFor="childAge">Child&apos;s age</Label>
                 <input
                   id="childAge"
                   type="text"
@@ -297,14 +318,14 @@ export function TourRequestForm() {
 
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
-                <Label htmlFor="schedule">Care Schedule Needed</Label>
+                <Label htmlFor="schedule">Care schedule needed</Label>
                 <select
                   id="schedule"
                   className={cn(inputBase, "border-cocoa/15 focus:border-leaf")}
                   {...register("schedule")}
                 >
-                  <option value="full-time">Full-Time</option>
-                  <option value="part-time">Part-Time</option>
+                  <option value="full-time">Full-time</option>
+                  <option value="part-time">Part-time</option>
                 </select>
               </div>
 
@@ -352,10 +373,10 @@ export function TourRequestForm() {
 
             <div className="pt-1">
               <Button type="submit" size="lg" disabled={isSubmitting} block>
-                {isSubmitting ? "Submitting..." : "Request a Tour"}
+                {isSubmitting ? "Reviewing…" : "Preview Request"}
               </Button>
               <p className="mt-3 text-center text-sm text-cocoa-mid">
-                I will use these details only to respond to your request.
+                This preview form does not send or store your information.
               </p>
             </div>
           </motion.form>

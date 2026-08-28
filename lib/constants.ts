@@ -159,7 +159,7 @@ export const PROGRAMS: Program[] = [
 
 export const TUITION = {
   depositAmount: 150,
-  depositNote: "A $150 non-refundable enrollment deposit is required to reserve your child's childcare space.",
+  depositNote: "A $150 non-refundable enrollment deposit is required to reserve your child's child care space.",
   schedule: "Tuition may be paid weekly or bi-weekly.",
   /** The single biggest source of parent misunderstanding in home childcare. */
   basisHeadline: "Tuition is based on enrollment, not attendance.",
@@ -168,7 +168,7 @@ export const TUITION = {
   partTimeNote: "Part-time care is based on an agreed weekly schedule and availability.",
   /** Sits beside the rates so a parent reading a price does not mistake it for a guaranteed opening. */
   availabilityNote: "Availability varies by age and schedule. Contact T.L.C. Footprints to confirm current openings.",
-  subsidy: "Child Action childcare subsidy assistance is accepted.",
+  subsidy: "Child Action child care subsidy assistance is accepted.",
   transportation: "Transportation is not provided.",
 } as const;
 
@@ -194,9 +194,9 @@ export const RATE_INCLUSIONS = {
   included: ["Breakfast", "AM snack", "PM snack"],
   notIncluded: ["Lunch"],
   enrollment: [
-    "A $150 non-refundable enrollment deposit is required to reserve your child's childcare space",
+    "A $150 non-refundable enrollment deposit is required to reserve your child's child care space",
     "Tuition may be paid weekly or bi-weekly",
-    "Child Action childcare subsidy assistance accepted",
+    "Child Action child care subsidy assistance accepted",
   ],
 } as const;
 
@@ -263,7 +263,7 @@ export const EXPECTATIONS: Expectation[] = [
   {
     group: "Safety",
     title: "State licensed",
-    detail: "A licensed California Family Child Care Home.",
+    detail: "A state-licensed California Family Child Care Home.",
   },
   {
     group: "Safety",
@@ -299,7 +299,7 @@ export const ENROLLMENT_STEPS: EnrollmentStep[] = [
     n: 1,
     title: "Tour the home",
     detail:
-      "Tours are by appointment, giving us time to talk without rushing. Request a time and I will confirm it with you directly.",
+      "Tours are by appointment, giving us time to talk without rushing. Call, text, or email to request a time, and I will confirm it with you directly.",
   },
   /*
    * The deposit and the paperwork were two separate steps until August 2026.
@@ -325,7 +325,7 @@ export const ENROLLMENT_STEPS: EnrollmentStep[] = [
      * back into the deposit FAQ if LaTrell wants it stated.
      */
     detail:
-      "A $150 non-refundable enrollment deposit is required to reserve your child's childcare space. We then complete the required forms, emergency contacts, and immunization records together.",
+      "A $150 non-refundable enrollment deposit is required to reserve your child's child care space. We then complete the required forms, emergency contacts, and immunization records together.",
     strong: "$150",
   },
   {
@@ -385,7 +385,7 @@ export const FAQS: Faq[] = [
   },
   {
     q: "How do I request a tour?",
-    a: "I'd love to show you around! Use the tour request form, or call, text, or email me directly, and I'll confirm a time that works for you.",
+    a: "I'd love to show you around! Call, text, or email me directly, and I'll confirm a time that works for you. The online tour form is currently a preview and does not send entries.",
   },
   {
     q: "Is tuition based on attendance?",
@@ -397,11 +397,11 @@ export const FAQS: Faq[] = [
   },
   {
     q: "What should my child bring?",
-    a: "Families provide their child's lunch along with any needed diapers, wipes, extra clothing, blanket, sunscreen, and water bottle. Additional age-specific items will be reviewed with families before the child's first day.",
+    a: "Families provide their child's lunch along with any needed diapers, wipes, extra clothing, sunscreen, and a water bottle. Additional age-specific items will be reviewed with families before the child's first day.",
   },
   {
     q: "What happens if my child is sick?",
-    a: "A child who isn't feeling well may need to stay home to rest and to help keep the rest of our group healthy. We'll review the full illness policy together during enrollment, so you'll know exactly which symptoms call for a day home and when your child is welcome back.",
+    a: "A child who isn't feeling well may need to stay home to rest and to help keep the rest of our group healthy. We'll review the full illness policy together during enrollment, so you'll know exactly which symptoms call for a day at home and when your child is welcome back.",
   },
   {
     q: "Do you provide transportation?",

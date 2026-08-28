@@ -122,7 +122,7 @@ export function CTABand({
             <p className="mx-auto mt-4 max-w-2xl text-lead text-white">
               {sentences(body).map((sentence) => (
                 <span key={sentence} className="block text-balance">
-                  {sentence}
+                  {sentence}{" "}
                 </span>
               ))}
             </p>

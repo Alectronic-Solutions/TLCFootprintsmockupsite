@@ -108,7 +108,7 @@ export const localBusinessJsonLd = {
   priceRange: "$$",
   currenciesAccepted: "USD",
   // Only what the brief names. Cash and check were assumed.
-  paymentAccepted: "Child Action childcare subsidy",
+  paymentAccepted: "Child Action child care subsidy",
   // The state license, published so it can be verified.
   identifier: {
     "@type": "PropertyValue",

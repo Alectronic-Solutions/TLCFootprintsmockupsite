@@ -249,7 +249,7 @@ export function ResourceLibrary({ books }: { books: ResourceBookData[] }) {
             <SectionLabel className="text-center">The family shelf</SectionLabel>
             <h2 className="mt-3 text-h2">Pull down the handbook you need</h2>
             <p className="mx-auto mt-4 max-w-[60ch] text-lead">
-              <span className="block">This is a focused child care library, not a stream of filler.</span>
+              <span className="block">This is a focused child care library, not a stream of filler.</span>{" "}
               <span className="mt-1 block">
                 Every handbook supports a decision families make before enrolling or while using
                 the program.

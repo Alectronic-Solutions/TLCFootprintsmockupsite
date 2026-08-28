@@ -155,7 +155,7 @@ export default function ResourcesPage() {
         title="A useful shelf for your child care search."
         subtitle={
           <>
-            <span className="block">No filler and no endless parenting feed.</span>
+            <span className="block">No filler and no endless parenting feed.</span>{" "}
             <span className="mt-1 block">
               Just practical help for checking a license, paying for care, choosing a provider,
               and getting ready to enroll.

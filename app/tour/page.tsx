@@ -76,7 +76,7 @@ export default function TourPage() {
         <PageHero
           label="Request a tour"
           title="Come see the space"
-          subtitle="A tour gives you time to see the environment, ask questions, and decide whether it feels right for your child. Call, text, email, or use the form. Choose whichever is easiest."
+          subtitle="A tour gives you time to see the environment, ask questions, and decide whether it feels right for your child. The online form is a preview, so call, text, or email to arrange a visit."
           align="center"
           decor={false}
           surface="bg-transparent"
@@ -98,10 +98,10 @@ export default function TourPage() {
                       <m.Icon className="h-5 w-5 text-pink-dark" aria-hidden="true" />
                     </span>
                     <span className="min-w-0">
-                      <span className="block font-semibold text-cocoa">{m.label}</span>
+                      <span className="block font-semibold text-cocoa">{m.label}</span>{" "}
                       <span className="block break-all text-base text-cocoa">
                         {m.value}
-                      </span>
+                      </span>{" "}
                       <span className="mt-0.5 block text-xs text-cocoa-mid">{m.note}</span>
                     </span>
                   </a>

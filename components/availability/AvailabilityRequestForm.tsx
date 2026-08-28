@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { AlertCircle, ArrowRight, Check } from "lucide-react";
+import { AlertCircle, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { PROGRAMS } from "@/lib/constants";
+import { BUSINESS, PROGRAMS } from "@/lib/constants";
 import { cn } from "@/lib/cn";
 import { EASE } from "@/components/ui/AnimatedSection";
 
@@ -105,13 +105,24 @@ export function AvailabilityRequestForm() {
             role="status"
             aria-live="polite"
           >
-            <span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-leaf-light">
-              <Check className="h-8 w-8 text-leaf-dark" aria-hidden="true" strokeWidth={2.5} />
+            <span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-amber-light">
+              <AlertCircle
+                className="h-8 w-8 text-amber-dark"
+                aria-hidden="true"
+                strokeWidth={2.5}
+              />
             </span>
-            <h3 className="mt-5 text-h3">Your request is ready.</h3>
+            <h3 className="mt-5 text-h3">Nothing was sent.</h3>
             <p className="mx-auto mt-3 max-w-[40ch] text-cocoa-mid">
-              Thank you for sharing what your family needs. I will contact you directly
-              about current availability.
+              This online form is still a preview. To check availability, call or text{" "}
+              <a className="font-semibold underline" href={BUSINESS.phoneHref}>
+                {BUSINESS.phone}
+              </a>{" "}
+              or email{" "}
+              <a className="font-semibold underline" href={BUSINESS.emailHref}>
+                {BUSINESS.email}
+              </a>
+              .
             </p>
           </motion.div>
         ) : (
@@ -122,9 +133,18 @@ export function AvailabilityRequestForm() {
             initial={false}
             className="space-y-5"
           >
+            <div
+              role="note"
+              className="rounded-xl border border-amber-dark/20 bg-amber-light/55 p-4 text-center text-sm text-cocoa"
+            >
+              <strong className="font-bold">Online requests are not live yet.</strong>{" "}
+              This preview form does not send or store entries. Please call, text, or email
+              instead.
+            </div>
+
             <p className="text-center text-base text-cocoa-mid">
-              Tell me about your child, schedule, and preferred start date. I will reply
-              personally with the openings that may fit.
+              These fields preview the details needed to check current openings. To
+              receive a response now, call, text, or email me instead.
             </p>
 
             <div aria-hidden="true" className="absolute left-[-9999px]">
@@ -161,7 +181,7 @@ export function AvailabilityRequestForm() {
               </div>
 
               <div>
-                <Label htmlFor="availability-child-age">Child&apos;s age or date of birth</Label>
+                <Label htmlFor="availability-child-age">Child&apos;s age</Label>
                 <input
                   id="availability-child-age"
                   type="text"
@@ -349,11 +369,11 @@ export function AvailabilityRequestForm() {
 
             <div className="pt-1">
               <Button type="submit" size="lg" disabled={isSubmitting} block>
-                {isSubmitting ? "Submitting..." : "Check Availability"}
+                {isSubmitting ? "Reviewing…" : "Preview Request"}
                 {!isSubmitting ? <ArrowRight className="h-4 w-4" aria-hidden="true" /> : null}
               </Button>
               <p className="mt-3 text-center text-sm text-cocoa-mid">
-                I will use these details only to respond to your request.
+                This preview form does not send or store your information.
               </p>
             </div>
           </motion.form>
