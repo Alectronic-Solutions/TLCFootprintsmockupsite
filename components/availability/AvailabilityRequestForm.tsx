@@ -185,7 +185,7 @@ export function AvailabilityRequestForm() {
                 <input
                   id="availability-child-age"
                   type="text"
-                  placeholder="14 months, or 3 years"
+                  placeholder="Birth to 5"
                   maxLength={40}
                   aria-invalid={!!errors.childAge}
                   aria-describedby={errors.childAge ? "availability-error-child-age" : undefined}
@@ -244,7 +244,7 @@ export function AvailabilityRequestForm() {
                 <input
                   id="availability-days-needed"
                   type="text"
-                  placeholder="Monday–Friday, or specific days"
+                  placeholder="Monday to Friday, or specific days"
                   maxLength={120}
                   className={cn(inputBase, "border-cocoa/15 focus:border-leaf")}
                   {...register("daysNeeded")}
@@ -256,7 +256,7 @@ export function AvailabilityRequestForm() {
                 <input
                   id="availability-start-date"
                   type="text"
-                  placeholder="September, or as soon as possible"
+                  placeholder="ASAP, or in the next few months"
                   maxLength={80}
                   aria-invalid={!!errors.startDate}
                   aria-describedby={errors.startDate ? "availability-error-start-date" : undefined}

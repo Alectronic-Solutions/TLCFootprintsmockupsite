@@ -199,7 +199,7 @@ export function TourRequestForm() {
                 <input
                   id="childAge"
                   type="text"
-                  placeholder="14 months, or 3 years"
+                  placeholder="Birth to 5"
                   maxLength={40}
                   aria-invalid={!!errors.childAge}
                   aria-describedby={errors.childAge ? "err-childAge" : undefined}
@@ -336,7 +336,7 @@ export function TourRequestForm() {
                 <input
                   id="startDate"
                   type="text"
-                  placeholder="September, or as soon as possible"
+                  placeholder="ASAP, or in the next few months"
                   maxLength={80}
                   className={cn(inputBase, "border-cocoa/15 focus:border-leaf")}
                   {...register("startDate")}
