@@ -195,7 +195,7 @@ export function TourRequestForm() {
               </div>
 
               <div>
-                <Label htmlFor="childAge">Child&apos;s age</Label>
+                <Label htmlFor="childAge">Child&apos;s age or date of birth</Label>
                 <input
                   id="childAge"
                   type="text"
@@ -205,7 +205,7 @@ export function TourRequestForm() {
                   aria-describedby={errors.childAge ? "err-childAge" : undefined}
                   className={cn(inputBase, errClass("childAge"))}
                   {...register("childAge", {
-                    required: "Please add your child's age.",
+                    required: "Please add your child's age or date of birth.",
                     maxLength: { value: 40, message: "Please use 40 characters or fewer." },
                   })}
                 />

@@ -181,7 +181,9 @@ export function AvailabilityRequestForm() {
               </div>
 
               <div>
-                <Label htmlFor="availability-child-age">Child&apos;s age</Label>
+                <Label htmlFor="availability-child-age">
+                  Child&apos;s age or date of birth
+                </Label>
                 <input
                   id="availability-child-age"
                   type="text"
@@ -191,7 +193,7 @@ export function AvailabilityRequestForm() {
                   aria-describedby={errors.childAge ? "availability-error-child-age" : undefined}
                   className={cn(inputBase, errClass("childAge"))}
                   {...register("childAge", {
-                    required: "Please add your child's age.",
+                    required: "Please add your child's age or date of birth.",
                     maxLength: { value: 40, message: "Please use 40 characters or fewer." },
                   })}
                 />
