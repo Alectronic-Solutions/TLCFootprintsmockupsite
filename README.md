@@ -299,38 +299,40 @@ placeholder facts while decisions are pending.
 
 ### Questions for LaTrell
 
+Confirmed August 27, 2026: Infant Care applies from birth through 23 months,
+and Toddler/Preschool-Age Care begins at age 2.
+
 1. Your background: years in childcare, what you did before, why you started.
 2. ECE units, a Child Development Permit, or other credentials beyond CPR.
-3. **Where infant rates end and toddler rates begin.** Your brief prices two tiers but never says at what age a child moves from the $305 tier to the $285 one. Nothing on the site claims a boundary until you confirm it: the tiers are named, and the site states "birth through age 5" for the home overall. A parent with an 18-month-old currently cannot tell which rate applies to them, so this is worth answering.
-4. **Your licensed capacity, small (8) or large (14).** Nothing on the site claims a number until this is confirmed. It currently says "a small home setting", which is accurate either way.
-5. Whether there is an assistant or second adult in the home.
-6. Your outdoor play space: yard, equipment, shade.
-7. Pets in the home, and whether the home is smoke-free. Parents ask every time and it is allergy-relevant.
-8. Confirmation of the published Instagram and TikTok handles, plus a Facebook handle if you want one listed.
-9. Approved photos of the space.
-10. Confirmation that "Opening August 3rd" from the flyers is superseded by "now enrolling". The site says now enrolling everywhere.
-11. Your review of the fifteen resource articles.
-12. Whether you speak Spanish. Elk Grove is one of the most diverse cities in the country and almost no competitor advertises bilingual care, so it would be a real advantage.
-13. **Your actual daily routine.** The site once had a full hour-by-hour
+3. **Your licensed capacity, small (8) or large (14).** Nothing on the site claims a number until this is confirmed. It currently says "a small home setting", which is accurate either way.
+4. Whether there is an assistant or second adult in the home.
+5. Your outdoor play space: yard, equipment, shade.
+6. Pets in the home, and whether the home is smoke-free. Parents ask every time and it is allergy-relevant.
+7. Confirmation of the published Instagram and TikTok handles, plus a Facebook handle if you want one listed.
+8. Approved photos of the space.
+9. Confirmation that "Opening August 3rd" from the flyers is superseded by "now enrolling". The site says now enrolling everywhere.
+10. Your review of the fifteen resource articles.
+11. Whether you speak Spanish. Elk Grove is one of the most diverse cities in the country and almost no competitor advertises bilingual care, so it would be a real advantage.
+12. **Your actual daily routine.** The site once had a full hour-by-hour
     schedule that nobody supplied: arrival, play blocks, outdoor time, a 1:00
     rest, and a 5:00 pickup. It has been removed. The site now gives only the
     confirmed general rhythm—meals and snacks, play, age-appropriate activities,
     rest, and outdoor or movement opportunities—plus the 7:30-to-6:00 operating
     window. Send the real schedule if you want specific times published.
-14. **Whether you have a nap or rest policy**, and how you would want it worded.
+13. **Whether you have a nap or rest policy**, and how you would want it worded.
     The FAQ says the daily rhythm includes rest, but no detailed nap or rest
     policy is published.
-15. **How meals work for infants** - at what point a baby moves onto the
+14. **How meals work for infants** - at what point a baby moves onto the
     breakfast-and-snacks arrangement, and what families send in the meantime.
-16. Your ZIP code, and whether you are comfortable with the site publishing it.
+15. Your ZIP code, and whether you are comfortable with the site publishing it.
     It is currently not published anywhere, including in the structured data.
-17. Whether to publish approximate map coordinates. Google can place a business
+16. Whether to publish approximate map coordinates. Google can place a business
     without them, so the site publishes none.
-18. **How families can pay you** besides Child Action. Cash and check were listed
+17. **How families can pay you** besides Child Action. Cash and check were listed
     in the structured data on an assumption and have been removed.
-19. Which Elk Grove areas you want named as places you serve, if any. The site
+18. Which Elk Grove areas you want named as places you serve, if any. The site
     now claims Elk Grove and nothing more specific.
-20. How quickly you actually want to promise to reply. The tour form said "within
+19. How quickly you actually want to promise to reply. The tour form said "within
     one business day" on an assumption; it now just says you will get back to
     them.
 
@@ -360,7 +362,7 @@ her eye before launch, in rough order of how load-bearing they are:
   ease-in.
 - `app/tour/page.tsx` - the note that the address is shared when a tour is
   confirmed.
-- All fifteen `content/resources/*.mdx` articles, already listed as question 11.
+- All fifteen `content/resources/*.mdx` articles, already listed as question 10.
   Their unsupported first-person claims have been stripped, but the general
   parenting and industry statistics in them are unsourced: "most babies take one
   to three weeks to settle", "almost every family is fine by week three", the
@@ -372,6 +374,6 @@ not in a component.
 
 ### Before launch
 
-- Add the Cloudflare Web Analytics token. It is cookieless, so the site needs no cookie banner, which matters on a site where parents type a child's name. **The privacy page currently states that the site uses no analytics and sets no cookies, which is true today - update that paragraph when analytics go in.**
+- Add Google Analytics after the measurement ID and activation timing are confirmed. The Privacy page correctly states that the site uses no analytics today; update that page and add any legally required consent controls before analytics are enabled.
 - Add the Google Search Console verification tag in `app/layout.tsx`.
 - Confirm the license lookup resolves for #394501929 at the California Department of Social Services facility search.

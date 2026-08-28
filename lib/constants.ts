@@ -111,7 +111,7 @@ export interface Program {
   slug: string;
   name: string;
   icon: ProgramIconName;
-  /** Optional only when LaTrell confirms the boundary between rate tiers. */
+  /** The confirmed boundary between rate tiers. */
   ageRange?: string;
   summary: string;
   detail: string;
@@ -129,6 +129,7 @@ export const PROGRAMS: Program[] = [
     slug: "infant",
     name: "Infant Care",
     icon: "infant",
+    ageRange: "birth through 23 months",
     summary: "Warm, nurturing infant care in Elk Grove in a small home setting.",
     detail:
       "A warm, nurturing home environment for infants, with individual attention and care appropriate to each child's developmental stage.",
@@ -140,6 +141,7 @@ export const PROGRAMS: Program[] = [
     slug: "toddler-preschool",
     name: "Toddler/Preschool-Age Care",
     icon: "toddler",
+    ageRange: "ages 2 to 5",
     summary: "Play-based, child-led toddler and preschool-age care in Elk Grove.",
     detail:
       "Toddlers and preschool-age children are encouraged to learn naturally through play, exploration, creativity, interaction, and age-appropriate experiences.",

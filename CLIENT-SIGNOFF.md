@@ -13,9 +13,10 @@ initial/date each approved section before the Cloudflare launch.
 | California license | #394501929 |  |  |
 | Location shown publicly | Elk Grove, California; no street address or ZIP |  |  |
 | Phone | 510-434-4834 |  |  |
-| Email | tlcfootprintshomedaycare@gmail.com |  |  |
+| Email | tlcfootprints@gmail.com |  |  |
 | Published hours | Monday-Friday, 7:30 a.m.-6:00 p.m. |  |  |
 | Ages served | Birth through age five |  |  |
+| Rate boundary | Infant Care: birth through 23 months; Toddler/Preschool-Age Care: ages 2 to 5 | Confirmed: transition at age 2 |  |
 | Subsidy statement | Child Action accepted |  |  |
 | Enrollment statement | Now enrolling / limited openings |  |  |
 
@@ -24,7 +25,6 @@ initial/date each approved section before the Cloudflare launch.
 | Topic | What LaTrell must confirm | Client decision | Initial/date |
 | --- | --- | --- | --- |
 | License type and capacity | Small or large Family Child Care Home and licensed capacity |  |  |
-| Rate boundary | Exact age or event when infant tuition changes to toddler/preschool tuition |  |  |
 | Tuition and deposit | Every weekly rate, deposit, due date, late fee, refund, holiday, and closure rule |  |  |
 | Provider background | Years of experience, prior roles, education, permits, CPR/first aid, and other credentials |  |  |
 | Other adults | Assistant, substitute, household members, and how staffing is communicated |  |  |
@@ -84,7 +84,7 @@ location metadata that should remain private.
 | Non-enrolling inquiry retention | Exact deletion schedule | LaTrell |  |
 | Enrolled-family records | Storage location and required retention process | LaTrell |  |
 | Spam protection | Turnstile and server-side verification | Alectronic |  |
-| Analytics | None or named analytics product | LaTrell |  |
+| Analytics | Google Analytics planned; measurement ID and activation timing still needed | LaTrell/Alectronic |  |
 | Privacy requests | Confirm published email and phone are appropriate | LaTrell |  |
 | Accessibility reports | Confirm who receives and responds to reports | LaTrell/Alectronic |  |
 | Maintenance term | Who handles updates, security patches, monitoring, and accessibility reports | Contract |  |
