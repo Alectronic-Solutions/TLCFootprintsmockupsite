@@ -316,8 +316,8 @@ and Toddler/Preschool-Age Care begins at age 2.
 12. **Your actual daily routine.** The site once had a full hour-by-hour
     schedule that nobody supplied: arrival, play blocks, outdoor time, a 1:00
     rest, and a 5:00 pickup. It has been removed. The site now gives only the
-    confirmed general rhythm—meals and snacks, play, age-appropriate activities,
-    rest, and outdoor or movement opportunities—plus the 7:30-to-6:00 operating
+    confirmed general rhythm: meals and snacks, play, age-appropriate activities,
+    rest, and outdoor or movement opportunities, plus the 7:30-to-6:00 operating
     window. Send the real schedule if you want specific times published.
 13. **Whether you have a nap or rest policy**, and how you would want it worded.
     The FAQ says the daily rhythm includes rest, but no detailed nap or rest

@@ -146,7 +146,7 @@ export function FootprintChecklist() {
           <h3 className="mt-2 text-h3">Tap a piece, or drag it onto the footprint.</h3>
           <p className="mt-2 max-w-[58ch] text-base text-cocoa-mid">
             Each piece has its own spot. Touch and hold a piece to drag it, or
-            just tap it to send it straight to the right place—either way, it
+            just tap it to send it straight to the right place either way, it
             checks itself off the list.
           </p>
         </div>
