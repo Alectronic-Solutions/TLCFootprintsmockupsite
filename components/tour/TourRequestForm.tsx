@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { TurnstileWidget } from "@/components/forms/TurnstileWidget";
 import { BUSINESS, PROGRAMS } from "@/lib/constants";
 import { cn } from "@/lib/cn";
 import { EASE } from "@/components/ui/AnimatedSection";
@@ -56,6 +57,8 @@ function FieldError({ id, message }: { id: string; message?: string }) {
 export function TourRequestForm() {
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [turnstileResetKey, setTurnstileResetKey] = useState(0);
   const reduce = useReducedMotion();
   const {
     register,
@@ -73,11 +76,20 @@ export function TourRequestForm() {
       return;
     }
 
+    if (!turnstileToken) {
+      setSubmitError("Please wait for the spam protection check to finish, then try again.");
+      return;
+    }
+
     try {
       const response = await fetch(FORM_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, requestType: "tour" }),
+        body: JSON.stringify({
+          ...data,
+          requestType: "tour",
+          turnstileToken,
+        }),
       });
 
       let result: { ok?: boolean; error?: string; message?: string } = {};
@@ -96,6 +108,8 @@ export function TourRequestForm() {
 
       setSubmitted(true);
     } catch (error) {
+      setTurnstileToken("");
+      setTurnstileResetKey((value) => value + 1);
       setSubmitError(
         error instanceof Error
           ? error.message
@@ -216,6 +230,8 @@ export function TourRequestForm() {
               <textarea id="message" rows={4} maxLength={2000} className={cn(inputBase, "resize-none border-cocoa/15 focus:border-leaf")} {...register("message")} />
             </div>
 
+            <TurnstileWidget key={turnstileResetKey} onTokenChange={setTurnstileToken} />
+
             {submitError ? (
               <div role="alert" className="rounded-xl border border-pink-dark/20 bg-pink-light/45 p-4 text-sm text-cocoa">
                 <div className="flex items-start gap-2">
@@ -230,7 +246,7 @@ export function TourRequestForm() {
             ) : null}
 
             <div className="pt-1">
-              <Button type="submit" size="lg" disabled={isSubmitting} block>
+              <Button type="submit" size="lg" disabled={isSubmitting || !turnstileToken} block>
                 {isSubmitting ? "Sending…" : "Request a Tour"}
               </Button>
               <p className="mt-3 text-center text-sm text-cocoa-mid">
