@@ -3,11 +3,13 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { AlertCircle, ArrowRight } from "lucide-react";
+import { AlertCircle, ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { BUSINESS, PROGRAMS } from "@/lib/constants";
 import { cn } from "@/lib/cn";
 import { EASE } from "@/components/ui/AnimatedSection";
+
+const FORM_ENDPOINT = "https://tlc-footprints-forms.alecit-b101.workers.dev";
 
 interface FormValues {
   parentName: string;
@@ -64,6 +66,7 @@ function FieldError({ id, message }: { id: string; message?: string }) {
 
 export function AvailabilityRequestForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const reduce = useReducedMotion();
   const {
     register,
@@ -78,15 +81,49 @@ export function AvailabilityRequestForm() {
   });
 
   const onSubmit = async (data: FormValues) => {
+    setSubmitError("");
+
+    // Honeypot: silently accept and discard likely bot submissions.
     if (data.website) {
       setSubmitted(true);
       return;
     }
 
-    // Demo build. Nothing is transmitted. See README for wiring this to a
-    // real endpoint before launch.
-    await new Promise((resolve) => setTimeout(resolve, 700));
-    setSubmitted(true);
+    try {
+      const response = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...data,
+          requestType: "availability",
+        }),
+      });
+
+      let result: { ok?: boolean; error?: string; message?: string } = {};
+
+      try {
+        result = await response.json();
+      } catch {
+        // A non-JSON response is handled by the generic error below.
+      }
+
+      if (!response.ok || !result.ok) {
+        throw new Error(
+          result.error ||
+            "Your request could not be sent right now. Please try again or contact T.L.C. Footprints directly.",
+        );
+      }
+
+      setSubmitted(true);
+    } catch (error) {
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "Your request could not be sent right now. Please try again or contact T.L.C. Footprints directly.",
+      );
+    }
   };
 
   const errClass = (name: keyof FormValues) =>
@@ -105,22 +142,22 @@ export function AvailabilityRequestForm() {
             role="status"
             aria-live="polite"
           >
-            <span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-amber-light">
-              <AlertCircle
-                className="h-8 w-8 text-amber-dark"
+            <span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-leaf/10">
+              <CheckCircle2
+                className="h-8 w-8 text-leaf-dark"
                 aria-hidden="true"
                 strokeWidth={2.5}
               />
             </span>
-            <h3 className="mt-5 text-h3">Nothing was sent.</h3>
-            <p className="mx-auto mt-3 max-w-[40ch] text-cocoa-mid">
-              This online form is still a preview. To check availability, call or text{" "}
+            <h3 className="mt-5 text-h3">Thanks! Your request was sent.</h3>
+            <p className="mx-auto mt-3 max-w-[42ch] text-cocoa-mid">
+              Your availability request was sent to T.L.C. Footprints. La Trell will follow up
+              with you directly using the contact information you provided.
+            </p>
+            <p className="mx-auto mt-4 max-w-[42ch] text-sm text-cocoa-mid">
+              Need to reach T.L.C. Footprints sooner? Call or text{" "}
               <a className="font-semibold underline" href={BUSINESS.phoneHref}>
                 {BUSINESS.phone}
-              </a>{" "}
-              or email{" "}
-              <a className="font-semibold underline" href={BUSINESS.emailHref}>
-                {BUSINESS.email}
               </a>
               .
             </p>
@@ -133,18 +170,9 @@ export function AvailabilityRequestForm() {
             initial={false}
             className="space-y-5"
           >
-            <div
-              role="note"
-              className="rounded-xl border border-amber-dark/20 bg-amber-light/55 p-4 text-center text-sm text-cocoa"
-            >
-              <strong className="font-bold">Online requests are not live yet.</strong>{" "}
-              This preview form does not send or store entries. Please call, text, or email
-              instead.
-            </div>
-
             <p className="text-center text-base text-cocoa-mid">
-              These fields preview the details needed to check current openings. To
-              receive a response now, call, text, or email me instead.
+              Share a few details about the care you need. Your request will be emailed directly
+              to T.L.C. Footprints so La Trell can follow up with you.
             </p>
 
             <div aria-hidden="true" className="absolute left-[-9999px]">
@@ -369,13 +397,40 @@ export function AvailabilityRequestForm() {
               />
             </div>
 
+            {submitError ? (
+              <div
+                role="alert"
+                className="rounded-xl border border-pink-dark/20 bg-pink-light/45 p-4 text-sm text-cocoa"
+              >
+                <div className="flex items-start gap-2">
+                  <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-pink-dark" aria-hidden="true" />
+                  <div>
+                    <p className="font-semibold text-pink-dark">The request was not sent.</p>
+                    <p className="mt-1">{submitError}</p>
+                    <p className="mt-2">
+                      You can also call or text{" "}
+                      <a className="font-semibold underline" href={BUSINESS.phoneHref}>
+                        {BUSINESS.phone}
+                      </a>{" "}
+                      or email{" "}
+                      <a className="font-semibold underline" href={BUSINESS.emailHref}>
+                        {BUSINESS.email}
+                      </a>
+                      .
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ) : null}
+
             <div className="pt-1">
               <Button type="submit" size="lg" disabled={isSubmitting} block>
-                {isSubmitting ? "Reviewing…" : "Preview Request"}
+                {isSubmitting ? "Sending…" : "Check Availability"}
                 {!isSubmitting ? <ArrowRight className="h-4 w-4" aria-hidden="true" /> : null}
               </Button>
               <p className="mt-3 text-center text-sm text-cocoa-mid">
-                This preview form does not send or store your information.
+                Your request will be emailed directly to T.L.C. Footprints. Please do not include
+                medical records, payment information, or other sensitive information.
               </p>
             </div>
           </motion.form>
