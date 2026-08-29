@@ -42,7 +42,6 @@ const CONTACT_METHODS = [
   },
 ];
 
-
 export default function TourPage() {
   const crumbs = breadcrumbJsonLd([
     { name: "Home", path: "/" },
@@ -56,9 +55,6 @@ export default function TourPage() {
         dangerouslySetInnerHTML={{ __html: jsonLdScript(crumbs) }}
       />
 
-      {/* The map backdrop spans both the PageHero copy and the contact
-          cards below it, so the illustration stays visible behind the
-          cards instead of stopping at the hero's own bottom edge. */}
       <div className="relative isolate overflow-hidden">
         <TourHeroBackdrop />
         <div
@@ -77,7 +73,7 @@ export default function TourPage() {
         <PageHero
           label="Request a tour"
           title="Come see the space"
-          subtitle="A tour gives you time to see the environment, ask questions, and decide whether it feels right for your child. The online form is a preview, so call, text, or email to arrange a visit."
+          subtitle="A tour gives you time to see the environment, ask questions, and decide whether it feels right for your child. Submit the form below and T.L.C. Footprints will follow up with you directly."
           align="center"
           decor={false}
           surface="bg-transparent"
@@ -91,8 +87,6 @@ export default function TourPage() {
           </div>
         </PageHero>
 
-        {/* Three equally prominent direct contact paths. She explicitly does not want
-            parents funnelled into a single channel. */}
         <section className="relative bg-transparent pb-4">
           <div className="container-page">
             <ul className="grid gap-4 sm:grid-cols-3">
@@ -122,7 +116,6 @@ export default function TourPage() {
 
       <ArcDivider variant="shallow" from="bg-cream" to="fill-cream-deep" />
 
-      {/* Form plus practical details */}
       <section id="tour-request" className="section-y scroll-mt-24 bg-cream-deep">
         <div className="container-page">
           <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-start">
