@@ -105,7 +105,7 @@ export function RatesPanel() {
               already a thumb's length below it, so "here are the rates" points
               at something the eye has arrived at anyway. The claim it is
               answering is the half worth keeping at every width. */}
-          <p className="mx-auto mt-3 max-w-[46ch] text-lead text-ink sm:mt-5">
+          <p className="mx-auto mt-3 max-w-[46ch] text-balance text-lead text-ink sm:mt-5">
             Most daycare sites make you call to find out.
             <span className="hidden sm:inline">
               <br />

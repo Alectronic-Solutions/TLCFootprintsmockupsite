@@ -186,7 +186,7 @@ export default async function ArticlePage({
 
         <div className="bg-cream-deep py-10 sm:py-12">
           <div className="container-prose">
-            <div className="rounded-2xl border-hair border-cocoa/10 bg-cream p-7 text-center shadow-soft sm:p-10">
+            <div className="article-prose rounded-2xl border-hair border-cocoa/10 bg-cream p-7 text-center shadow-soft sm:p-10">
               <MDXRemote source={article.body} components={components} />
             </div>
           </div>

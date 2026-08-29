@@ -125,7 +125,7 @@ export function ChildActionSection() {
                   <AnimatedItem
                     as="li"
                     key={step.title}
-                    className="mx-auto grid max-w-md grid-cols-[1.25rem_1fr] gap-2.5 text-left"
+                    className="mx-auto grid max-w-md grid-cols-[1.25rem_1fr] gap-2.5 text-center"
                   >
                     <span
                       aria-hidden="true"
@@ -137,7 +137,7 @@ export function ChildActionSection() {
                       <h3 className="text-lg font-bold leading-snug text-cocoa">
                         {step.title}
                       </h3>
-                      <p className="mt-1 text-sm leading-relaxed text-cocoa-mid sm:text-base">
+                      <p className="mt-1 text-balance text-sm leading-relaxed text-cocoa-mid sm:text-base">
                         {step.body}
                       </p>
                     </div>
