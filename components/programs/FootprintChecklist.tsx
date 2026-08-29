@@ -182,10 +182,10 @@ export function FootprintChecklist() {
         </div>
       </header>
 
-      <div className="relative z-10 mt-4 grid gap-4 lg:grid-cols-[minmax(0,1.45fr)_minmax(18rem,0.72fr)] lg:items-start">
+      <div className="relative z-10 mt-4 grid gap-4 lg:grid-cols-[minmax(0,1.25fr)_minmax(22rem,0.9fr)] lg:items-stretch">
         <section
           aria-label="Interactive footprint puzzle"
-          className="rounded-[1.5rem] border border-cocoa/10 bg-cream/70 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] sm:p-5"
+          className="flex flex-col rounded-[1.5rem] border border-cocoa/10 bg-cream/70 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] sm:p-5"
         >
           <div className="flex items-center justify-between gap-4">
             <div>
@@ -197,7 +197,7 @@ export function FootprintChecklist() {
             </span>
           </div>
 
-          <div className="mt-4 grid items-stretch gap-5 lg:grid-cols-[minmax(0,1.25fr)_minmax(11rem,0.75fr)]">
+          <div className="mt-4 grid flex-1 items-stretch gap-5 lg:grid-cols-[minmax(0,1.25fr)_minmax(11rem,0.75fr)]">
             <div>
               {tray.length > 0 ? (
                 <div className="puzzle-piece-buttons grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-3.5">
@@ -277,8 +277,8 @@ export function FootprintChecklist() {
           </div>
         </section>
 
-        <aside className="flex flex-col rounded-[1.5rem] border border-cocoa/10 bg-gradient-to-b from-white to-cream p-4 shadow-soft sm:p-5">
-          <div className="mb-5 flex items-center justify-between gap-3">
+        <aside className="flex flex-col rounded-[1.5rem] border border-cocoa/10 bg-gradient-to-b from-white to-cream p-3 shadow-soft sm:p-5">
+          <div className="mb-5 flex items-center justify-between gap-3 lg:mb-4">
             <div>
               <p className="font-display text-lg font-semibold text-cocoa">Live checklist</p>
               <p className="text-sm text-cocoa-mid">Updates as you play.</p>

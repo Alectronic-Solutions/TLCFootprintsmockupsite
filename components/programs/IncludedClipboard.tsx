@@ -59,11 +59,11 @@ export function IncludedClipboard({ placed }: { placed: readonly string[] }) {
           <ellipse cx="60" cy="16" rx="6" ry="4" fill="#5a5148" opacity="0.55" />
         </svg>
 
-        <div className="clipboard-sheet relative overflow-hidden rounded-b-xl rounded-t-sm px-7 pb-7 pt-10 shadow-soft sm:px-8">
+        <div className="clipboard-sheet relative overflow-hidden rounded-b-xl rounded-t-sm px-5 pb-4 pt-8 shadow-soft sm:px-6 sm:pb-5 sm:pt-9 lg:px-5 lg:pb-4 lg:pt-8">
           <SurfaceGrain className="opacity-[0.35] mix-blend-soft-light" />
 
           <div className="relative">
-            <p className="font-hand text-2xl text-leaf-dark sm:text-3xl">
+            <p className="font-hand text-lg text-leaf-dark sm:text-2xl lg:text-2xl">
               Your checklist
             </p>
 
@@ -71,14 +71,14 @@ export function IncludedClipboard({ placed }: { placed: readonly string[] }) {
               {RATE_INCLUSIONS.included.map((item, i) => (
                 <li key={item} className="flex items-start gap-3">
                   <HandTick index={i} checked={isLineChecked("included", i, placed)} />
-                  <span className="text-base text-cocoa">{item}</span>
+                  <span className="text-[0.8125rem] leading-[1.125rem] text-cocoa sm:text-sm sm:leading-5">{item}</span>
                 </li>
               ))}
             </ul>
 
-            <hr className="clipboard-tear my-5" />
+            <hr className="clipboard-tear my-2 sm:my-3 lg:my-2" />
 
-            <p className="font-hand text-xl text-cocoa-mid sm:text-2xl">
+            <p className="font-hand text-lg text-cocoa-mid sm:text-xl lg:text-xl">
               Families provide
             </p>
 
@@ -86,14 +86,14 @@ export function IncludedClipboard({ placed }: { placed: readonly string[] }) {
               {RATE_INCLUSIONS.notIncluded.map((item, i) => (
                 <li key={item} className="flex items-start gap-3">
                   <EmptyBox placed={isLineChecked("notIncluded", i, placed)} />
-                  <span className="text-base text-cocoa-mid">{item}</span>
+                  <span className="text-[0.8125rem] leading-[1.125rem] text-cocoa-mid sm:text-sm sm:leading-5">{item}</span>
                 </li>
               ))}
             </ul>
 
-            <hr className="clipboard-tear my-5" />
+            <hr className="clipboard-tear my-2 sm:my-3 lg:my-2" />
 
-            <p className="font-hand text-xl text-cocoa-mid sm:text-2xl">
+            <p className="font-hand text-lg text-cocoa-mid sm:text-xl lg:text-xl">
               Enrollment &amp; payment
             </p>
 
@@ -101,7 +101,7 @@ export function IncludedClipboard({ placed }: { placed: readonly string[] }) {
               {RATE_INCLUSIONS.enrollment.map((item, i) => (
                 <li key={item} className="flex items-start gap-3">
                   <HandTick index={i} checked={isLineChecked("enrollment", i, placed)} />
-                  <span className="text-base text-cocoa">{item}</span>
+                  <span className="text-[0.8125rem] leading-[1.125rem] text-cocoa sm:text-sm sm:leading-5">{item}</span>
                 </li>
               ))}
             </ul>

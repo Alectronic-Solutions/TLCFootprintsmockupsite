@@ -2527,9 +2527,9 @@ html {
      layered rule at equal specificity, regardless of source order (CSS
      Cascade Layers). A `pt-9` on the same element would silently lose to
      this rule's own `padding-top` and collapse to zero. */
-  padding: 2.25rem 0.72rem 0.72rem;
+  padding: 2rem 0.6rem 0.6rem;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 1.35rem;
+  border-radius: 1.2rem;
   background:
     radial-gradient(circle at 18% 0%, rgba(255, 255, 255, 0.13), transparent 28%),
     linear-gradient(145deg, #563b2c 0%, #38251b 58%, #281a13 100%);
@@ -2542,7 +2542,7 @@ html {
 /* Ruled paper: the rule lines paint first in the stack so the cream tint
    layers over them rather than the other way round. */
 .clipboard-sheet {
-  --rule: 2.1rem;
+  --rule: 1.65rem;
   border: 1px solid rgba(62, 42, 33, 0.08);
   background-image:
     repeating-linear-gradient(
@@ -2563,14 +2563,18 @@ html {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 2.25rem;
+  left: 1.65rem;
   width: 1px;
   background: rgba(226, 58, 94, 0.32);
 }
 
 @media (min-width: 640px) {
+  .clipboard-sheet {
+    --rule: 1.8rem;
+  }
+
   .clipboard-sheet::before {
-    left: 2.75rem;
+    left: 2.25rem;
   }
 }
 
@@ -2584,6 +2588,16 @@ html {
 .clipboard-tear {
   border: none;
   border-top: 2px dashed rgba(62, 42, 33, 0.18);
+}
+
+/* At desktop widths, a clipboard should read as a compact physical object,
+   not a long, narrow panel. The wider checklist column prevents awkward line
+   wrapping, and these tighter ruling intervals keep the paper proportional
+   to the adjacent puzzle. */
+@media (min-width: 1024px) {
+  .clipboard-rules > li {
+    padding-top: 0.1rem;
+  }
 }
 
 /* The tick draw-on itself.
