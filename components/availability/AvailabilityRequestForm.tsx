@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { AlertCircle, ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { TurnstileWidget } from "@/components/forms/TurnstileWidget";
 import { BUSINESS, PROGRAMS } from "@/lib/constants";
 import { cn } from "@/lib/cn";
 import { EASE } from "@/components/ui/AnimatedSection";
@@ -67,6 +68,8 @@ function FieldError({ id, message }: { id: string; message?: string }) {
 export function AvailabilityRequestForm() {
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [turnstileResetKey, setTurnstileResetKey] = useState(0);
   const reduce = useReducedMotion();
   const {
     register,
@@ -89,6 +92,11 @@ export function AvailabilityRequestForm() {
       return;
     }
 
+    if (!turnstileToken) {
+      setSubmitError("Please wait for the spam protection check to finish, then try again.");
+      return;
+    }
+
     try {
       const response = await fetch(FORM_ENDPOINT, {
         method: "POST",
@@ -98,6 +106,7 @@ export function AvailabilityRequestForm() {
         body: JSON.stringify({
           ...data,
           requestType: "availability",
+          turnstileToken,
         }),
       });
 
@@ -118,6 +127,8 @@ export function AvailabilityRequestForm() {
 
       setSubmitted(true);
     } catch (error) {
+      setTurnstileToken("");
+      setTurnstileResetKey((value) => value + 1);
       setSubmitError(
         error instanceof Error
           ? error.message
@@ -397,6 +408,8 @@ export function AvailabilityRequestForm() {
               />
             </div>
 
+            <TurnstileWidget key={turnstileResetKey} onTokenChange={setTurnstileToken} />
+
             {submitError ? (
               <div
                 role="alert"
@@ -424,7 +437,7 @@ export function AvailabilityRequestForm() {
             ) : null}
 
             <div className="pt-1">
-              <Button type="submit" size="lg" disabled={isSubmitting} block>
+              <Button type="submit" size="lg" disabled={isSubmitting || !turnstileToken} block>
                 {isSubmitting ? "Sending…" : "Check Availability"}
                 {!isSubmitting ? <ArrowRight className="h-4 w-4" aria-hidden="true" /> : null}
               </Button>
