@@ -147,11 +147,18 @@ export function ChildActionSection() {
 
               <div className="mt-4 rounded-2xl border-hair border-leaf/20 bg-leaf-light/75 p-3">
                 <p className="font-bold text-cocoa">
-                  On CalWORKs? Start with your CalWORKs worker.
+                  <span className="block sm:inline">On CalWORKs?</span>{" "}
+                  <span className="block sm:inline">
+                    Start with your CalWORKs worker.
+                  </span>
                 </p>
                 <p className="mt-1.5 text-sm leading-relaxed text-cocoa-mid">
-                  Child Action decides eligibility, coverage, and any family
-                  fee.
+                  <span className="block sm:inline">
+                    Child Action decides eligibility,
+                  </span>{" "}
+                  <span className="block sm:inline">
+                    coverage, and any family fee.
+                  </span>
                 </p>
               </div>
 
