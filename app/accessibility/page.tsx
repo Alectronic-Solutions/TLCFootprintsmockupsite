@@ -15,7 +15,7 @@ export default function AccessibilityPage() {
       label="Accessibility"
       title="Using this website"
       subtitle="T.L.C. Footprints wants parents and guardians to be able to get the information they need, including people who use assistive technology."
-      updated="August 27, 2026"
+      updated="August 31, 2026"
     >
       <h2>Our commitment</h2>
       <p>
@@ -37,15 +37,14 @@ export default function AccessibilityPage() {
         <li>Color and non-color cues for form errors and important status information</li>
         <li>Support for browser zoom, text reflow, mobile layouts, and reduced motion</li>
         <li>Permanently visible form labels and descriptive validation messages</li>
-        <li>Call, text, and email alternatives to the website&apos;s preview forms</li>
+        <li>Call, text, and email alternatives to the website&apos;s inquiry forms</li>
       </ul>
 
       <h2>Current limitations</h2>
       <p>
-        The tour and availability forms are currently interactive previews. They validate
-        entries in the browser but do not submit or store them. Call, text, and email
-        options are provided on both pages so the same inquiry can be made without using a
-        form.
+        The tour and availability forms validate entries and send submitted inquiries to
+        {" "}{BUSINESS.name}. Call, text, and email options are also provided on both pages
+        so the same inquiry can be made without using a form.
       </p>
       <p>
         One resource article contains a rate table that scrolls horizontally on narrow
@@ -90,7 +89,7 @@ export default function AccessibilityPage() {
       </p>
 
       <h2>Effective date</h2>
-      <p>Effective August 27, 2026.</p>
+      <p>Effective August 31, 2026.</p>
     </PolicyPage>
   );
 }

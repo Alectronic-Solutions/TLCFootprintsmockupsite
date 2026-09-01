@@ -139,7 +139,7 @@ export function TourRequestForm() {
             </span>
             <h3 className="mt-5 text-h3">Thanks! Your tour request was sent.</h3>
             <p className="mx-auto mt-3 max-w-[42ch] text-cocoa-mid">
-              Your request was emailed to T.L.C. Footprints. La Trell will follow up with you directly using the contact information you provided.
+              Your request was emailed to T.L.C. Footprints. LaTrell will follow up with you directly using the contact information you provided.
             </p>
             <p className="mx-auto mt-4 max-w-[42ch] text-sm text-cocoa-mid">
               Need to reach T.L.C. Footprints sooner? Call or text{" "}
@@ -149,7 +149,7 @@ export function TourRequestForm() {
         ) : (
           <motion.form key="form" onSubmit={handleSubmit(onSubmit)} noValidate initial={false} className="space-y-5">
             <p className="text-center text-base text-cocoa-mid">
-              Share a few details and your tour request will be emailed directly to T.L.C. Footprints so La Trell can follow up with you.
+              Share a few details and your tour request will be emailed directly to T.L.C. Footprints so LaTrell can follow up with you.
             </p>
 
             <div aria-hidden="true" className="absolute left-[-9999px]">

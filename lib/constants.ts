@@ -384,7 +384,7 @@ export const FAQS: Faq[] = [
   },
   {
     q: "How do I request a tour?",
-    a: "I'd love to show you around! Call, text, or email me directly, and I'll confirm a time that works for you. The online tour form is currently a preview and does not send entries.",
+    a: "I'd love to show you around! Submit the online tour form, or call, text, or email me directly. I'll confirm a time that works for you.",
   },
   {
     q: "Is tuition based on attendance?",

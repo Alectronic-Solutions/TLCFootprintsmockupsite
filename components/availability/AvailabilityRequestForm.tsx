@@ -162,7 +162,7 @@ export function AvailabilityRequestForm() {
             </span>
             <h3 className="mt-5 text-h3">Thanks! Your request was sent.</h3>
             <p className="mx-auto mt-3 max-w-[42ch] text-cocoa-mid">
-              Your availability request was sent to T.L.C. Footprints. La Trell will follow up
+              Your availability request was sent to T.L.C. Footprints. LaTrell will follow up
               with you directly using the contact information you provided.
             </p>
             <p className="mx-auto mt-4 max-w-[42ch] text-sm text-cocoa-mid">
@@ -183,7 +183,7 @@ export function AvailabilityRequestForm() {
           >
             <p className="text-center text-base text-cocoa-mid">
               Share a few details about the care you need. Your request will be emailed directly
-              to T.L.C. Footprints so La Trell can follow up with you.
+              to T.L.C. Footprints so LaTrell can follow up with you.
             </p>
 
             <div aria-hidden="true" className="absolute left-[-9999px]">

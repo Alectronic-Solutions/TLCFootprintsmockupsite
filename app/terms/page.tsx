@@ -6,7 +6,7 @@ import { pageMeta } from "@/lib/seo";
 export const metadata = pageMeta({
   title: "Terms of Use",
   description:
-    "Terms for using the T.L.C. Footprints Home Daycare website, including rates, availability, preview forms, and parent resources.",
+    "Terms for using the T.L.C. Footprints Home Daycare website, including rates, availability, inquiry forms, and parent resources.",
   path: "/terms",
 });
 
@@ -16,7 +16,7 @@ export default function TermsPage() {
       label="Terms of use"
       title="Terms for using this website"
       subtitle="These terms cover the website itself. Child care is governed by the enrollment agreement you sign, not by this page."
-      updated="August 27, 2026"
+      updated="August 31, 2026"
     >
       <h2>Acceptance of these terms</h2>
       <p>
@@ -47,10 +47,9 @@ export default function TermsPage() {
 
       <h2>Tour and availability forms</h2>
       <p>
-        The online forms are currently interactive previews. They validate entries in the
-        browser but do not send or store them. A valid inquiry must presently be made by
-        calling, texting, or emailing {BUSINESS.owner}. No tour is confirmed until
-        {" "}
+        The online forms send the details you provide to {BUSINESS.name} so the program
+        can respond to your inquiry. A submitted form does not guarantee a response,
+        confirm current availability, or confirm a tour. No tour is confirmed until
         {BUSINESS.owner} replies and agrees to a date and time.
       </p>
       <p>
@@ -131,7 +130,7 @@ export default function TermsPage() {
 
       <h2>Effective date and contact</h2>
       <p>
-        Effective August 27, 2026. Questions about these terms can be sent to{" "}
+        Effective August 31, 2026. Questions about these terms can be sent to{" "}
         <a href={BUSINESS.emailHref}>{BUSINESS.email}</a> or discussed by calling{" "}
         <a href={BUSINESS.phoneHref}>{BUSINESS.phone}</a>.
       </p>

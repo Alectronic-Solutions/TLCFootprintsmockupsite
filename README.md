@@ -268,16 +268,14 @@ home address.
 
 ### Wiring up the inquiry forms
 
-The tour and availability forms validate properly and show a simple thank-you
-state, but **they do not send anything yet**. They are presentation-only until
-a form endpoint is connected.
+The tour and availability forms submit through the configured form endpoint,
+which verifies spam protection and sends the inquiry to T.L.C. Footprints by
+email.
 
-For production, prefer a Cloudflare Pages Function so validation, rate limiting,
-Turnstile verification, and delivery credentials stay server-side. In
-`components/tour/TourRequestForm.tsx` and
-`components/availability/AvailabilityRequestForm.tsx`, replace the simulated
-delay in `onSubmit` with a request to that function. Include an explicit request
-type in each payload so tour and availability inquiries can be routed correctly.
+The client forms include an explicit request type so tour and availability
+inquiries can be routed correctly. Their server-side endpoint should continue to
+validate input, rate-limit requests, verify Turnstile, and keep delivery
+credentials server-side.
 
 The honeypot fields are already in place. Leave them, because form endpoints on
 public sites start receiving spam within weeks.

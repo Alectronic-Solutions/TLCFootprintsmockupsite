@@ -24,7 +24,7 @@ export default function PrivacyPage() {
       label="Privacy policy"
       title="How information is handled"
       subtitle="This policy explains what this website collects, what it does not collect, and the choices available to you."
-      updated="August 27, 2026"
+      updated="August 31, 2026"
     >
       <h2>The short version</h2>
       <p>
@@ -33,9 +33,10 @@ export default function PrivacyPage() {
         use analytics or third-party advertising trackers.
       </p>
       <p>
-        <strong>The online tour and availability forms are currently previews.</strong>{" "}
-        They validate entries in your browser but do not send or store them. To contact{" "}
-        {BUSINESS.name}, call, text, or email using the details published on the site.
+        The online tour and availability forms send the details you provide to
+        {" "}{BUSINESS.name} by email so the program can respond to your inquiry. The
+        forms are for adults seeking child care information; please do not include
+        sensitive information.
       </p>
 
       <h2>Who operates this website</h2>
@@ -46,7 +47,7 @@ export default function PrivacyPage() {
         calling <a href={BUSINESS.phoneHref}>{BUSINESS.phone}</a>.
       </p>
 
-      <h2>Information entered in the preview forms</h2>
+      <h2>Information entered in the inquiry forms</h2>
       <p>The tour and availability forms ask an adult for:</p>
       <ul>
         <li>The parent or guardian&apos;s name, phone number, and email address</li>
@@ -55,8 +56,9 @@ export default function PrivacyPage() {
         <li>Contact preference and anything voluntarily written in the message field</li>
       </ul>
       <p>
-        These entries are used only for browser-based validation during the preview. They
-        are not transmitted to or stored by {BUSINESS.name}. Please do not enter Social
+        When you submit either form, these details are processed by the service that
+        operates the form and delivered to {BUSINESS.name} by email. They are used to
+        respond to your inquiry and discuss possible care. Please do not enter Social
         Security numbers, medical records, financial account numbers, government
         identification numbers, or other sensitive records. Required enrollment records
         are handled separately after a family decides to enroll.
@@ -85,7 +87,7 @@ export default function PrivacyPage() {
 
       <h2>How information is used</h2>
       <ul>
-        <li>To answer questions received by phone, text, or email</li>
+        <li>To answer questions and inquiries received through the forms, phone, text, or email</li>
         <li>To discuss availability, programs, schedules, tours, and possible enrollment</li>
         <li>To protect the website, prevent abuse, and diagnose technical issues</li>
         <li>To maintain reasonable business records and comply with legal obligations</li>
@@ -101,7 +103,8 @@ export default function PrivacyPage() {
         advertising. It may be provided only to:
       </p>
       <ul>
-        <li>The hosting and security provider that delivers and protects the website</li>
+        <li>The hosting, security, and form-processing providers that deliver and protect the website</li>
+        <li>Email-delivery providers used to send form inquiries to {BUSINESS.name}</li>
         <li>
           Phone, mobile carrier, messaging, and email providers involved when a person
           chooses to call, text, or email
@@ -114,10 +117,12 @@ export default function PrivacyPage() {
 
       <h2>Cookies, analytics, and privacy signals</h2>
       <p>
-        {BUSINESS.name} does not currently set cookies, use analytics, include embedded
-        social media widgets, or use advertising trackers on this site. The hosting and
-        security provider may use essential technical measures to serve the site and
-        detect abuse.
+        {BUSINESS.name} does not currently use analytics, include embedded social media
+        widgets, or use advertising trackers on this site. The online inquiry forms use
+        Cloudflare Turnstile spam protection, which may process essential technical
+        information and use necessary browser storage or cookies to detect and prevent
+        automated submissions. The hosting and security provider may also use essential
+        technical measures to serve the site and detect abuse.
       </p>
       <p>
         Because the site does not sell personal information or track visitors over time
@@ -129,11 +134,11 @@ export default function PrivacyPage() {
 
       <h2>Retention</h2>
       <p>
-        Preview-form entries are not retained by {BUSINESS.name}. Information received by
-        phone, text, or email is kept only as long as reasonably needed to respond,
-        evaluate a possible enrollment, maintain necessary business records, resolve a
-        dispute, or comply with law. Information that is no longer needed is deleted or
-        securely disposed of when reasonably practicable.
+        Information received through the inquiry forms, phone, text, or email is kept only
+        as long as reasonably needed to respond, evaluate a possible enrollment, maintain
+        necessary business records, resolve a dispute, or comply with law. Information
+        that is no longer needed is deleted or securely disposed of when reasonably
+        practicable.
       </p>
       <p>
         Records for enrolled children, including forms required of licensed providers,
@@ -178,13 +183,13 @@ export default function PrivacyPage() {
       <h2>Changes to this policy</h2>
       <p>
         Changes will be posted on this page with a revised effective date. The policy will
-        be updated before the online forms are connected to a delivery or storage service,
-        or before analytics or other nonessential tracking is enabled.
+        be updated before analytics or other nonessential tracking is enabled, or when a
+        material change is made to how inquiry information is handled.
       </p>
 
       <h2>Effective date and contact</h2>
       <p>
-        Effective August 27, 2026. Questions or requests may be sent to{" "}
+        Effective August 31, 2026. Questions or requests may be sent to{" "}
         <a href={BUSINESS.emailHref}>{BUSINESS.email}</a> or made by calling{" "}
         <a href={BUSINESS.phoneHref}>{BUSINESS.phone}</a>.
       </p>
