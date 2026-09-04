@@ -12,6 +12,7 @@ import { CTABand } from "@/components/sections/CTABand";
 import { PageHero } from "@/components/sections/PageHero";
 import { TourHeroBackdrop } from "@/components/tour/TourHeroBackdrop";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
+import { CurrentMonth } from "@/components/ui/CurrentMonth";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { AVAILABILITY, BUSINESS, PROGRAMS } from "@/lib/constants";
 import { breadcrumbJsonLd, jsonLdScript, pageMeta } from "@/lib/seo";
@@ -155,7 +156,7 @@ export default function AvailabilityPage() {
                 <h2 className="mt-3 text-h3">{status.title}</h2>
                 <p className="mt-2 text-base font-semibold text-leaf-dark">{status.detail}</p>
                 <p className="mt-2 text-sm text-cocoa-mid">
-                  Updated {AVAILABILITY.updated}. Exact availability varies by age and schedule.
+                  Updated <CurrentMonth />. Exact availability varies by age and schedule.
                 </p>
               </div>
 

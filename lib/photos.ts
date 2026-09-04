@@ -62,8 +62,8 @@ export const PHOTOS = {
    * needs to be on the right.
    */
   dayPlay: {
-    src: null,
-    alt: "Open floor space set up for morning free play",
+    src: "learning-toy-shelves.webp",
+    alt: "Organized shelves of toys, puzzles, books, and creative materials at T.L.C. Footprints",
     ratio: "3/2",
     spec: "Morning play setup, from standing height. Subject left of center, quiet right third. 2000 x 1333",
   },
@@ -79,7 +79,7 @@ export const PHOTOS = {
 
   /** About page, "Meet LaTrell". */
   portrait: {
-    src: null,
+    src: "latrell-armstrong-portrait.webp",
     alt: "LaTrell Armstrong, owner of T.L.C. Footprints Home Daycare",
     ratio: "4/5",
     spec: "Portrait, waist up, window light. 1200 x 1500",
@@ -87,8 +87,8 @@ export const PHOTOS = {
 
   /** Programs page, meals. */
   meals: {
-    src: null,
-    alt: "The table set for a morning snack",
+    src: "learning-toy-shelves-rotated.webp",
+    alt: "Organized shelves of toys, puzzles, books, and creative materials at T.L.C. Footprints",
     ratio: "1/1",
     spec: "Table set for snack, shot from above. 1200 x 1200",
   },

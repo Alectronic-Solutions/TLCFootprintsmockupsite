@@ -78,7 +78,10 @@ export default function WhatToExpectPage() {
           />
         </div>
 
-        <ExpectHeroArtwork imageSrc="/what-to-expect-hero-classroom.webp" className="hidden lg:block" />
+        <ExpectHeroArtwork
+          imageSrc="/what-to-expect-hero-classroom.webp"
+          className="hidden lg:block"
+        />
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden bg-cream/35 lg:block" />
         <div
           aria-hidden="true"
@@ -102,29 +105,6 @@ export default function WhatToExpectPage() {
       {/* The distinct care, learning, and safety promises, as a three-page
           book. Practical details live in the sections below. */}
       <ExpectBook />
-
-      <ArcDivider variant="deep" from="bg-cream-deep" to="fill-cream" />
-
-      <DayBand
-        photo="outdoor"
-        side="clock-left"
-        label="The day"
-        title="A consistent rhythm to the day"
-        lead={
-          "A dependable flow helps children settle in and feel secure, while still leaving room for play, exploration, creativity, and age-appropriate experiences."
-        }
-        body={
-          <>
-            <span className="block text-balance">
-              {BUSINESS.hours.days}, {BUSINESS.hours.open} to {BUSINESS.hours.close}.
-            </span>{" "}
-            <span className="mt-1 block text-balance">The program is closed on weekends and designated holidays.</span>
-          </>
-        }
-        copyAlign="text-center"
-      />
-
-      <ArcDivider variant="scallop" from="bg-cream" to="fill-cream-deep" />
 
       {/* Food has one home on the page: what is provided and what families
           pack. Hours and closures belong solely to the day band above. */}
@@ -167,6 +147,25 @@ export default function WhatToExpectPage() {
       </section>
 
       <ArcDivider variant="shallow" from="bg-cream-deep" to="fill-cream" />
+
+      <DayBand
+        photo="outdoor"
+        side="clock-left"
+        label="The day"
+        title="A consistent rhythm to the day"
+        lead={
+          "A dependable flow helps children settle in and feel secure, while still leaving room for play, exploration, creativity, and age-appropriate experiences."
+        }
+        body={
+          <>
+            <span className="block text-balance">
+              {BUSINESS.hours.days}, {BUSINESS.hours.open} to {BUSINESS.hours.close}.
+            </span>{" "}
+            <span className="mt-1 block text-balance">The program is closed on weekends and designated holidays.</span>
+          </>
+        }
+        copyAlign="text-center"
+      />
 
       <section className="section-y bg-cream">
         <div className="container-page">

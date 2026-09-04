@@ -1,4 +1,6 @@
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { Hero } from "@/components/home/Hero";
 import { ChildActionSection } from "@/components/home/ChildActionSection";
 import { HighlightsBar } from "@/components/home/HighlightsBar";
@@ -18,6 +20,7 @@ import { Accordion } from "@/components/ui/Accordion";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { BUSINESS, HOME_FAQS } from "@/lib/constants";
 import { pageMeta } from "@/lib/seo";
+import { asset } from "@/lib/site";
 
 export const metadata = pageMeta({
   title: `Licensed Home Daycare in Elk Grove, CA | ${BUSINESS.shortName}`,
@@ -111,6 +114,12 @@ export default function HomePage() {
 
       <ChildActionSection />
 
+      <ArcDivider variant="deep" from="bg-cream" to="fill-cream-deep" />
+
+      <RatesPanel />
+
+      <ArcDivider variant="scallop" from="bg-cream-deep" to="fill-cream" />
+
       {/* Why a home */}
       <section className="section-y relative overflow-hidden bg-cream">
         <div className="container-page relative">
@@ -131,12 +140,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <ArcDivider variant="deep" from="bg-cream" to="fill-cream-deep" />
-
-      <RatesPanel />
-
-      <ArcDivider variant="scallop" from="bg-cream-deep" to="fill-cream" />
-
       {/* Inside the day: the visual break between the rate cards and the trust
           sections that follow, and the one section that keeps moving once you
           stop scrolling.
@@ -156,8 +159,8 @@ export default function HomePage() {
           are prominent elsewhere on the page; what a day actually contains was
           nowhere, which is what this column carries now. */}
       <DayBand
-        photo="dayPlay"
         side="clock-left"
+        copyAlign="text-center"
         label="Inside the day"
         title="Long stretches of play that nobody interrupts"
         lead={
@@ -182,6 +185,40 @@ export default function HomePage() {
         }
         link={{ href: "/what-to-expect", label: "What families can expect" }}
       />
+
+      {/* A clear, in-flow preview of the full "What to Expect" guide. */}
+      <section className="relative overflow-hidden bg-cream pb-6 pt-2 sm:pb-10 sm:pt-4">
+        <div className="container-page">
+          <AnimatedSection className="mx-auto max-w-5xl">
+            <Link
+              href="/what-to-expect"
+              className="group block overflow-hidden rounded-[2rem] border-hair border-cocoa/10 bg-cream-deep shadow-lift"
+            >
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <Image
+                  src={asset("/photos/snack-table.webp")}
+                  alt="A small table set with snacks, fruit, and children's cups at T.L.C. Footprints"
+                  fill
+                  sizes="(min-width: 1024px) 64rem, 100vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                />
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 bg-gradient-to-t from-cocoa/75 via-cocoa/10 to-transparent"
+                />
+                <div className="absolute inset-x-0 bottom-0 p-6 text-center sm:p-8">
+                  <p className="text-eyebrow font-bold uppercase tracking-[0.12em] text-cream">
+                    What families can expect
+                  </p>
+                  <p className="mx-auto mt-2 max-w-[38ch] text-lg font-semibold leading-snug text-white sm:text-xl">
+                    Take a closer look at everyday care at T.L.C. Footprints.
+                  </p>
+                </div>
+              </div>
+            </Link>
+          </AnimatedSection>
+        </div>
+      </section>
 
       {/* From here the page answers "can I trust her": the name, then the
           process, then the questions. The licence-lookup panel used to open

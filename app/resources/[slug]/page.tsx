@@ -6,6 +6,7 @@ import { CTABand } from "@/components/sections/CTABand";
 import { ArcDivider } from "@/components/brand/ArcDivider";
 import { HeartDots } from "@/components/brand/HeartDots";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
+import { CurrentMonth } from "@/components/ui/CurrentMonth";
 import { ResourcesHeroBackdrop } from "@/components/resources/ResourcesHeroBackdrop";
 import { getAllArticles, getArticle, getRelated } from "@/lib/mdx";
 import { BUSINESS } from "@/lib/constants";
@@ -174,7 +175,7 @@ export default async function ArticlePage({
                   {article.readingTime} min read
                 </span>
                 <span aria-hidden="true">·</span>
-                <span>Last updated {article.updated}</span>
+                <span>Last updated <CurrentMonth /></span>
                 <span aria-hidden="true">·</span>
                 <span>By {BUSINESS.shortName}</span>
               </div>

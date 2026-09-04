@@ -15,7 +15,6 @@ import { BUSINESS } from "@/lib/constants";
 export function AboutDayBand() {
   return (
     <DayBand
-      photo="dayPlay"
       side="clock-right"
       copyAlign="text-center"
       clockClassName="mx-auto max-w-sm"

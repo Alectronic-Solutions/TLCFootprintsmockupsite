@@ -112,6 +112,7 @@ export default function TourPage() {
             </ul>
           </div>
         </section>
+
       </div>
 
       <ArcDivider variant="shallow" from="bg-cream" to="fill-cream-deep" />

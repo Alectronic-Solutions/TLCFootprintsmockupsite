@@ -3,8 +3,9 @@ import {
   type HighlightIconName,
 } from "@/components/brand/HighlightIcon";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
+import { CurrentMonth } from "@/components/ui/CurrentMonth";
 import { cn } from "@/lib/cn";
-import { AVAILABILITY, BUSINESS } from "@/lib/constants";
+import { BUSINESS } from "@/lib/constants";
 
 /**
  * The four practical facts, seamed straight under the hero.
@@ -56,10 +57,10 @@ const HIGHLIGHTS: Highlight[] = [
        the "Current openings" section was deleted that has nowhere else to live,
        and it is the honesty signal on the one fact a parent most needs to
        trust: a status with a date on it is a status someone maintains. LaTrell
-       keeps it current by editing AVAILABILITY in constants.ts. */
+       stays current automatically, using the daycare's California month. */
     icon: "openings",
     label: "Now enrolling",
-    detail: `Updated ${AVAILABILITY.updated}`,
+    detail: "Updated this month",
   },
   {
     icon: "meals",
@@ -146,7 +147,11 @@ export function HighlightsBar() {
                     {item.label}
                   </p>
                   <p className="mt-0.5 text-sm leading-snug text-cocoa-mid">
-                    {item.detail}
+                    {item.label === "Now enrolling" ? (
+                      <>Updated <CurrentMonth /></>
+                    ) : (
+                      item.detail
+                    )}
                   </p>
                 </div>
               </li>

@@ -36,7 +36,8 @@ export function DayBand({
   copyAlign = "text-center lg:text-left",
   clockClassName,
 }: {
-  photo: PhotoKey;
+  /** Optional full-bleed scene. Omit it when the band should stay quiet. */
+  photo?: PhotoKey;
   label: string;
   title: ReactNode;
   lead: ReactNode;
@@ -55,33 +56,35 @@ export function DayBand({
 
   return (
     <section className="section-y relative isolate overflow-hidden bg-cream">
-      {/* The scene, full-bleed behind the whole section, scrimmed back to
-          cream the way the hero is. `isolate` is what lets -z-10 sit above
-          the section's own cream but under the content. */}
-      <div className="absolute inset-0 -z-10">
-        <Photo name={photo} fill fillLabel="none" sizes="100vw" />
+      {photo ? (
+        /* The scene, full-bleed behind the whole section, scrimmed back to
+            cream the way the hero is. `isolate` is what lets -z-10 sit above
+            the section's own cream but under the content. */
+        <div className="absolute inset-0 -z-10">
+          <Photo name={photo} fill fillLabel="none" sizes="100vw" />
 
-        <div aria-hidden="true" className="absolute inset-0 bg-cream/75 lg:bg-cream/45" />
-        {/* Reading scrim, mirrored to whichever side the copy lands on: opaque
-            behind the words, transparent over the photo's quiet third. */}
-        <div
-          aria-hidden="true"
-          className={cn(
-            "absolute inset-0 bg-gradient-to-b from-cream via-cream/85 to-cream/30",
-            clockLeft
-              ? "lg:bg-gradient-to-l lg:from-cream lg:via-cream/80 lg:to-transparent"
-              : "lg:bg-gradient-to-r lg:from-cream lg:via-cream/80 lg:to-transparent",
-          )}
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-cream to-transparent"
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-cream to-transparent"
-        />
-      </div>
+          <div aria-hidden="true" className="absolute inset-0 bg-cream/75 lg:bg-cream/45" />
+          {/* Reading scrim, mirrored to whichever side the copy lands on: opaque
+              behind the words, transparent over the photo's quiet third. */}
+          <div
+            aria-hidden="true"
+            className={cn(
+              "absolute inset-0 bg-gradient-to-b from-cream via-cream/85 to-cream/30",
+              clockLeft
+                ? "lg:bg-gradient-to-l lg:from-cream lg:via-cream/80 lg:to-transparent"
+                : "lg:bg-gradient-to-r lg:from-cream lg:via-cream/80 lg:to-transparent",
+            )}
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-cream to-transparent"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-cream to-transparent"
+          />
+        </div>
+      ) : null}
 
       {sprig ? (
         <ScrollSprig

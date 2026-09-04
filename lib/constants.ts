@@ -83,8 +83,9 @@ export const BUSINESS = {
 
 /**
  * Drives the hero's status pill, the "Now enrolling" tile in the highlights
- * bar, and the announcement bar above the navbar. LaTrell keeps the site
- * current by editing the status and the date. See README.
+ * bar, and the announcement bar above the navbar. The freshness date shown
+ * to families follows the current California month automatically; only the
+ * availability status needs editing. See README.
  */
 export type AvailabilityStatus = "open" | "limited" | "full";
 
@@ -99,10 +100,8 @@ export type AvailabilityStatus = "open" | "limited" | "full";
  */
 export const AVAILABILITY: {
   status: AvailabilityStatus;
-  updated: string;
 } = {
   status: "limited",
-  updated: "August 2026",
 };
 
 export type ProgramIconName = "infant" | "toddler";

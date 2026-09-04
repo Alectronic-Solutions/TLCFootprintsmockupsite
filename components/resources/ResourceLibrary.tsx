@@ -13,6 +13,7 @@ import { motion, useReducedMotion, type PanInfo } from "framer-motion";
 import { ResourceIcon } from "@/components/brand/ResourceIcon";
 import { EASE } from "@/components/ui/AnimatedSection";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { CurrentMonth } from "@/components/ui/CurrentMonth";
 import { BUSINESS } from "@/lib/constants";
 import { cn } from "@/lib/cn";
 import type { ArticleTopic } from "@/lib/mdx";
@@ -424,7 +425,7 @@ export function ResourceLibrary({ books }: { books: ResourceBookData[] }) {
             <div className="resource-reader-footer mt-5 flex flex-col items-center justify-center gap-4 text-center sm:flex-row sm:justify-between">
               <p className="text-center text-sm font-semibold text-cocoa-mid">
                 Page {pageIndex + 1} of {selectedBook.pages.length} · {selectedBook.readingTime} min read ·
-                updated {selectedBook.updated}
+                updated <CurrentMonth />
               </p>
               <Link
                 href={`/resources/${selectedBook.slug}`}

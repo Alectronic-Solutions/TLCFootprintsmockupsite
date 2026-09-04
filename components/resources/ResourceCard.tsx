@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Clock } from "lucide-react";
 import { ResourceIcon } from "@/components/brand/ResourceIcon";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { CurrentMonth } from "@/components/ui/CurrentMonth";
 import type { ArticleMeta } from "@/lib/mdx";
 import { TOPIC_LABELS } from "@/lib/mdx";
 import { cn } from "@/lib/cn";
@@ -57,7 +58,7 @@ export function ResourceCard({ article }: { article: ArticleMeta }) {
             {article.readingTime} min read
           </span>
           <span aria-hidden="true">·</span>
-          <span>Updated {article.updated}</span>
+          <span>Updated <CurrentMonth /></span>
         </div>
 
         <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-pink-dark">

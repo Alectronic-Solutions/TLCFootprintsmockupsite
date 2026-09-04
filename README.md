@@ -20,7 +20,6 @@ Every one of these is a small edit to a single file. If you are not comfortable 
 ```ts
 export const AVAILABILITY = {
   status: "limited",
-  updated: "August 2026",
 };
 ```
 
@@ -31,7 +30,7 @@ in the two places a parent sees first:
   enrolling · openings available", `"limited"` reads "Now enrolling · limited
   openings", and `"full"` reads "Currently full" with no link to a tour
 - the "Now enrolling" tile in the row of four under the home page hero, which
-  carries the `updated` date - so change that date in the same edit
+  carries an automatically current California-month stamp
 
 The site deliberately publishes **no opening counts** and no per-age-group
 breakdown. Your brief gives one enrolling statement for the home and no
@@ -40,7 +39,8 @@ invented. A number is also stale the day after one child enrols, on the
 section most likely to make a parent book a tour. If you ever want counts
 published, send Alec the real ones and he will wire them up.
 
-**Always change `updated` too.** The site shows that date to parents so it reads as maintained. A stale date is worse than no date.
+The displayed freshness stamp updates itself every month, so there is no date
+to edit when changing availability.
 
 ### Change a rate
 
