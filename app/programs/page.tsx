@@ -61,8 +61,10 @@ export default function ProgramsPage() {
             mobileFit="cover"
             mobileWidth={1401}
             mobileHeight={1123}
+            mobilePosition="center"
           />
         }
+        responsiveBackdropClassName="h-[52vh] min-h-[22rem]"
       >
         <div className="flex flex-col justify-center gap-3 sm:flex-row">
           <Button href="/availability" variant="secondary">

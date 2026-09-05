@@ -45,7 +45,7 @@ export function PaymentFacts() {
 
       <div className="mt-7 border-t-hair border-cocoa/10 pt-6">
         <Link
-          href="/resources/child-action-subsidy-sacramento"
+          href="/resources/family-guide-child-action-and-costs"
           className="group inline-flex items-center gap-2 text-base font-semibold text-cocoa underline decoration-pink/50 underline-offset-4 transition-colors hover:text-pink-dark"
         >
           How Child Action subsidies work

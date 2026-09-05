@@ -84,7 +84,8 @@ export default function AboutPage() {
       {/* Two compositions again, not one:
 
           Below lg - the illustration runs in normal flow as its own block,
-          ABOVE the copy, at its native 2.2:1 ratio. Still colours in under a
+          ABOVE the copy, at the same tall mobile hero size as the other
+          interior pages. Still colours in under a
           finger drag (AboutHeroArtwork's listener is pointer-type-agnostic),
           it just is not layered under text here - a phone has no spare
           width to hold both a legible card and enough of the scene to be
@@ -98,12 +99,16 @@ export default function AboutPage() {
           scene's one focal point (the family figures). Grayscale at rest,
           colouring in under the cursor. */}
       <div className="relative isolate overflow-hidden bg-cream">
-        <div className="relative aspect-[11/7] w-full lg:hidden">
+        <div className="relative h-[70vh] min-h-[26rem] w-full lg:hidden">
           <AboutHeroArtwork
             imageSrc="/about-family-illustration-panoramic-blue.webp"
             width={1863}
             height={844}
             compact
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-cream via-cream/5 to-transparent"
           />
         </div>
 
@@ -124,7 +129,7 @@ export default function AboutPage() {
               over it, so there is nothing here to card. */}
           <PageHero
             decor={false}
-            topPaddingClassName="pt-8 lg:pt-[calc(var(--header-h)_+_3rem)]"
+            topPaddingClassName="pt-0 lg:pt-[calc(var(--header-h)_+_3rem)]"
             surface="bg-cream lg:bg-transparent"
             align="responsive"
             contentClassName="relative max-w-[30rem] lg:rounded-[2rem] lg:bg-cream/90 lg:px-8 lg:py-7 lg:shadow-[0_20px_50px_-30px_rgba(62,42,33,0.45)] lg:backdrop-blur-sm lg:[&_h1]:leading-[1.2] lg:[&_p]:mt-6 lg:max-w-[32rem] xl:max-w-[36rem]"

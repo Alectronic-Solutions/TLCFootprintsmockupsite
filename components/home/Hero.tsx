@@ -383,10 +383,10 @@ export function Hero() {
             variants={fadeUp}
             className="mx-auto mt-5 max-w-[48ch] text-lead text-ink sm:mx-0 sm:mt-7"
           >
-            <strong className="font-bold text-cocoa">{BUSINESS.shortName}</strong> is a
-            small, licensed family child care home in {BUSINESS.city}. From birth through
-            age 5, children spend their days playing, exploring, and growing up in a real
-            home, with a provider who knows exactly which song makes them giggle.
+            <strong className="font-bold text-cocoa">{BUSINESS.shortName}</strong> is a small,
+            licensed family child care home in {BUSINESS.city}. Children from birth
+            through age 5 spend their days playing, exploring, and growing in a home where
+            they are known, cared for, and encouraged to be themselves.
           </motion.p>
 
           {/* Full-width stacked on phones, inline from sm. A pill floating in

@@ -53,7 +53,7 @@ LaTrell should read the actual page rather than approve only its headline.
 | What to expect | Meals, safety, communication, and daily-experience statements |  |
 | Tour page | Tour sequence, contact methods, and address-disclosure statement |  |
 | FAQ page | Every answer, especially illness, meals, and what-to-bring policies |  |
-| Fifteen resource articles | Accuracy, tone, external facts, phone numbers, thresholds, and advice |  |
+| Six resource handbooks | Accuracy, tone, external facts, phone numbers, thresholds, and advice |  |
 | Privacy policy | Form providers, retention, analytics, contact method, and effective date |  |
 | Terms of use | Rates, reservation, deposit, content ownership, and disclaimer statements |  |
 | Accessibility statement | Contact method and remediation commitment |  |

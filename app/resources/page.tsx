@@ -152,13 +152,13 @@ export default function ResourcesPage() {
 
       <PageHero
         label="The family resource library"
-        title="A useful shelf for your child care search."
+        title="Helpful guides for choosing child care."
         subtitle={
           <>
-            <span className="block">No filler and no endless parenting feed.</span>{" "}
+            <span className="block">I made these guides to help you feel more prepared.</span>{" "}
             <span className="mt-1 block">
-              Just practical help for checking a license, paying for care, choosing a provider,
-              and getting ready to enroll.
+              Check a license, understand Child Action, compare care, and get ready for your
+              child&apos;s first days.
             </span>
           </>
         }
@@ -172,7 +172,7 @@ export default function ResourcesPage() {
         contentClassName="max-w-[46rem] rounded-[1.5rem] border border-white/90 bg-cream/[0.94] px-5 py-7 shadow-lift sm:px-10 sm:py-9"
       >
         <p className="text-sm text-cocoa-mid">
-          6 purposeful handbooks · official links included · written for T.L.C. families
+          6 practical handbooks · official links included · written for T.L.C. families
         </p>
       </PageHero>
 
@@ -181,8 +181,8 @@ export default function ResourcesPage() {
       <ResourceLibrary books={books} />
 
       <CTABand
-        title="Your family may not fit a checklist."
-        body="Call or text me. I am happy to talk through your child’s needs, your schedule, and what a comfortable start could look like."
+        title="Have a question about your family?"
+        body="Every family’s needs are a little different. Call or text me and I’ll be happy to talk through your child’s needs, your schedule, and what a comfortable start could look like."
         from="bg-cream-deep"
       />
     </>

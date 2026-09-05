@@ -13,7 +13,6 @@ import { motion, useReducedMotion, type PanInfo } from "framer-motion";
 import { ResourceIcon } from "@/components/brand/ResourceIcon";
 import { EASE } from "@/components/ui/AnimatedSection";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { CurrentMonth } from "@/components/ui/CurrentMonth";
 import { BUSINESS } from "@/lib/constants";
 import { cn } from "@/lib/cn";
 import type { ArticleTopic } from "@/lib/mdx";
@@ -248,12 +247,12 @@ export function ResourceLibrary({ books }: { books: ResourceBookData[] }) {
         <div className="container-page">
           <div className="mx-auto max-w-3xl text-center">
             <SectionLabel className="text-center">The family shelf</SectionLabel>
-            <h2 className="mt-3 text-h2">Pull down the handbook you need</h2>
+            <h2 className="mt-3 text-h2">Choose a guide to get started</h2>
             <p className="mx-auto mt-4 max-w-[60ch] text-lead">
-              <span className="block">This is a focused child care library, not a stream of filler.</span>{" "}
+              <span className="block">These six handbooks cover the questions families ask most.</span>{" "}
               <span className="mt-1 block">
-                Every handbook supports a decision families make before enrolling or while using
-                the program.
+                They can help you compare care, prepare for enrollment, and keep everyday details
+                organized.
               </span>
             </p>
             <p className="mt-5 text-sm font-bold text-leaf-dark">
@@ -425,7 +424,7 @@ export function ResourceLibrary({ books }: { books: ResourceBookData[] }) {
             <div className="resource-reader-footer mt-5 flex flex-col items-center justify-center gap-4 text-center sm:flex-row sm:justify-between">
               <p className="text-center text-sm font-semibold text-cocoa-mid">
                 Page {pageIndex + 1} of {selectedBook.pages.length} · {selectedBook.readingTime} min read ·
-                updated <CurrentMonth />
+                updated {selectedBook.updated}
               </p>
               <Link
                 href={`/resources/${selectedBook.slug}`}

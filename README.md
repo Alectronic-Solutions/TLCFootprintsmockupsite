@@ -84,11 +84,11 @@ related:
 ---
 ```
 
-The file name becomes the web address. `what-to-pack-for-home-daycare.mdx` becomes `/resources/what-to-pack-for-home-daycare`. Use lowercase words with dashes and no spaces.
+The file name becomes the web address. `family-guide-daily-care.mdx` becomes `/resources/family-guide-daily-care`. Use lowercase words with dashes and no spaces.
 
-New articles appear on the Resources page and in the sitemap automatically.
+The six current handbooks appear on the Resources page and in the sitemap automatically. Add another handbook only when there is a real family question it should answer and the content has been reviewed.
 
-**The articles are drafts for you to review.** They were written from your brief so the site would launch complete, but you are the expert. Please read them and change anything that does not sound like you or is not accurate to how you actually run things.
+**The handbooks are drafts for you to review.** They were written from your brief so the site would launch complete, but you are the expert. Please read them and change anything that does not sound like you or is not accurate to how you actually run things.
 
 ### Adding your photos
 
@@ -309,7 +309,7 @@ and Toddler/Preschool-Age Care begins at age 2.
 7. Confirmation of the published Instagram and TikTok handles, plus a Facebook handle if you want one listed.
 8. Approved photos of the space.
 9. Confirmation that "Opening August 3rd" from the flyers is superseded by "now enrolling". The site says now enrolling everywhere.
-10. Your review of the fifteen resource articles.
+10. Your review of the six resource handbooks.
 11. Whether you speak Spanish. Elk Grove is one of the most diverse cities in the country and almost no competitor advertises bilingual care, so it would be a real advantage.
 12. **Your actual daily routine.** The site once had a full hour-by-hour
     schedule that nobody supplied: arrival, play blocks, outdoor time, a 1:00
@@ -360,7 +360,7 @@ her eye before launch, in rough order of how load-bearing they are:
   ease-in.
 - `app/tour/page.tsx` - the note that the address is shared when a tour is
   confirmed.
-- All fifteen `content/resources/*.mdx` articles, already listed as question 10.
+- All six `content/resources/*.mdx` handbooks, already listed as question 10.
   Their unsupported first-person claims have been stripped, but the general
   parenting and industry statistics in them are unsourced: "most babies take one
   to three weeks to settle", "almost every family is fine by week three", the

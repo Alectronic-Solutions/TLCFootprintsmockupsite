@@ -97,7 +97,7 @@ export function ChildActionSection() {
                   />
                 </Button>
                 <Button
-                  href="/resources/child-action-subsidy-sacramento"
+          href="/resources/family-guide-child-action-and-costs"
                   variant="quiet"
                   size="sm"
                   className="group justify-center sm:w-auto"

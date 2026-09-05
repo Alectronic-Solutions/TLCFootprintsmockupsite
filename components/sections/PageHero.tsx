@@ -58,6 +58,7 @@ export function PageHero({
   backdrop = false,
   backdropScrimClassName = "bg-cream/40",
   responsiveBackdrop,
+  responsiveBackdropClassName = "h-[70vh] min-h-[26rem]",
 }: {
   label?: string;
   title: string;
@@ -80,6 +81,8 @@ export function PageHero({
   backdropScrimClassName?: string;
   /** One artwork node that sits before the copy on phones and behind it from sm up. */
   responsiveBackdrop?: ReactNode;
+  /** Optional phone-only sizing for the artwork block. */
+  responsiveBackdropClassName?: string;
 }) {
   return (
     <section
@@ -108,8 +111,17 @@ export function PageHero({
     >
       {responsiveBackdrop ? (
         <>
-          <div className="relative h-[70vh] min-h-[26rem] pointer-events-auto sm:absolute sm:inset-0 sm:-z-10 sm:h-auto sm:min-h-0">
+          <div
+            className={cn(
+              "relative pointer-events-auto sm:absolute sm:inset-0 sm:-z-10 sm:h-auto sm:min-h-0",
+              responsiveBackdropClassName,
+            )}
+          >
             {responsiveBackdrop}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-cream via-cream/5 to-transparent sm:hidden"
+            />
           </div>
           <div
             aria-hidden="true"

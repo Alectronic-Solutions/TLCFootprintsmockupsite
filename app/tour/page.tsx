@@ -80,7 +80,6 @@ export default function TourPage() {
           contentClassName="rounded-2xl border-hair border-cocoa/10 bg-cream/90 px-6 py-8 shadow-soft backdrop-blur-sm sm:px-10 sm:py-10"
         >
           <div className="flex flex-col justify-center gap-3 sm:flex-row">
-            <Button href="#tour-request">Request a Tour</Button>
             <Button href="/availability" variant="secondary">
               Check Availability
             </Button>

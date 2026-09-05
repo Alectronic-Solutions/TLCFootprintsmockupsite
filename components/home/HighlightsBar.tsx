@@ -126,15 +126,13 @@ export function HighlightsBar() {
                   "lg:border-l-hair lg:border-t-0 lg:first:border-l-0",
                 )}
               >
-                {/* The raised bubble the day-rhythm times sit in. It stays
-                    neutral rather than tinted per item: the marks carry two
-                    and three brand colours of their own, and a tinted disc
-                    behind them would put one more in a 48px circle. */}
+                {/* The illustrations stand on their own so their shape and
+                    dimensional shading carry the visual weight. */}
                 <span
                   aria-hidden="true"
-                  className="grid h-12 w-12 shrink-0 place-items-center rounded-full border-hair border-cocoa/15 bg-gradient-to-b from-white to-cream-deep shadow-[0_1px_0_0_rgba(255,255,255,0.9)_inset,0_2px_6px_-2px_rgba(62,42,33,0.15)]"
+                  className="grid h-10 w-10 shrink-0 place-items-center"
                 >
-                  <HighlightIcon name={item.icon} className="h-8 w-8" />
+                  <HighlightIcon name={item.icon} className="h-10 w-10" />
                 </span>
 
                 <div className="w-[9.5rem] min-w-0 sm:w-auto">

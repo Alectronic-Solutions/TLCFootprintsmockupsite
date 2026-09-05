@@ -38,6 +38,8 @@ const BLOB_R = 260;
 const BLOB_BLUR = 60;
 /** Smaller dab on phones - the whole picture is far smaller on screen there than on a desktop backdrop. */
 const MOBILE_BLOB_R = 130;
+/** Leave a little sky around the panoramic scene in the tall mobile hero. */
+const MOBILE_ART_HEIGHT = 0.86;
 /** How long the scene stays fully coloured after the pointer goes idle, before the whole reveal fades out together - matches ProgramsHeroArtwork. */
 const IDLE_FADE_DELAY_MS = 60_000;
 const FADE_DURATION_MS = 1_400;
@@ -116,14 +118,21 @@ export function AboutHeroArtwork({
 
       // Cover-crop math: same fit the CSS background uses (bg-[center_top]
       // and the SVG's xMidYMin), so a dab lands exactly under the pointer
-      // regardless of how the box has cropped the image at this width.
+      // regardless of how the box has cropped the image at this width. The
+      // compact mobile art is shorter than its hero box and bottom-aligned,
+      // which leaves extra sky above the scene to make the panorama read
+      // farther out rather than enlarging it to fill the phone.
       // Y is anchored to the top rather than centred - centring it here
       // (as a plain "object-fit: cover" would) shifted every dab down by
       // half the vertical crop, so the top of the artwork could never be
       // reached by the pointer and never coloured in.
-      const scale = Math.max(rect.width / width, rect.height / height);
+      const scale = Math.max(
+        rect.width / width,
+        ((compact ? MOBILE_ART_HEIGHT : 1) * rect.height) / height,
+      );
       const offsetX = (rect.width - width * scale) / 2;
-      const point = { x: (px - offsetX) / scale, y: py / scale };
+      const offsetY = rect.height - height * scale;
+      const point = { x: (px - offsetX) / scale, y: (py - offsetY) / scale };
 
       if (
         point.x < 0 ||
@@ -161,13 +170,16 @@ export function AboutHeroArtwork({
     <div
       ref={boxRef}
       aria-hidden="true"
-      className={cn("absolute inset-0 touch-pan-y overflow-hidden", className)}
+      className={cn("absolute inset-0 touch-pan-y overflow-hidden", compact ? "bg-[#b8e2f4]" : null, className)}
     >
       {/* The resting state: grayscale, so the scene reads as a quiet
           colouring-book backdrop rather than competing with the copy over
           it. */}
       <div
-        className="absolute inset-0 bg-cover bg-[center_top] grayscale"
+        className={cn(
+          "bg-cover bg-[center_top] grayscale",
+          compact ? "absolute inset-x-0 bottom-0 top-auto h-[86%]" : "absolute inset-0",
+        )}
         style={{ backgroundImage: `url(${resolvedImageSrc})` }}
       />
 
@@ -176,7 +188,10 @@ export function AboutHeroArtwork({
       <svg
         viewBox={`0 0 ${width} ${height}`}
         preserveAspectRatio="xMidYMin slice"
-        className="absolute inset-0 h-full w-full"
+        className={cn(
+          "w-full",
+          compact ? "absolute inset-x-0 bottom-0 top-auto h-[86%]" : "absolute inset-0 h-full",
+        )}
       >
         <defs>
           <filter

@@ -100,17 +100,14 @@ export function RatesPanel() {
       <div className="container-page">
         <AnimatedSection className="mx-auto max-w-2xl text-center">
           <SectionLabel className="text-center">Programs and rates</SectionLabel>
-          <h2 className="text-3d mt-3 text-h2 sm:mt-4">What it costs</h2>
+          <h2 className="text-3d mt-3 text-h2 max-sm:text-[1.7rem] sm:mt-4">What it costs</h2>
           {/* The second line is the one to lose on a phone: the first rate is
               already a thumb's length below it, so "here are the rates" points
               at something the eye has arrived at anyway. The claim it is
               answering is the half worth keeping at every width. */}
-          <p className="mx-auto mt-3 max-w-[46ch] text-balance text-lead text-ink sm:mt-5">
-            Most daycare sites make you call to find out.
-            <span className="hidden sm:inline">
-              <br />
-              Here are the rates.
-            </span>
+          <p className="mx-auto mt-3 max-w-[46ch] text-balance text-lead text-ink max-sm:mt-2 max-sm:max-w-[34ch] max-sm:text-[0.95rem] max-sm:leading-5.5 sm:mt-5">
+            I put my rates here so you can see them before you call. If you have questions
+            about schedules or Child Action, I&apos;m happy to talk them through.
           </p>
         </AnimatedSection>
 
@@ -120,10 +117,10 @@ export function RatesPanel() {
             the two and assistive tech is told what this is without a hand-rolled
             role. The inputs are clipped rather than hidden, so the focus ring has
             to be drawn on the label instead of on the control. */}
-        <AnimatedSection delay={0.06} className="mt-4 flex justify-center print:hidden sm:mt-8">
+        <AnimatedSection delay={0.06} className="mt-4 flex justify-center print:hidden max-sm:mt-4 sm:mt-8">
           <fieldset>
             <legend className="sr-only">Schedule</legend>
-            <div className="inline-flex gap-1 rounded-full border-hair border-cocoa/10 bg-cream p-1 shadow-[inset_0_1px_4px_rgba(62,42,33,0.10)]">
+            <div className="inline-flex gap-1 rounded-full border-hair border-cocoa/10 bg-cream p-1 shadow-[inset_0_1px_4px_rgba(62,42,33,0.10)] max-sm:w-[min(100%,18rem)] max-sm:justify-between">
               {SCHEDULES.map((option) => (
                 <div key={option.id}>
                   <input
@@ -139,7 +136,7 @@ export function RatesPanel() {
                     htmlFor={`rate-${option.id}`}
                     /* The border is always present and only changes colour, so
                        selecting an option cannot nudge the other one sideways. */
-                    className="block cursor-pointer select-none rounded-full border-hair border-transparent px-5 py-2.5 text-sm font-semibold text-cocoa-mid transition-[background-color,color,border-color,box-shadow] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:text-cocoa peer-checked:border-cocoa/20 peer-checked:bg-gradient-to-b peer-checked:from-white peer-checked:to-cream-deep peer-checked:text-cocoa peer-checked:shadow-[0_2px_0_0_rgba(62,42,33,0.10),0_6px_14px_-6px_rgba(62,42,33,0.18)] peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-leaf-dark"
+                    className="block cursor-pointer select-none rounded-full border-hair border-transparent px-5 py-2.5 text-sm font-semibold text-cocoa-mid transition-[background-color,color,border-color,box-shadow] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:text-cocoa max-sm:flex-1 max-sm:px-3 max-sm:py-2 max-sm:text-[0.7rem] peer-checked:border-cocoa/20 peer-checked:bg-gradient-to-b peer-checked:from-white peer-checked:to-cream-deep peer-checked:text-cocoa peer-checked:shadow-[0_2px_0_0_rgba(62,42,33,0.10),0_6px_14px_-6px_rgba(62,42,33,0.18)] peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-leaf-dark"
                   >
                     {option.label}
                   </label>
@@ -149,7 +146,7 @@ export function RatesPanel() {
           </fieldset>
         </AnimatedSection>
 
-        <ul className="mx-auto mt-4 grid max-w-3xl gap-3 sm:mt-8 sm:gap-5 md:grid-cols-2 md:gap-6">
+        <ul className="mx-auto mt-4 grid max-w-3xl gap-3 max-sm:mt-4 max-sm:gap-2.5 sm:mt-8 sm:gap-5 md:grid-cols-2 md:gap-6">
           {PROGRAMS.map((program, i) => {
             const weekly = schedule === "full" ? program.fullTime : program.partTime;
             const monthly = monthlyEquivalent(weekly);
@@ -158,7 +155,7 @@ export function RatesPanel() {
               <AnimatedSection as="li" key={program.slug} delay={i * 0.08}>
                 <Card
                   interactive
-                  className="flex h-full flex-col text-left max-sm:p-4 sm:items-center sm:text-center"
+                  className="flex h-full flex-col rounded-xl bg-white/75 text-left max-sm:border-cocoa/15 max-sm:p-3.5 max-sm:shadow-[0_8px_22px_-16px_rgba(62,42,33,0.48)] sm:items-center sm:text-center"
                 >
                   {/* A centred icon above a centred name costs two lines of card
                       before a parent has read anything. On a phone the icon sits
@@ -185,7 +182,7 @@ export function RatesPanel() {
                       would spend a line of the screen this section is trying to
                       fit inside on the word "Care".
                     */}
-                    <h3 className="text-balance text-h3 sm:mt-5 md:min-h-[2.6em]">
+                    <h3 className="text-balance text-h3 max-sm:text-[0.95rem] max-sm:leading-tight sm:mt-5 md:min-h-[2.6em]">
                       {program.slug === "infant" && program.name.includes(" ") ? (
                         <>
                           <span className="md:hidden">{program.name}</span>
@@ -210,7 +207,7 @@ export function RatesPanel() {
                     {program.summary}
                   </p>
 
-                  <div className="mt-3 w-full border-t-hair border-cocoa/10 pt-3 sm:mt-4 sm:pt-4">
+                  <div className="mt-3 w-full border-t-hair border-cocoa/10 pt-3 max-sm:-mx-3.5 max-sm:mb-[-0.875rem] max-sm:w-[calc(100%+1.75rem)] max-sm:bg-cream-deep/45 max-sm:px-3.5 max-sm:py-2.5 max-sm:pt-2.5 sm:mt-4 sm:pt-4">
                     {/*
                       The figures are decoration to a screen reader: mid-tween
                       they are neither the old rate nor the new one. The polite
@@ -225,14 +222,14 @@ export function RatesPanel() {
                          does not fit across. */
                       className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-1 print:hidden sm:block"
                     >
-                      <p className="tabular font-display text-3xl font-semibold text-cocoa sm:text-5xl">
+                      <p className="tabular font-display text-3xl font-semibold text-cocoa max-sm:text-[1.65rem] sm:text-5xl">
                         $<TweenNumber value={weekly} />
-                        <span className="text-sm font-normal text-cocoa-mid sm:text-base">
+                        <span className="text-sm font-normal text-cocoa-mid max-sm:text-xs sm:text-base">
                           {" "}
                           / week
                         </span>
                       </p>
-                      <p className="tabular text-sm text-cocoa-mid sm:mt-1 sm:text-base">
+                      <p className="tabular text-sm text-cocoa-mid max-sm:text-xs sm:mt-1 sm:text-base">
                         about $<TweenNumber value={monthly} /> a month
                       </p>
                     </div>
@@ -267,7 +264,7 @@ export function RatesPanel() {
           `basisDetail` runs here; /programs carries the full explanation in its
           amber callout, which is where a parent who wants the reasoning goes.
         */}
-        <AnimatedSection className="mx-auto mt-4 max-w-prose text-center sm:mt-8">
+        <AnimatedSection className="mx-auto mt-4 max-w-prose text-center max-sm:mt-4 sm:mt-8">
           <p className="text-balance font-semibold text-cocoa max-sm:text-base">
             {TUITION.basisHeadline}
           </p>
@@ -288,7 +285,7 @@ export function RatesPanel() {
           </p>
         </AnimatedSection>
 
-        <AnimatedSection className="mt-4 text-center sm:mt-8">
+        <AnimatedSection className="mt-4 text-center max-sm:mt-4 sm:mt-8">
           <Button href="/programs" variant="secondary" className="group">
             See full rates
             <ArrowRight
