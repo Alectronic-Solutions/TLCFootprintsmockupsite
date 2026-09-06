@@ -55,16 +55,28 @@ export default function WhatToExpectPage() {
           width directly keeps the box always full width and only caps how
           tall it gets. */}
       <div className="relative isolate flex flex-col overflow-hidden bg-cream lg:h-[min(56.25vw,44rem)] lg:justify-center">
-        <div className="relative h-[70vh] min-h-[26rem] w-full shrink-0 lg:hidden">
+        <div className="relative aspect-[1672/1250] w-full shrink-0 lg:hidden">
           {/* Touch phones and tablets can't hover, so they get
               ProgramsHeroArtwork's tap-and-drag coloring engine instead of
               ExpectHeroArtwork's mouse-only reveal: grayscale at rest, colour
-              fills in under a finger, full-bleed cover crop so the photo
-              fills the screen edge to edge. */}
+              fills in under a finger. The box is noticeably taller than the
+              photo's own aspect ratio (941 -> 1250) rather than an exact
+              match: a snug fit left this photo's plain wall filling the
+              hero edge to edge, so extra cream margin above and below (the
+              photo centers vertically, sized smaller within the frame)
+              softens that instead of cropping the wall back out.
+
+              `fit` (not just `mobileFit`) also has to be "contain": this
+              component switches from `mobileFit` to `fit` at its own
+              internal 640px breakpoint, but this whole block only shows
+              below `lg` (1024px) - so 640-1024px was silently falling back
+              to a cropped `fit="cover"` on tablets even though this page's
+              real desktop hero (ExpectHeroArtwork, `lg:` and up) is a
+              different component entirely and never reads `fit`. */}
           <ProgramsHeroArtwork
             imageSrc="/what-to-expect-hero-classroom.webp"
-            fit="cover"
-            mobileFit="cover"
+            fit="contain"
+            mobileFit="contain"
             width={1672}
             height={941}
             mobileWidth={1672}
@@ -72,9 +84,16 @@ export default function WhatToExpectPage() {
             position="left"
             mobilePosition="left"
           />
+          {/* Fades the photo's own bottom edge into the cream margin below
+              it, rather than the box's bottom edge (that margin is already
+              cream, so a fade parked there blends into nothing). The photo
+              is centered and letterboxed within this taller box at a fixed
+              proportion regardless of viewport width - 941/1250 of the box
+              height, top-anchored (1 - 0.7528) / 2 down - so this can be
+              positioned by percentage instead of measuring in JS. */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-cream via-cream/5 to-transparent"
+            className="pointer-events-none absolute inset-x-0 top-[78%] h-[16%] bg-gradient-to-b from-transparent to-cream"
           />
         </div>
 
@@ -105,6 +124,29 @@ export default function WhatToExpectPage() {
       {/* The distinct care, learning, and safety promises, as a three-page
           book. Practical details live in the sections below. */}
       <ExpectBook />
+
+      <ArcDivider variant="shallow" from="bg-cream-deep" to="fill-cream" />
+
+      <DayBand
+        photo="outdoor"
+        side="clock-left"
+        label="The day"
+        title="A consistent rhythm to the day"
+        lead={
+          "A dependable flow helps children settle in and feel secure, while still leaving room for play, exploration, creativity, and age-appropriate experiences."
+        }
+        body={
+          <>
+            <span className="block text-balance">
+              {BUSINESS.hours.days}, {BUSINESS.hours.open} to {BUSINESS.hours.close}.
+            </span>{" "}
+            <span className="mt-1 block text-balance">The program is closed on weekends and designated holidays.</span>
+          </>
+        }
+        copyAlign="text-center"
+      />
+
+      <ArcDivider variant="shallow" from="bg-cream" to="fill-cream-deep" />
 
       {/* Food has one home on the page: what is provided and what families
           pack. Hours and closures belong solely to the day band above. */}
@@ -147,25 +189,6 @@ export default function WhatToExpectPage() {
       </section>
 
       <ArcDivider variant="shallow" from="bg-cream-deep" to="fill-cream" />
-
-      <DayBand
-        photo="outdoor"
-        side="clock-left"
-        label="The day"
-        title="A consistent rhythm to the day"
-        lead={
-          "A dependable flow helps children settle in and feel secure, while still leaving room for play, exploration, creativity, and age-appropriate experiences."
-        }
-        body={
-          <>
-            <span className="block text-balance">
-              {BUSINESS.hours.days}, {BUSINESS.hours.open} to {BUSINESS.hours.close}.
-            </span>{" "}
-            <span className="mt-1 block text-balance">The program is closed on weekends and designated holidays.</span>
-          </>
-        }
-        copyAlign="text-center"
-      />
 
       <section className="section-y bg-cream">
         <div className="container-page">

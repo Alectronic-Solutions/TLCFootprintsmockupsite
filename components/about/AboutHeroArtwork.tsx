@@ -71,6 +71,9 @@ export function AboutHeroArtwork({
 
   const blobR = compact ? MOBILE_BLOB_R : BLOB_R;
   const stride = compact ? MOBILE_STRIDE : STRIDE;
+  // "meet" (contain) on compact so the whole panorama shows on a phone;
+  // "slice" (cover) on desktop, where it fills the box edge to edge.
+  const preserveAspectRatio = compact ? "xMidYMin meet" : "xMidYMin slice";
 
   const [dabs, setDabs] = useState<Dab[]>([]);
   const [fading, setFading] = useState(false);
@@ -126,12 +129,21 @@ export function AboutHeroArtwork({
       // (as a plain "object-fit: cover" would) shifted every dab down by
       // half the vertical crop, so the top of the artwork could never be
       // reached by the pointer and never coloured in.
-      const scale = Math.max(
-        rect.width / width,
-        ((compact ? MOBILE_ART_HEIGHT : 1) * rect.height) / height,
-      );
+      //
+      // Desktop still uses a cover-style max-scale (the image always fills
+      // its box). The compact/mobile box shows the whole image instead - a
+      // min-scale, contain-style fit - so the wide panorama isn't cropped
+      // on a narrow phone screen; the sky-blue box behind it letterboxes
+      // whatever the image doesn't fill.
+      const boxHeight = (compact ? MOBILE_ART_HEIGHT : 1) * rect.height;
+      const scale = compact
+        ? Math.min(rect.width / width, boxHeight / height)
+        : Math.max(rect.width / width, boxHeight / height);
       const offsetX = (rect.width - width * scale) / 2;
-      const offsetY = rect.height - height * scale;
+      // Cover crops from the bottom, so the image's effective top still
+      // tracks its own scaled height. Contain never overflows the box, so
+      // its top is simply the box's own top edge.
+      const offsetY = compact ? rect.height - boxHeight : rect.height - height * scale;
       const point = { x: (px - offsetX) / scale, y: (py - offsetY) / scale };
 
       if (
@@ -174,11 +186,15 @@ export function AboutHeroArtwork({
     >
       {/* The resting state: grayscale, so the scene reads as a quiet
           colouring-book backdrop rather than competing with the copy over
-          it. */}
+          it. Compact/mobile shows the whole image (contain) instead of
+          cropping it to fill (cover) - the wide panorama doesn't fit a
+          phone's aspect ratio, so the sky-blue box behind it letterboxes
+          whatever the image doesn't fill, rather than cutting the scene
+          off. Desktop keeps the full-bleed cover crop. */}
       <div
         className={cn(
-          "bg-cover bg-[center_top] grayscale",
-          compact ? "absolute inset-x-0 bottom-0 top-auto h-[86%]" : "absolute inset-0",
+          "bg-[center_top] grayscale",
+          compact ? "absolute inset-x-0 bottom-0 top-auto h-[86%] bg-contain bg-no-repeat" : "absolute inset-0 bg-cover",
         )}
         style={{ backgroundImage: `url(${resolvedImageSrc})` }}
       />
@@ -187,7 +203,7 @@ export function AboutHeroArtwork({
           everywhere, for anyone who cannot hover a mouse over this. */}
       <svg
         viewBox={`0 0 ${width} ${height}`}
-        preserveAspectRatio="xMidYMin slice"
+        preserveAspectRatio={preserveAspectRatio}
         className={cn(
           "w-full",
           compact ? "absolute inset-x-0 bottom-0 top-auto h-[86%]" : "absolute inset-0 h-full",
@@ -232,7 +248,7 @@ export function AboutHeroArtwork({
           y={0}
           width={width}
           height={height}
-          preserveAspectRatio="xMidYMin slice"
+          preserveAspectRatio={preserveAspectRatio}
           mask={interactive ? `url(#${maskId})` : undefined}
         />
       </svg>

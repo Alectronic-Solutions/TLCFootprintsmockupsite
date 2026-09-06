@@ -99,7 +99,7 @@ export default function AboutPage() {
           scene's one focal point (the family figures). Grayscale at rest,
           colouring in under the cursor. */}
       <div className="relative isolate overflow-hidden bg-cream">
-        <div className="relative h-[70vh] min-h-[26rem] w-full lg:hidden">
+        <div className="relative aspect-[1863/981] w-full lg:hidden">
           <AboutHeroArtwork
             imageSrc="/about-family-illustration-panoramic-blue.webp"
             width={1863}

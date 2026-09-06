@@ -58,13 +58,13 @@ export default function ProgramsPage() {
           <ProgramsHeroArtwork
             imageSrc="/programs-hero-classroom-panorama.webp"
             mobileImageSrc="/programs-hero-classroom.webp"
-            mobileFit="cover"
+            mobileFit="contain"
             mobileWidth={1401}
             mobileHeight={1123}
             mobilePosition="center"
           />
         }
-        responsiveBackdropClassName="h-[52vh] min-h-[22rem]"
+        responsiveBackdropClassName="aspect-[1401/1123] sm:aspect-auto"
       >
         <div className="flex flex-col justify-center gap-3 sm:flex-row">
           <Button href="/availability" variant="secondary">
