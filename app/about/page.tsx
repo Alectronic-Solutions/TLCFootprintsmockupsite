@@ -22,7 +22,7 @@ import { cn } from "@/lib/cn";
 export const metadata = pageMeta({
   title: "About",
   description:
-    "T.L.C. Footprints is a licensed family child care home in Elk Grove run by LaTrell Armstrong, named for her grandmother Thelma Louise Clark.",
+    "T.L.C. Footprints is a licensed family child care home in Elk Grove run by La Trell Armstrong, named for her grandmother Thelma Louise Clark.",
   path: "/about",
   keywords: ["family childcare Elk Grove", "home daycare provider Elk Grove"],
 });
@@ -142,7 +142,7 @@ export default function AboutPage() {
 
       <ArcDivider variant="shallow" from="bg-cream" to="fill-cream-deep" />
 
-      {/* Meet LaTrell */}
+      {/* Meet La Trell */}
       <section className="section-y bg-cream-deep">
         <div className="container-page">
           {/* Grid alignment stays at its `stretch` default so the photo
@@ -202,10 +202,10 @@ export default function AboutPage() {
                 (app/globals.css), which is a deliberate, accepted trade: if
                 the page reads too long, drop this back to lg:pb-10 first. */}
             <AnimatedSection delay={0.08} className="text-center lg:pb-16 lg:text-left">
-              <SectionLabel className="text-center lg:text-left">Meet LaTrell</SectionLabel>
+              <SectionLabel className="text-center lg:text-left">Meet La Trell</SectionLabel>
               <h2 className="text-3d mt-3 text-h2">The person caring for your child each day</h2>
 
-              {/* Copy approved with LaTrell's brief in hand. Everything here is
+              {/* Copy approved with La Trell's brief in hand. Everything here is
                   either a stated fact (name, role, license, CPR, mandated
                   reporter) or her own stated intent for the house. Nothing
                   invents biography: no career history, no numbers, and no
@@ -324,11 +324,11 @@ export default function AboutPage() {
       </section>
 
       {/* Tour logistics stay at what the brief actually states: by appointment,
-          LaTrell confirms the time. The earlier "you are welcome to bring your
+          La Trell confirms the time. The earlier "you are welcome to bring your
           child" was never confirmed by her, so it is not promised here. */}
       <CTABand
         title={`Come see if ${BUSINESS.shortName} is right for your family`}
-        body="A website can tell you a lot, but visiting is the best way to get a feel for the place. Tours are by appointment. Call, text, or email LaTrell to request a time."
+        body="A website can tell you a lot, but visiting is the best way to get a feel for the place. Tours are by appointment. Call, text, or email La Trell to request a time."
       />
     </div>
   );

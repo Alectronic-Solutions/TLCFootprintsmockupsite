@@ -56,7 +56,7 @@ const HIGHLIGHTS: Highlight[] = [
        What took the slot is the freshness stamp. It is the only thing lost when
        the "Current openings" section was deleted that has nowhere else to live,
        and it is the honesty signal on the one fact a parent most needs to
-       trust: a status with a date on it is a status someone maintains. LaTrell
+       trust: a status with a date on it is a status someone maintains. La Trell
        stays current automatically, using the daycare's California month. */
     icon: "openings",
     label: "Now enrolling",

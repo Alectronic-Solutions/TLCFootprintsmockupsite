@@ -11,7 +11,7 @@ import { cn } from "@/lib/cn";
  * is the part of the evening the house is closed.
  *
  * This replaced an eight-step "daily rhythm" dial. That version was prettier
- * and every time on it was invented - LaTrell's brief gives her open hours and
+ * and every time on it was invented - La Trell's brief gives her open hours and
  * her meals, and no schedule whatsoever. So the dial shows the two times she
  * actually gave, and the arc between them carries the idea the schedule was
  * reaching for: the day here has a shape, and it is a long one.

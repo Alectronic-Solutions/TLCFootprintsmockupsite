@@ -4,7 +4,7 @@ import { BotanicalSprig } from "@/components/brand/BotanicalSprig";
 import { cn } from "@/lib/cn";
 
 /**
- * Decoration around the "Meet LaTrell" portrait: a wash behind it and a sprig
+ * Decoration around the "Meet La Trell" portrait: a wash behind it and a sprig
  * tucked at its corner, plus a caption slot that keeps the signature grouped
  * with the photo as one plate.
  *

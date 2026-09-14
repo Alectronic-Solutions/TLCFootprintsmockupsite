@@ -3,7 +3,7 @@ import type { Config } from "tailwindcss";
 /**
  * Brand tokens for T.L.C. Footprints, sampled from the logo.
  *
- * Two rules govern how these are used, and both come straight from LaTrell's
+ * Two rules govern how these are used, and both come straight from La Trell's
  * brief ("not extremely bright", "not too many childish graphics"):
  *
  *  1. Color lives in *marks* (arcs, leaves, footprints, icons, one CTA)

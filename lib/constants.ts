@@ -1,7 +1,7 @@
 /**
  * Single source of truth for every fact on the site.
  *
- * Every value here traces back to LaTrell's brief of August 2026. Nothing is
+ * Every value here traces back to La Trell's brief of August 2026. Nothing is
  * hardcoded in a component, partly so she can maintain the site by editing one
  * file, and partly so a future /es/ translation is additive rather than a
  * rewrite.
@@ -26,7 +26,7 @@ export const BUSINESS = {
   name: "T.L.C. Footprints Home Daycare",
   shortName: "T.L.C. Footprints",
   tagline: "Where Little Feet Leave Everlasting Footprints",
-  owner: "LaTrell Armstrong",
+  owner: "La Trell Armstrong",
 
   phone: "510-434-4834",
   phoneHref: "tel:+15104344834",
@@ -47,7 +47,7 @@ export const BUSINESS = {
    * published as structured data pinning the location of a home. County is
    * kept because Elk Grove is in Sacramento County as a matter of public
    * record, and because Child Action administers subsidies there. See README,
-   * "Questions for LaTrell".
+   * "Questions for La Trell".
    */
   city: "Elk Grove",
   state: "CA",
@@ -92,7 +92,7 @@ export type AvailabilityStatus = "open" | "limited" | "full";
 /**
  * Enrollment status.
  *
- * Per LaTrell's brief: "now enrolling with limited openings available", with
+ * Per La Trell's brief: "now enrolling with limited openings available", with
  * no per-age-group counts and no wait-list. The site publishes the status,
  * not a number. The brief supports no number, and a count would be wrong the
  * day after one child enrolls, on the one section a parent most needs to
@@ -202,7 +202,7 @@ export const RATE_INCLUSIONS = {
  * NO DAILY SCHEDULE IS PUBLISHED.
  *
  * There used to be an eight-step DAILY_RHYTHM here, with arrival, play blocks,
- * outdoor time, a 1:00 rest, and a 5:00 pickup. None of it came from LaTrell.
+ * outdoor time, a 1:00 rest, and a 5:00 pickup. None of it came from La Trell.
  * Her brief gives the open hours, the meals, and the phrase "consistent daily
  * routines" - no clock times, and no nap policy at all. The 5:00 pickup also
  * contradicted her 6:00 close.
@@ -210,7 +210,7 @@ export const RATE_INCLUSIONS = {
  * What the site shows instead is the one time fact she did give: the open
  * window, drawn as an arc on components/sections/HoursClock.tsx. When she
  * sends her actual routine, a schedule can go back in. See README,
- * "Questions for LaTrell".
+ * "Questions for La Trell".
  */
 
 export type ExpectGroup = "Care" | "Learning" | "Safety";
@@ -320,7 +320,7 @@ export const ENROLLMENT_STEPS: EnrollmentStep[] = [
      *
      * One phrase was genuinely lost in the trim and is now nowhere on the
      * site: the deposit holding the spot *until the start date*. Worth putting
-     * back into the deposit FAQ if LaTrell wants it stated.
+     * back into the deposit FAQ if La Trell wants it stated.
      */
     detail:
       "A $150 non-refundable enrollment deposit is required to reserve your child's childcare space. We then complete the required forms, emergency contacts, and immunization records together.",

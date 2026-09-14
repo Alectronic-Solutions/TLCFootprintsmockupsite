@@ -77,10 +77,10 @@ export const PHOTOS = {
     spec: "Back yard, shade visible, fence in frame. Subject left of center, quiet right third. 2000 x 1333",
   },
 
-  /** About page, "Meet LaTrell". */
+  /** About page, "Meet La Trell". */
   portrait: {
     src: "latrell-armstrong-portrait.webp",
-    alt: "LaTrell Armstrong, owner of T.L.C. Footprints Home Daycare",
+    alt: "La Trell Armstrong, owner of T.L.C. Footprints Home Daycare",
     ratio: "4/5",
     spec: "Portrait, waist up, window light. 1200 x 1500",
   },

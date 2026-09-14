@@ -12,7 +12,7 @@ import { BUSINESS } from "@/lib/constants";
 
 /**
  * The three things a parent is actually screening for. Originally built for
- * About's "Meet LaTrell" section, and now shared with What to Expect's
+ * About's "Meet La Trell" section, and now shared with What to Expect's
  * safety chapter as well - both were stating the same three facts in
  * different words, so this is the one rendering of them.
  *

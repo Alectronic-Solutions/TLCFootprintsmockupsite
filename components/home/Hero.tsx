@@ -30,7 +30,7 @@ import { cn } from "@/lib/cn";
  * The enrolling status is still above the fold - it is in the announcement bar
  * at the very top of every page and in the "Now enrolling" highlights tile
  * directly below this section, both driven by the same AVAILABILITY.status
- * LaTrell edits. Saying it a third time between the copy and the CTAs was the
+ * La Trell edits. Saying it a third time between the copy and the CTAs was the
  * one thing standing between a parent reading the hero and acting on it.
  */
 

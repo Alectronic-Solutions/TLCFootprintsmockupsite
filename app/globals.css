@@ -26,7 +26,7 @@
   --announce-h: 2.25rem;
   --header-h: calc(var(--announce-h) + 72px);
 
-  /* Cream IS the brand. There is deliberately no dark inversion: LaTrell
+  /* Cream IS the brand. There is deliberately no dark inversion: La Trell
      would never see the site in the state she approved. */
   color-scheme: light;
 }
@@ -2437,7 +2437,7 @@ html {
 /* --------------------------------------------------------------------------
    About page rhythm
 
-   The About page runs eight bands deep - hero, LaTrell, credentials, Thelma,
+   The About page runs eight bands deep - hero, La Trell, credentials, Thelma,
    hours, philosophy, CTA - and at the site-wide `section-y` rhythm that adds
    up to a page a parent has to scroll a long way to finish. These rules
    compress the *vertical* rhythm for that page only, via the `.about-tight`

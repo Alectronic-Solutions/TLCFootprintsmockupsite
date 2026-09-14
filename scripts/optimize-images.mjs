@@ -19,7 +19,7 @@ const QUALITY = 82;
 
 if (!existsSync(photosDir)) {
   mkdirSync(photosDir, { recursive: true });
-  console.log("Created public/photos. Drop LaTrell's photos in there before launch.");
+  console.log("Created public/photos. Drop La Trell's photos in there before launch.");
 }
 
 const files = readdirSync(photosDir).filter((f) => /\.(jpe?g|png)$/i.test(f));

@@ -1,7 +1,7 @@
 import { cn } from "@/lib/cn";
 
 /**
- * The dotted heart divider from LaTrell's flyers: • • • ♥ • • •
+ * The dotted heart divider from La Trell's flyers: • • • ♥ • • •
  * Her own visual vocabulary, carried onto the site.
  */
 export function HeartDots({

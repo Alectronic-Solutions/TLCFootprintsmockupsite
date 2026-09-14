@@ -6,7 +6,7 @@ Built with Next.js and exported as a static site.
 
 ---
 
-## Part 1: For LaTrell
+## Part 1: For La Trell
 
 This section covers the four things you will actually want to change. You do not need to understand the rest of the file.
 
@@ -120,7 +120,7 @@ The five slots, and what each one wants:
 | `heroRoom` | Home page, behind the whole hero | Wide landscape, 16:9 | 2400 x 1350 |
 | `dayPlay` | Home page, behind "Hours and meals" | Wide landscape, 3:2 | 2000 x 1333 |
 | `outdoor` | What to expect, behind the hours clock | Wide landscape, 3:2 | 2000 x 1333 |
-| `portrait` | About, "Meet LaTrell" | Portrait, 4:5 | 1200 x 1500 |
+| `portrait` | About, "Meet La Trell" | Portrait, 4:5 | 1200 x 1500 |
 | `meals` | What to expect, meals | Square, 1:1 | 1200 x 1200 |
 
 `heroRoom`, `dayPlay`, and `outdoor` all run full-bleed with copy over them, so each one needs a quiet area for the words to sit on: the **left** third for `heroRoom`, the **right** third for the other two.
@@ -226,7 +226,7 @@ Everything in this section lives in the "MOTION AND DEPTH" block at the bottom o
 
 The site currently includes illustrated hero images plus five real-photo slots. The photo slots are wired and waiting, and nothing breaks while they are empty. Filling them with approved, optimized photography is the single biggest visual upgrade left.
 
-**Do not ship stock photography to the live site.** For a childcare provider trust is the entire product, and a parent who reverse-image-searches one photo and finds it on three other daycare sites is gone. Stock is fine in a mock-up to show LaTrell what the layout looks like populated; swap it before launch.
+**Do not ship stock photography to the live site.** For a childcare provider trust is the entire product, and a parent who reverse-image-searches one photo and finds it on three other daycare sites is gone. Stock is fine in a mock-up to show La Trell what the layout looks like populated; swap it before launch.
 
 **Video can wait.** A short silent clip of the space would work in the hero eventually, but it costs a large file on a static host, needs a poster image and a reduced-motion fallback anyway, and does nothing the photos will not do first.
 
@@ -284,7 +284,7 @@ public sites start receiving spam within weeks.
 
 The site is built for local search: structured data, an FAQ marked up for Google, and articles targeting what Elk Grove parents actually search for.
 
-But in the first year, **the Google Business Profile will do more than the website will.** Do not automatically configure it as a hidden-address service-area business: families are served at the daycare home, while Google reserves hidden addresses for businesses that do not serve customers at their address. LaTrell should decide whether she is comfortable publishing the address and confirm Google's current home-business and signage requirements before creating the profile. Then claim accurate directory listings that link back to tlcfootprints.com.
+But in the first year, **the Google Business Profile will do more than the website will.** Do not automatically configure it as a hidden-address service-area business: families are served at the daycare home, while Google reserves hidden addresses for businesses that do not serve customers at their address. La Trell should decide whether she is comfortable publishing the address and confirm Google's current home-business and signage requirements before creating the profile. Then claim accurate directory listings that link back to tlcfootprints.com.
 
 ---
 
@@ -295,7 +295,7 @@ confirmed facts, open policy decisions, content approval, photo permission,
 privacy operations, and final launch authorization. Do not publish invented
 placeholder facts while decisions are pending.
 
-### Questions for LaTrell
+### Questions for La Trell
 
 Confirmed August 27, 2026: Infant Care applies from birth through 23 months,
 and Toddler/Preschool-Age Care begins at age 2.
@@ -336,16 +336,16 @@ and Toddler/Preschool-Age Care begins at age 2.
 
 ### Deliberately left off the site
 
-At LaTrell's request: the potty-training policy, the tour cancellation and rescheduling policy, any wait-list, and testimonials. Testimonials can be added once families enroll and give written permission.
+At La Trell's request: the potty-training policy, the tour cancellation and rescheduling policy, any wait-list, and testimonials. Testimonials can be added once families enroll and give written permission.
 
 ### Unverified claims still on the site
 
-Everything factual on the site traces to LaTrell's brief, with one category of
+Everything factual on the site traces to La Trell's brief, with one category of
 exception: prose written *from* her brief that elaborates on it. Those sentences
 are reasonable, they are in her voice, and she has not read them. They are worth
 her eye before launch, in rough order of how load-bearing they are:
 
-- `app/about/page.tsx` - the whole "Meet LaTrell" bio. Flagged in the code; the
+- `app/about/page.tsx` - the whole "Meet La Trell" bio. Flagged in the code; the
   callout that used to say so on the public page has been removed.
 - `components/home/ThelmaStory.tsx` - the grandmother passage. The brief gives
   the name origin; the story around it was written.
@@ -354,7 +354,7 @@ her eye before launch, in rough order of how load-bearing they are:
 - `lib/constants.ts` `PROGRAMS` - the `detail` and `highlights` for both tiers,
   including the activity list and the infant communication commitments.
 - `lib/constants.ts` `FAQS` - the sick-child answer still needs policy review.
-  The what-to-bring answer now uses LaTrell's supplied wording. Both are also
+  The what-to-bring answer now uses La Trell's supplied wording. Both are also
   emitted as FAQPage structured data.
 - `lib/constants.ts` `ENROLLMENT_STEPS` - the paperwork list and the first-week
   ease-in.

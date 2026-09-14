@@ -1,7 +1,7 @@
 # T.L.C. Footprints client sign-off
 
 This file is an internal approval record. It is not published by the website.
-LaTrell should write corrections directly in the **Client decision** column and
+La Trell should write corrections directly in the **Client decision** column and
 initial/date each approved section before the Cloudflare launch.
 
 ## Facts already represented on the site
@@ -9,7 +9,7 @@ initial/date each approved section before the Cloudflare launch.
 | Item | Current website value | Client decision | Initial/date |
 | --- | --- | --- | --- |
 | Business name | T.L.C. Footprints Home Daycare |  |  |
-| Owner/provider | LaTrell Armstrong |  |  |
+| Owner/provider | La Trell Armstrong |  |  |
 | California license | #394501929 |  |  |
 | Location shown publicly | Elk Grove, California; no street address or ZIP |  |  |
 | Phone | 510-434-4834 |  |  |
@@ -22,7 +22,7 @@ initial/date each approved section before the Cloudflare launch.
 
 ## Decisions required before public launch
 
-| Topic | What LaTrell must confirm | Client decision | Initial/date |
+| Topic | What La Trell must confirm | Client decision | Initial/date |
 | --- | --- | --- | --- |
 | License type and capacity | Small or large Family Child Care Home and licensed capacity |  |  |
 | Tuition and deposit | Every weekly rate, deposit, due date, late fee, refund, holiday, and closure rule |  |  |
@@ -43,7 +43,7 @@ initial/date each approved section before the Cloudflare launch.
 
 ## Content requiring voice and accuracy approval
 
-LaTrell should read the actual page rather than approve only its headline.
+La Trell should read the actual page rather than approve only its headline.
 
 | Content | Approval needed | Initial/date |
 | --- | --- | --- |
@@ -70,7 +70,7 @@ location metadata that should remain private.
 | Home hero room photo |  |  |  |
 | Day/play photo |  |  |  |
 | Outdoor area photo |  |  |  |
-| LaTrell portrait |  |  |  |
+| La Trell portrait |  |  |  |
 | Meals photo |  |  |  |
 | Testimonials/reviews | None until real families give written permission |  |  |
 
@@ -78,26 +78,26 @@ location metadata that should remain private.
 
 | Decision | Needed answer | Owner | Initial/date |
 | --- | --- | --- | --- |
-| Tour-form destination | Email address or system that receives submissions | LaTrell/Alectronic |  |
+| Tour-form destination | Email address or system that receives submissions | La Trell/Alectronic |  |
 | Form delivery provider | Cloudflare Function plus selected email service | Alectronic |  |
-| Submission storage | Email only, database, or both | LaTrell/Alectronic |  |
-| Non-enrolling inquiry retention | Exact deletion schedule | LaTrell |  |
-| Enrolled-family records | Storage location and required retention process | LaTrell |  |
+| Submission storage | Email only, database, or both | La Trell/Alectronic |  |
+| Non-enrolling inquiry retention | Exact deletion schedule | La Trell |  |
+| Enrolled-family records | Storage location and required retention process | La Trell |  |
 | Spam protection | Turnstile and server-side verification | Alectronic |  |
-| Analytics | Google Analytics planned; measurement ID and activation timing still needed | LaTrell/Alectronic |  |
-| Privacy requests | Confirm published email and phone are appropriate | LaTrell |  |
-| Accessibility reports | Confirm who receives and responds to reports | LaTrell/Alectronic |  |
+| Analytics | Google Analytics planned; measurement ID and activation timing still needed | La Trell/Alectronic |  |
+| Privacy requests | Confirm published email and phone are appropriate | La Trell |  |
+| Accessibility reports | Confirm who receives and responds to reports | La Trell/Alectronic |  |
 | Maintenance term | Who handles updates, security patches, monitoring, and accessibility reports | Contract |  |
 
 ## Final approval
 
-- [ ] All factual statements have been checked by LaTrell.
+- [ ] All factual statements have been checked by La Trell.
 - [ ] All rates and policies match the signed enrollment agreement.
 - [ ] The form is connected, tested, protected, and accurately described by the privacy policy.
 - [ ] Real photographs have written permission and approved alt text.
 - [ ] Privacy, Terms, and Accessibility have received final business/legal review.
-- [ ] LaTrell has tested the final site on her own phone.
-- [ ] LaTrell approves publication on the custom domain.
+- [ ] La Trell has tested the final site on her own phone.
+- [ ] La Trell approves publication on the custom domain.
 
 Client name/signature: ______________________________
 

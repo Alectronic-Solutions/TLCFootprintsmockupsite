@@ -145,7 +145,7 @@ export default function HomePage() {
           stop scrolling.
 
           Still deliberately not a schedule, and every phrase in the copy
-          column is one LaTrell gave - they are lifted from PROGRAMS in
+          column is one La Trell gave - they are lifted from PROGRAMS in
           lib/constants.ts, where the two tiers describe what the day contains.
           See the note where DAILY_RHYTHM used to live for why there are no
           clock times in the prose.
