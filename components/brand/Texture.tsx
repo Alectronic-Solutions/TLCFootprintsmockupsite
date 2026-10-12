@@ -14,8 +14,7 @@ export const GRAIN_URL =
 /**
  * Fine paper grain over the whole page at ~3%.
  *
- * This is what produces the "soft cream document" feel La Trell described in
- * her brief. feTurbulence generates the noise in the browser; no asset needed.
+ * This is what produces the "soft cream document" feel. feTurbulence generates the noise in the browser; no asset needed.
  */
 export function PaperGrain() {
   return (

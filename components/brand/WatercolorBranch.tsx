@@ -4,7 +4,7 @@ import { useId } from "react";
 import { cn } from "@/lib/cn";
 
 /**
- * The watercolor botanicals from La Trell's flyer.
+ * The watercolor botanicals from the brand flyer.
  *
  * The flyer's branches are not line art: they are painted. Three things make
  * that difference, and all three are reproduced here rather than shipped as a

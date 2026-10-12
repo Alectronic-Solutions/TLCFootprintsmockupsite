@@ -26,8 +26,7 @@
   --announce-h: 2.25rem;
   --header-h: calc(var(--announce-h) + 72px);
 
-  /* Cream IS the brand. There is deliberately no dark inversion: La Trell
-     would never see the site in the state she approved. */
+  /* Cream IS the brand. There is deliberately no dark inversion. */
   color-scheme: light;
 }
 
@@ -569,104 +568,13 @@
   will-change: transform;
 }
 
-/* --------------------------------------------------------------------------
-   Button gloss
-
-   Two layers:
-     ::before  a fixed vertical highlight, the "lit from above" curvature that
-               makes a flat pill read as a physical object.
-     ::after   a sheen that sweeps across on hover.
-
-   Both are gated behind a real pointer so a phone never fires them on tap and
-   leaves a button stuck mid-sheen.
-   -------------------------------------------------------------------------- */
-
-.btn-shine {
-  position: relative;
-  overflow: hidden;
-  transform: translateZ(0);
-}
-
-.btn-shine::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.26) 0%,
-    rgba(255, 255, 255, 0.06) 42%,
-    rgba(255, 255, 255, 0) 55%,
-    rgba(62, 42, 33, 0.07) 100%
-  );
-}
-
-/* Softer highlight on the pale variants, where a white wash would read as a
-   rendering bug rather than a curve. */
-.btn-shine-soft::before {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.75) 0%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(62, 42, 33, 0.05) 100%
-  );
-}
-
-.btn-shine::after {
-  content: "";
-  position: absolute;
-  top: -20%;
-  bottom: -20%;
-  left: -150%;
-  width: 55%;
-  pointer-events: none;
-  /* Above the label (z-1): a highlight that passes behind the text is not a
-     highlight, it is a background animation. */
-  z-index: 2;
-  transform: skewX(-18deg);
-  background: linear-gradient(
-    100deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.55) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-}
-
-.btn-shine-soft::after {
-  background: linear-gradient(
-    100deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.9) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-}
-
-@keyframes btn-sheen {
-  to {
-    left: 150%;
-  }
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .btn-shine:hover::after,
-  .group:hover .btn-shine::after {
-    animation: btn-sheen 0.75s cubic-bezier(0.22, 1, 0.36, 1);
-  }
+/* Lucide UI icons match the brand marks' stroke weight. */
+.lucide {
+  stroke-width: 1.75;
 }
 
 /* --------------------------------------------------------------------------
-   Card lift
-
-   Two classes, deliberately separate:
-
-     .card-lift   the rise and the shadow. Safe on any card.
-     .card-rule   the rainbow hairline that wipes in along the top edge.
-
-   They are split because a card that already carries a coloured top rule of
-   its own (the availability cards, where the rule encodes open / limited /
-   full) must not have it swapped for a rainbow on hover: that would animate
-   away the one piece of information the card exists to convey.
+   Card lift: a small rise and shadow on hover.
    -------------------------------------------------------------------------- */
 
 .card-lift {
@@ -676,28 +584,6 @@
     box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.card-rule::after {
-  content: "";
-  position: absolute;
-  inset-inline: 1.5rem;
-  top: 0;
-  height: 3px;
-  border-radius: 999px;
-  opacity: 0;
-  transform: scaleX(0.4);
-  transform-origin: center;
-  pointer-events: none;
-  transition:
-    opacity 0.3s ease,
-    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  background: linear-gradient(
-    90deg,
-    var(--color-pink),
-    var(--color-amber),
-    var(--color-leaf)
-  );
-}
-
 @media (hover: hover) and (pointer: fine) {
   .card-lift:hover {
     transform: translateY(-4px);
@@ -705,17 +591,6 @@
       0 4px 8px rgba(62, 42, 33, 0.06),
       0 18px 44px rgba(62, 42, 33, 0.12);
   }
-
-  .card-rule:hover::after {
-    opacity: 1;
-    transform: scaleX(1);
-  }
-}
-
-/* Keyboard users get the same affordance as pointer users. */
-.card-rule:focus-within::after {
-  opacity: 1;
-  transform: scaleX(1);
 }
 
 /* --------------------------------------------------------------------------
@@ -1224,10 +1099,7 @@
   animation: float-slow 7s ease-in-out infinite;
 }
 
-/* A much slower, wider drift for the watercolor wash behind ThelmaStory's
-   `feature` treatment - the one section on the site meant to be held rather
-   than passed, so its background is the one wash allowed to keep moving
-   instead of sitting still. */
+/* A slower, wider drift for the featured story's background wash. */
 @keyframes wash-drift {
   0%,
   100% {
@@ -2320,50 +2192,17 @@ html {
 
 /* The trail and the gloss are decoration. They never print. */
 @media print {
-  .foot-trail,
-  .btn-shine::before,
-  .btn-shine::after,
-  .card-rule::after {
+  .foot-trail {
     display: none !important;
   }
 }
 
 /* --------------------------------------------------------------------------
-   Raised headings
+   Raised wordmark
 
-   An extruded heading, built the way a sign painter would: three solid offsets
-   stepping down and fading out, then one soft shadow underneath to seat it on
-   the paper. The solid steps are what read as *thickness*; a blur on its own
-   only reads as a glow.
-
-   The extrusion is cocoa-*mid*, not something darker than the cocoa ink. On a
-   near-black heading a darker extrusion just thickens the letter; a lighter
-   warm brown reads as the side face of a letter standing up off cream paper,
-   which is the effect wanted.
-
-   Reserved for section headings that open a section. Never on body copy, never
-   on more than one heading in view at a time, and never on the article pages,
-   where it would fight the reading.
+   Stepped solid offsets plus one soft shadow, for the hero wordmark only.
    -------------------------------------------------------------------------- */
 
-.text-3d {
-  text-shadow:
-    0 2px 0 rgba(107, 82, 69, 0.22),
-    0 3px 0 rgba(107, 82, 69, 0.15),
-    0 4px 0 rgba(107, 82, 69, 0.09),
-    0 7px 14px rgba(62, 42, 33, 0.16);
-}
-
-/* Same construction inverted, for the white heading on the pink CTA band. */
-.text-3d-light {
-  text-shadow:
-    0 2px 0 rgba(154, 31, 59, 0.45),
-    0 3px 0 rgba(154, 31, 59, 0.3),
-    0 4px 1px rgba(90, 10, 28, 0.25),
-    0 10px 22px rgba(90, 10, 28, 0.3);
-}
-
-/* The hero wordmark carries the most weight, so it gets one more step. */
 .text-3d-hero {
   text-shadow:
     0 2px 0 rgba(107, 82, 69, 0.26),
@@ -2373,10 +2212,8 @@ html {
     0 12px 26px rgba(62, 42, 33, 0.18);
 }
 
-/* At very small sizes the offsets stack into mud, so they are dialled back
-   rather than dropped: the heading still reads raised, just less loudly. */
+/* Fewer offsets at small sizes, where they stack into mud. */
 @media (max-width: 480px) {
-  .text-3d,
   .text-3d-hero {
     text-shadow:
       0 2px 0 rgba(107, 82, 69, 0.18),
@@ -2385,10 +2222,7 @@ html {
   }
 }
 
-/* An extruded heading printed in greyscale is a smudge. */
 @media print {
-  .text-3d,
-  .text-3d-light,
   .text-3d-hero {
     text-shadow: none !important;
   }
@@ -2437,21 +2271,9 @@ html {
 /* --------------------------------------------------------------------------
    About page rhythm
 
-   The About page runs eight bands deep - hero, La Trell, credentials, Thelma,
-   hours, philosophy, CTA - and at the site-wide `section-y` rhythm that adds
-   up to a page a parent has to scroll a long way to finish. These rules
-   compress the *vertical* rhythm for that page only, via the `.about-tight`
-   wrapper in app/about/page.tsx.
-
-   Scoped here rather than edited into the components because the bands they
-   touch (ArcDivider, ThelmaStory, CTABand) are shared with the home and
-   interior pages, whose rhythm is unchanged. The two About-only sections
-   (AboutCredentials, AboutDayBand) are tightened in their own files. The
-   hero band is left at the site-wide rhythm entirely.
-
-   Every value is a proportional trim, not a floor: roughly a third off the
-   band padding and a quarter off the seams, which keeps each section reading
-   as its own moment rather than running into the next.
+   Tighter vertical rhythm for the About page only, via the `.about-tight`
+   wrapper. Scoped here because the bands it touches are shared with other
+   pages, whose rhythm is unchanged.
    -------------------------------------------------------------------------- */
 
 .about-tight .section-y {

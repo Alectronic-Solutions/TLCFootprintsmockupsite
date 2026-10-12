@@ -4,19 +4,11 @@ import { RATE_INCLUSIONS } from "@/lib/constants";
 import { isLineChecked } from "./checklistPieces";
 
 /**
- * The clipboard sheet, third in the site's small family of built-CSS objects
- * (after the toy block pen and the tic-tac-toe rug on /about - see globals.css,
- * "MOTION AND DEPTH"). Same house rules as those: warm hard-offset shadows,
- * cocoa/cream palette, nothing in the physical description a screen reader
- * needs - every glyph here is aria-hidden and the meaning is carried by real
+ * The clipboard sheet, one of the site's built-CSS objects (see globals.css,
+ * "MOTION AND DEPTH"). Every glyph is aria-hidden; meaning is carried by real
  * <ul>/<li> text.
  *
- * Purely presentational and controlled: which lines are ticked is decided by
- * FootprintChecklist.tsx, which owns `placed` and passes it straight through.
- * This component used to watch its own scroll position and tick itself off on
- * arrival - that self-triggering is gone now that a real interaction (the foot
- * puzzle) drives it, which is also what removed this file's only reason to be
- * a client component.
+ * Controlled: FootprintChecklist.tsx owns `placed` and passes it through.
  */
 export function IncludedClipboard({ placed }: { placed: readonly string[] }) {
   return (

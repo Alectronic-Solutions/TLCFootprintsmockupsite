@@ -6,3 +6,6 @@ out/
 next-env.d.ts
 .env*.local
 .snapshots/
+
+# Client notes, sign-off records and anything not meant for the public repo
+private/

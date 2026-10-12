@@ -96,15 +96,9 @@ export function DifferentiatorBlocks({ items }: { items: Differentiator[] }) {
         )}
       </div>
 
-      {/* The content. Colour-keyed to the blocks so the pen still reads as
-          being about these three things once they are in a heap.
-
-          Centred at every width: the eyebrow, the heading, the lead and the
-          pen above all sit on the same axis, and left-aligned entries
-          underneath them broke that line. The phone used to keep the mark
-          beside a left-aligned block; the mark now sits above centred text the
-          way it does from sm up, so the column reads as one axis top to
-          bottom. */}
+      {/* Color-keyed to the blocks so the pen still reads as being about these
+          three things once they are in a heap. Centered at every width so the
+          column reads as one axis. */}
       <ul className="mt-8 grid gap-7 sm:grid-cols-3 sm:gap-6">
         {items.map((item) => (
           <li key={item.title} className="text-center">

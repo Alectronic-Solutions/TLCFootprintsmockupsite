@@ -1,8 +1,8 @@
-import { Apple, Cookie, Croissant, MessageCircleHeart, UtensilsCrossed } from "lucide-react";
 import { CTABand } from "@/components/sections/CTABand";
 import { DayBand } from "@/components/sections/DayBand";
 import { PageHero } from "@/components/sections/PageHero";
 import { ArcDivider } from "@/components/brand/ArcDivider";
+import { HighlightIcon } from "@/components/brand/HighlightIcon";
 import { ExpectBook } from "@/components/what-to-expect/ExpectBook";
 import { ExpectHeroArtwork } from "@/components/what-to-expect/ExpectHeroArtwork";
 import { ProgramsHeroArtwork } from "@/components/programs/ProgramsHeroArtwork";
@@ -162,19 +162,15 @@ export default function WhatToExpectPage() {
             </AnimatedSection>
 
             <AnimatedSection delay={0.08}>
-              <div className="card-rule rounded-2xl border-hair border-cocoa/10 bg-gradient-to-b from-white to-cream p-7 text-center shadow-soft sm:p-8">
-                <UtensilsCrossed className="mx-auto h-8 w-8 text-leaf-dark" aria-hidden="true" />
+              <div className="rounded-2xl border-hair border-cocoa/10 bg-white p-7 text-center sm:p-8">
+                <HighlightIcon name="meals" className="mx-auto h-8 w-8" />
                 <p className="mt-5 text-eyebrow font-semibold uppercase tracking-[0.12em] text-leaf-dark">Meals and snacks</p>
-                <h2 className="text-3d mt-3 text-h2">Simple planning for the day</h2>
+                <h2 className="mt-3 text-h2">Simple planning for the day</h2>
                 <p className="mt-4 text-lead text-ink">I provide:</p>
-                <ul className="mx-auto mt-5 w-fit space-y-4 text-left">
-                  {[
-                    { label: MEALS.provided[0], Icon: Croissant },
-                    { label: MEALS.provided[1], Icon: Apple },
-                    { label: MEALS.provided[2], Icon: Cookie },
-                  ].map(({ label, Icon }) => (
-                    <li key={label} className="flex items-center gap-3.5">
-                      <Icon className="h-6 w-6 shrink-0 text-leaf-dark" aria-hidden="true" />
+                <ul className="mx-auto mt-5 w-fit space-y-3 text-left">
+                  {MEALS.provided.map((label) => (
+                    <li key={label} className="flex items-center gap-3">
+                      <span aria-hidden="true" className="h-2 w-2 shrink-0 rounded-full bg-leaf" />
                       <span className="text-lg font-semibold text-cocoa">{label}</span>
                     </li>
                   ))}
@@ -193,11 +189,10 @@ export default function WhatToExpectPage() {
       <section className="section-y bg-cream">
         <div className="container-page">
           <AnimatedSection className="mx-auto max-w-2xl text-center">
-            <MessageCircleHeart className="mx-auto h-8 w-8 text-leaf-dark" aria-hidden="true" />
-            <p className="mt-5 text-eyebrow font-semibold uppercase tracking-[0.12em] text-leaf-dark">
+            <p className="text-eyebrow font-semibold uppercase tracking-[0.12em] text-leaf-dark">
               Open communication
             </p>
-            <h2 className="text-3d mt-3 text-h2">A partnership with your family</h2>
+            <h2 className="mt-3 text-h2">A partnership with your family</h2>
             <p className="mx-auto mt-5 max-w-[56ch] text-lead text-ink">
               Questions are welcome. I&apos;m available by phone, text, email, and in person so you can stay informed about your child&apos;s care. When something important comes up, I&apos;ll communicate openly with you so we can work together on what your child needs.
             </p>

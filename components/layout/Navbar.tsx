@@ -267,14 +267,14 @@ export function Navbar() {
               <div className="mt-5 grid grid-cols-2 gap-3">
                 <a
                   href={BUSINESS.phoneHref}
-                  className="flex min-h-[48px] items-center justify-center gap-2 rounded-full border-hair border-cocoa/20 bg-gradient-to-b from-white to-cream-deep text-base font-semibold text-cocoa shadow-[0_2px_0_0_rgba(62,42,33,0.10)]"
+                  className="flex min-h-[48px] items-center justify-center gap-2 rounded-full border-hair border-cocoa/20 bg-white text-base font-semibold text-cocoa shadow-[0_2px_0_0_rgba(62,42,33,0.10)]"
                 >
                   <Phone className="h-4 w-4 text-pink-dark" aria-hidden="true" />
                   Call
                 </a>
                 <a
                   href={BUSINESS.smsHref}
-                  className="flex min-h-[48px] items-center justify-center gap-2 rounded-full border-hair border-cocoa/20 bg-gradient-to-b from-white to-cream-deep text-base font-semibold text-cocoa shadow-[0_2px_0_0_rgba(62,42,33,0.10)]"
+                  className="flex min-h-[48px] items-center justify-center gap-2 rounded-full border-hair border-cocoa/20 bg-white text-base font-semibold text-cocoa shadow-[0_2px_0_0_rgba(62,42,33,0.10)]"
                 >
                   <MessageSquare className="h-4 w-4 text-pink-dark" aria-hidden="true" />
                   Text

@@ -100,7 +100,7 @@ export function ThelmaStory({
       <div className="container-prose relative w-full text-center">
         <AnimatedSection>
           <SectionLabel className="text-center">The name</SectionLabel>
-          <h2 className={cn("text-3d mt-4", feature ? "text-h1" : "text-h2")}>
+          <h2 className={cn("mt-4", feature ? "text-h1" : "text-h2")}>
             T.L.C. is my grandmother
           </h2>
 

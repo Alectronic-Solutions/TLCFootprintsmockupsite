@@ -138,7 +138,7 @@ export function FootprintChecklist() {
         </div>
       ) : null}
 
-      <header className="relative z-10 rounded-[1.5rem] border border-cocoa/10 bg-gradient-to-br from-white via-white to-cream px-5 py-5 shadow-soft sm:flex sm:items-center sm:justify-between sm:gap-7 sm:px-7 sm:py-6">
+      <header className="relative z-10 rounded-[1.5rem] border border-cocoa/10 bg-white px-5 py-5 sm:flex sm:items-center sm:justify-between sm:gap-7 sm:px-7 sm:py-6">
         <div className="max-w-[42rem]">
           <p className="text-eyebrow font-bold uppercase text-leaf-dark">
             Put the pieces together
@@ -231,7 +231,7 @@ export function FootprintChecklist() {
               )}
             </div>
 
-            <div className="puzzle-board flex min-h-[21rem] flex-col rounded-2xl border border-cocoa/10 bg-white/85 p-3 shadow-soft sm:min-h-full">
+            <div className="puzzle-board flex min-h-[21rem] flex-col rounded-2xl border border-cocoa/10 bg-white/85 p-3 sm:min-h-full">
               <div className="flex items-center justify-between gap-2">
                 <span className="text-sm font-bold uppercase tracking-[0.12em] text-cocoa-mid">
                   Drop zone
@@ -277,7 +277,7 @@ export function FootprintChecklist() {
           </div>
         </section>
 
-        <aside className="flex flex-col rounded-[1.5rem] border border-cocoa/10 bg-gradient-to-b from-white to-cream p-3 shadow-soft sm:p-5">
+        <aside className="flex flex-col rounded-[1.5rem] border border-cocoa/10 bg-white p-3 sm:p-5">
           <div className="mb-5 flex items-center justify-between gap-3 lg:mb-4">
             <div>
               <p className="font-display text-lg font-semibold text-cocoa">Live checklist</p>

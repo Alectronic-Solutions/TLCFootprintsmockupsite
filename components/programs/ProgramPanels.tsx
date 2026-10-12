@@ -14,7 +14,7 @@ export function ProgramPanels() {
       <div className="container-page">
         <AnimatedSection className="mx-auto max-w-2xl text-center">
           <SectionLabel className="text-center">Care for every stage</SectionLabel>
-          <h2 className="text-3d mt-4 text-h2">Find your child&apos;s stage</h2>
+          <h2 className="mt-4 text-h2">Find your child&apos;s stage</h2>
           <p className="mx-auto mt-3 max-w-[48ch] text-lead text-ink">
             A warm home setting, shaped around the rhythm of each age.
           </p>
@@ -24,8 +24,8 @@ export function ProgramPanels() {
           <article className="overflow-hidden rounded-3xl border-hair border-cocoa/10 bg-cream-deep shadow-lift">
             <div className="border-b border-cocoa/10 bg-white/45 px-7 py-6 sm:px-9">
               <p className="mx-auto max-w-3xl text-center text-lg leading-relaxed text-ink">
-                Every child is cared for in the same small, nurturing home environment while
-                their days, activities, and support naturally grow with them.
+                Infants, toddlers, and preschool-age children are all cared for in the same
+                small home setting.
               </p>
             </div>
 

@@ -16,11 +16,9 @@ const nextConfig = {
     NEXT_PUBLIC_BASE_PATH: basePath,
   },
   reactStrictMode: true,
-  // Next's dev-tools overlay (indicator, panel, segment explorer) is meant to
-  // be stripped from production bundles by NODE_ENV dead-code elimination,
-  // but it was leaking into this `output: "export"` build regardless -
-  // ~217 KB of dev-only UI shipped in the shared JS chunk on every route.
-  // Disabling the indicator here removes that leak.
+  // Hides the dev-mode indicator. Do not add a custom `browserslist` to
+  // package.json: with one present, Next shipped its dev-tools overlay
+  // (~217 KB gzipped) in the production bundle on every route.
   devIndicators: false,
   images: {
     // Required for `output: "export"`: there is no server to transcode at

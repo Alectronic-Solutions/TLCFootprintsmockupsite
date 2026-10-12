@@ -6,18 +6,9 @@ import {
 import { cn } from "@/lib/cn";
 
 /**
- * One cube.
- *
- * Purely presentational, and deliberately dumb: it holds no state and knows
- * nothing about the simulation. useBlockPhysics writes a transform onto this
- * element every frame, so anything that also wrote to `transform` here would be
- * overwritten - the resting tilt the old card had is gone for that reason, and
- * because a block resting on a floor is not tilted.
- *
- * A cube only has room for the mark and the title. The sentence that used to
- * sit under them is in the legend below the pen, at full reading size, which is
- * also where the accessible copy of this section lives - the pen itself is
- * aria-hidden, because a toy that duplicates the text beside it is decoration.
+ * One cube. Stateless: useBlockPhysics writes `transform` every frame, so
+ * nothing here may set it. The pen is aria-hidden; the accessible copy of
+ * this section lives in the legend below it.
  */
 
 export interface Differentiator {

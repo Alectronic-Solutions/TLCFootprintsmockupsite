@@ -8,9 +8,17 @@ import { Button } from "@/components/ui/Button";
 import { TurnstileWidget } from "@/components/forms/TurnstileWidget";
 import { BUSINESS, PROGRAMS } from "@/lib/constants";
 import { cn } from "@/lib/cn";
+import { FORM_ENDPOINT } from "@/lib/site";
 import { EASE } from "@/components/ui/AnimatedSection";
 
-const FORM_ENDPOINT = "https://tlc-footprints-forms.alecit-b101.workers.dev";
+/**
+ * Moves focus to the confirmation heading when it appears, so keyboard and
+ * screen-reader users land on it instead of on the form that just vanished.
+ * Module-level so React calls it once on mount, not on every re-render.
+ */
+function focusOnMount(el: HTMLElement | null) {
+  el?.focus();
+}
 
 interface FormValues {
   parentName: string;
@@ -141,7 +149,7 @@ export function AvailabilityRequestForm() {
     errors[name] ? "border-pink-dark" : "border-cocoa/15 focus:border-leaf";
 
   return (
-    <div className="rounded-2xl border-hair border-cocoa/10 bg-cream p-6 shadow-soft sm:p-8">
+    <div className="rounded-2xl border-hair border-cocoa/10 bg-cream p-6 sm:p-8">
       <AnimatePresence mode="wait">
         {submitted ? (
           <motion.div
@@ -160,7 +168,7 @@ export function AvailabilityRequestForm() {
                 strokeWidth={2.5}
               />
             </span>
-            <h3 className="mt-5 text-h3">Thanks! Your request was sent.</h3>
+            <h3 ref={focusOnMount} tabIndex={-1} className="mt-5 text-h3 outline-none">Thanks! Your request was sent.</h3>
             <p className="mx-auto mt-3 max-w-[42ch] text-cocoa-mid">
               Your availability request was sent to T.L.C. Footprints. La Trell will follow up
               with you directly using the contact information you provided.
@@ -372,7 +380,7 @@ export function AvailabilityRequestForm() {
                     key={value}
                     className={cn(
                       "inline-flex min-h-[44px] cursor-pointer select-none items-center rounded-full border-hair",
-                      "border-cocoa/15 bg-gradient-to-b from-white to-cream-deep px-4",
+                      "border-cocoa/15 bg-white px-4",
                       "text-sm font-semibold text-cocoa shadow-[0_1px_0_0_rgba(62,42,33,0.08)]",
                       "transition-all duration-200 has-[:checked]:border-pink",
                       "has-[:checked]:from-pink-light has-[:checked]:to-pink-light",

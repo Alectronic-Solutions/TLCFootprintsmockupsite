@@ -35,7 +35,7 @@ export function PolicyPage({
         <div className="container-prose">
           <AnimatedSection>
             <div
-              className="break-words rounded-2xl border-hair border-cocoa/10 bg-cream p-7 text-center shadow-soft sm:p-10
+              className="break-words rounded-2xl border-hair border-cocoa/10 bg-cream p-7 text-center sm:p-10
                          [&_h2]:mx-auto [&_h2]:mt-8 [&_h2]:max-w-[24ch] [&_h2]:text-balance [&_h2]:text-h3 [&_h2:first-child]:mt-0
                          [&_li]:text-pretty [&_li]:text-ink
                          [&_p]:mx-auto [&_p]:mt-4 [&_p]:max-w-[62ch] [&_p]:text-pretty [&_p]:text-ink

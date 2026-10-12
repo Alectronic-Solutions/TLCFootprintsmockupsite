@@ -284,7 +284,7 @@ function Spread({
         <span aria-hidden="true" className="book-title-rule" />
         <SectionLabel className={`mt-5 text-center ${tone.labelClass}`}>Chapter {chapter + 1}</SectionLabel>
         <Footprint className={`mt-3 h-8 w-auto ${tone.footprintClass}`} />
-        <h2 className="text-3d mt-4 text-h2">{group}</h2>
+        <h2 className="mt-4 text-h2">{group}</h2>
         <p className="mt-3 max-w-[27ch] text-lead text-ink">{BLURB[group]}</p>
         <div className="mt-7 flex items-center gap-3 text-eyebrow font-semibold uppercase text-cocoa-mid/65 md:mt-5" aria-hidden="true">
           <span className="h-px w-8 bg-cocoa/20" />

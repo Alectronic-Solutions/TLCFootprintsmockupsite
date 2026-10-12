@@ -25,16 +25,9 @@ import {
 export type { PieceTone } from "./pieceTones";
 
 /**
- * Each region's own natural width:height ratio, read straight off
- * REGION_VIEWBOX in footGeometry.ts. The lower sole slices are wide and
- * short, the divided ball pieces are compact, and the toe regions are closer
- * to square. A fixed *square*
- * icon box was the first version of this component, and it was a real bug,
- * not a style choice: "meet" letterboxes a wide viewBox inside a square
- * viewport, so all three sole pieces rendered as similarly-proportioned
- * short blobs in the middle of a mostly-empty square - none of them read as
- * a distinct slice of a foot. Sizing the box itself to each region's ratio
- * is what lets a piece fill its tray slot and keep its own real shape.
+ * Each region's natural width:height ratio, from REGION_VIEWBOX in
+ * footGeometry.ts. A square box would letterbox the wide sole slices into
+ * indistinct blobs; sizing to the ratio keeps each piece's real shape.
  */
 const REGION_RATIO: Record<FootRegion, number> = {
   ballLeft: 13.3 / 11.2,

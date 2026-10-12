@@ -95,7 +95,7 @@ export default function ProgramsPage() {
         <div className="container-page">
           <AnimatedSection className="mx-auto max-w-2xl text-center">
             <SectionLabel className="text-center">The practical details</SectionLabel>
-            <h2 className="text-3d mt-4 text-h2">Put the pieces together.</h2>
+            <h2 className="mt-4 text-h2">Put the pieces together.</h2>
             <p className="mx-auto mt-3 max-w-[52ch] text-lead text-ink">
               The details that help your day run smoothly,
               <br className="hidden lg:block" />

@@ -31,3 +31,9 @@ export function asset(path: string): string {
 export function absoluteAsset(path: string): string {
   return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
 }
+
+/**
+ * Receives both inquiry forms. If this changes, update connect-src in the
+ * Content-Security-Policy in public/_headers to match.
+ */
+export const FORM_ENDPOINT = "https://tlc-footprints-forms.alecit-b101.workers.dev";

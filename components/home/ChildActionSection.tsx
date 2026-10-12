@@ -1,11 +1,4 @@
-import {
-  ArrowRight,
-  ArrowUpRight,
-  CheckCircle2,
-  Phone,
-} from "lucide-react";
-import { Footprints } from "@/components/brand/Footprints";
-import { WatercolorWash } from "@/components/brand/Texture";
+import { ArrowRight, ArrowUpRight, Phone } from "lucide-react";
 import {
   AnimatedGroup,
   AnimatedItem,
@@ -41,40 +34,17 @@ export function ChildActionSection() {
       aria-labelledby="child-action-heading"
       className="relative overflow-hidden bg-cream py-3 sm:py-5 lg:py-6"
     >
-      <WatercolorWash
-        tone="leaf"
-        className="-left-28 top-6 h-72 w-72"
-        strength={0.07}
-      />
-      <WatercolorWash
-        tone="amber"
-        className="-right-24 bottom-0 h-80 w-80"
-        strength={0.06}
-      />
-
       <div className="container-page relative">
-        <div className="relative mx-auto max-w-5xl overflow-hidden rounded-[2rem] border-hair border-cocoa/15 bg-gradient-to-br from-white via-cream to-leaf-light/40 shadow-warm">
-          <span
-            aria-hidden="true"
-            className="rule-rainbow absolute inset-x-8 top-0 h-1 rounded-full"
-          />
-
-          <Footprints className="absolute -right-2 top-5 h-14 w-auto rotate-[8deg] opacity-[0.08] sm:right-7 sm:h-16" />
-
+        <div className="relative mx-auto max-w-5xl overflow-hidden rounded-[2rem] border-hair border-cocoa/15 bg-white">
           <div className="grid gap-4 px-5 py-5 sm:px-8 sm:py-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-6 lg:px-10 lg:py-7">
             <AnimatedSection className="self-center text-center">
               <SectionLabel className="text-center">
                 Child Action accepted
               </SectionLabel>
 
-              <div className="mt-2 inline-flex items-center gap-2 rounded-full border-hair border-leaf/25 bg-leaf-light px-3.5 py-2 text-sm font-bold text-leaf-dark">
-                <CheckCircle2 className="h-4 w-4" aria-hidden="true" />
-                Help with child care costs
-              </div>
-
               <h2
                 id="child-action-heading"
-                className="text-3d mx-auto mt-3 max-w-[13ch] text-h2"
+                className="mx-auto mt-3 max-w-[13ch] text-h2"
               >
                 Need help paying for child care?
               </h2>
@@ -97,7 +67,7 @@ export function ChildActionSection() {
                   />
                 </Button>
                 <Button
-          href="/resources/family-guide-child-action-and-costs"
+                  href="/resources/family-guide-child-action-and-costs"
                   variant="quiet"
                   size="sm"
                   className="group justify-center sm:w-auto"

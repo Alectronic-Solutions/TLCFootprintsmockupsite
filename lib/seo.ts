@@ -62,8 +62,8 @@ export function pageMeta({
 
 const ADDRESS = {
   "@type": "PostalAddress",
-  // City-level only. A home daycare should not publish a street address, and
-  // the brief gives neither a ZIP nor coordinates, so neither is asserted.
+  // City-level only. A home daycare should not publish a street address, ZIP,
+  // or coordinates.
   addressLocality: BUSINESS.city,
   addressRegion: BUSINESS.state,
   addressCountry: "US",
@@ -83,10 +83,8 @@ export const localBusinessJsonLd = {
   telephone: BUSINESS.phoneHref.replace("tel:", ""),
   email: BUSINESS.email,
   address: ADDRESS,
-  // The city is the whole service area claim. The five Elk Grove neighborhoods
-  // that used to be listed here were not hers, and they also rendered on the
-  // tour page as "families come from" - a clientele claim at a home that is
-  // still enrolling its first families.
+  // The city is the whole service-area claim. No neighborhoods: listing them
+  // would imply an existing clientele.
   areaServed: [
     {
       "@type": "City",
@@ -107,7 +105,6 @@ export const localBusinessJsonLd = {
   ],
   priceRange: "$$",
   currenciesAccepted: "USD",
-  // Only what the brief names. Cash and check were assumed.
   paymentAccepted: "Child Action child care subsidy",
   // The state license, published so it can be verified.
   identifier: {

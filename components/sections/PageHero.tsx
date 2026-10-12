@@ -161,11 +161,6 @@ export function PageHero({
       {decor ? (
         <>
           <WatercolorWash tone="pink" className="-right-20 -top-20 h-80 w-80" strength={0.07} />
-          <WatercolorWash
-            tone="leaf"
-            className="-bottom-24 left-1/3 hidden h-72 w-72 lg:block"
-            strength={0.05}
-          />
           <ScrollSprig
             side="left"
             tilt={12}
@@ -219,7 +214,7 @@ export function PageHero({
               {label}
             </SectionLabel>
           ) : null}
-          <h1 className="text-3d mt-4 text-h1 text-cocoa">{title}</h1>
+          <h1 className="mt-4 text-h1 text-cocoa">{title}</h1>
           {subtitle ? (
             <p
               className={cn(

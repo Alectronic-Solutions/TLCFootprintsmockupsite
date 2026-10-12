@@ -67,18 +67,12 @@ export function BackToTop() {
       // `invisible` rather than unmounting: it keeps the fade, and visibility
       // hidden is what actually takes it out of the tab order.
       className={cn(
-        // `!fixed`, not `fixed`: `.btn-shine` sets `position: relative`, and it
-        // is authored below `@tailwind utilities` in globals.css, so at equal
-        // specificity it wins and the button drops back into the flow at the
-        // foot of the page. Every other user of `btn-shine` is an in-flow pill,
-        // which is why this only bites here.
-        "group no-print btn-shine btn-shine-soft !fixed right-4 z-40 sm:right-6",
+        "group no-print fixed right-4 z-40 sm:right-6",
         "bottom-[var(--btt-bottom)] md:bottom-6",
         "flex h-12 w-12 items-center justify-center rounded-full",
-        "border-hair border-cocoa/20 bg-gradient-to-b from-white to-cream-deep",
+        "border-hair border-cocoa/20 bg-white",
         "shadow-[0_2px_0_0_rgba(62,42,33,0.10),0_6px_14px_-6px_rgba(62,42,33,0.18)]",
-        "hover:border-cocoa/35 hover:-translate-y-0.5",
-        "hover:shadow-[0_3px_0_0_rgba(62,42,33,0.12),0_12px_22px_-8px_rgba(62,42,33,0.22)]",
+        "hover:border-cocoa/35 hover:bg-cream",
         "active:translate-y-px active:shadow-[0_1px_0_0_rgba(62,42,33,0.10)]",
         "transition-[opacity,transform,box-shadow,border-color,visibility] duration-200",
         "ease-[cubic-bezier(0.22,1,0.36,1)]",

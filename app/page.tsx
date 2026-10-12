@@ -45,30 +45,8 @@ export const metadata = pageMeta({
  *   What is the day like?            Inside the day
  *   Can I trust her?                 The name, the process, the FAQ
  *
- * Anything that is not one of those six belongs on an interior page. The full
- * thirteen-point expectations list and the meals breakdown both used to sit
- * here; they are now only on /what-to-expect, where a parent who wants that
- * level of detail goes looking for it. The home page had grown to twelve
- * sections and read as a wall.
- *
- * The rule the page is now edited against: state each fact prominently once,
- * then repeat it only where it helps someone act. In practice that means the
- * FAQ, where a parent scanning questions needs the answer in front of them,
- * and the CTAs. Two sections were dissolved into that rule in August 2026.
- *
- * "Current openings" is gone. It answered question one with a whole section,
- * but it did so by re-stating the ages, re-stating the small-home point, and
- * rendering the same two programme cards the rates section renders a few
- * hundred pixels further down. The status pill moved into the hero, the
- * freshness stamp into the highlights bar, and nothing else in it was said
- * only there.
- *
- * "Hours and meals" kept its clock and its photograph and gave up its subject.
- * It had been restating the hours the bar already lists and the clock already
- * draws, the meals the bar already lists, and the philosophy the third
- * differentiator block already names. It is now the one section on the page
- * that says what a day actually contains, which is the thing none of the
- * others were doing.
+ * Anything else belongs on an interior page. State each fact prominently
+ * once, and repeat it only where it helps someone act (the FAQ and the CTAs).
  */
 
 /* `edge` is the painted top edge of each block, taken from the dominant colour
@@ -77,11 +55,8 @@ const DIFFERENTIATORS: Differentiator[] = [
   {
     icon: "constant",
     edge: "leaf",
-    /* Was "One home, birth to five", and the body said "the same small
-       setting". The age range is stated in the hero lead and in the ages FAQ;
-       "small" is the subject of the block below this one and of the heading
-       above it. What is left is the actual claim - continuity - which is the
-       one thing here a centre cannot offer. */
+    /* Continuity is the one thing here a center cannot offer. Ages and
+       "small" are stated elsewhere on the page. */
     title: "Consistent care in a familiar home setting",
     titleBreakAfter: "Consistent care",
     body: "No moving up to a different room every September. Your child stays where they started, first day to last.",
@@ -107,9 +82,6 @@ export default function HomePage() {
     <>
       <Hero />
       <HighlightsBar />
-      {/* The highlights bar fades cream -> cream-deep and was built as a seam
-          into the cream-deep availability section. That section is gone, so
-          this divider now lands in the Child Action section instead. */}
       <ArcDivider variant="shallow" from="bg-cream-deep" to="fill-cream" />
 
       <ChildActionSection />
@@ -125,7 +97,7 @@ export default function HomePage() {
         <div className="container-page relative">
           <AnimatedSection className="mx-auto max-w-2xl text-center">
             <SectionLabel className="text-center">Why families choose us</SectionLabel>
-            <h2 className="text-3d mt-4 text-h2">A home, not a center</h2>
+            <h2 className="mt-4 text-h2">A home, not a center</h2>
             {/* This lead names the three benefits developed by the cards below,
                 so it makes sense even when this is the first section a visitor
                 reads. Avoid vague references such as "what that changes" here:
@@ -140,24 +112,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Inside the day: the visual break between the rate cards and the trust
-          sections that follow, and the one section that keeps moving once you
-          stop scrolling.
-
-          Still deliberately not a schedule, and every phrase in the copy
-          column is one La Trell gave - they are lifted from PROGRAMS in
-          lib/constants.ts, where the two tiers describe what the day contains.
-          See the note where DAILY_RHYTHM used to live for why there are no
-          clock times in the prose.
-
-          The clock stays, and it is now the only thing in the section that
-          states the hours. Drawn as an arc it is a picture rather than a
-          sentence, so it does not read as a repeat of the highlights bar three
-          sections up, or of the hours FAQ two sections down. The prose used to
-          say the hours twice more on top of it - once as the h2 - and then
-          restate the meals and the philosophy as well. All four of those facts
-          are prominent elsewhere on the page; what a day actually contains was
-          nowhere, which is what this column carries now. */}
+      {/* Inside the day: what a day contains, in phrases drawn from PROGRAMS.
+          Deliberately not a schedule. The clock is the only place in this
+          section that states the hours. */}
       <DayBand
         side="clock-left"
         copyAlign="text-center"
@@ -221,11 +178,7 @@ export default function HomePage() {
       </section>
 
       {/* From here the page answers "can I trust her": the name, then the
-          process, then the questions. The licence-lookup panel used to open
-          this run; it is an errand, not a reason to enrol, and it lives on
-          /resources where a parent who wants to check goes looking. Surfaces
-          alternate cream / cream-deep the whole way down, which is what the
-          arc dividers are seaming. */}
+          process, then the questions. */}
       <ArcDivider variant="shallow" from="bg-cream" to="fill-cream-deep" />
 
       <ThelmaStory surface="bg-cream-deep" />
@@ -246,7 +199,7 @@ export default function HomePage() {
         <div className="container-prose">
           <AnimatedSection className="text-center">
             <SectionLabel className="text-center">Common questions</SectionLabel>
-            <h2 className="text-3d mt-4 text-h2">The things parents ask first</h2>
+            <h2 className="mt-4 text-h2">The things parents ask first</h2>
             {/* Was a list of the accordion's own items, sitting directly on
                 top of the accordion. */}
             <p className="mx-auto mt-4 max-w-[42ch] text-balance text-cocoa-mid">

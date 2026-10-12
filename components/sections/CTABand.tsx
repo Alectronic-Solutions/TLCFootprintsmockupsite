@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/Button";
 import { ArcDivider } from "@/components/brand/ArcDivider";
 import { FootprintField } from "@/components/brand/FootprintField";
 import { HeartDots } from "@/components/brand/HeartDots";
-import { SurfaceGrain, WatercolorWash } from "@/components/brand/Texture";
+import { SurfaceGrain } from "@/components/brand/Texture";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { BUSINESS } from "@/lib/constants";
 
@@ -57,45 +57,9 @@ export function CTABand({
       <section className="relative isolate overflow-hidden bg-gradient-to-b from-pink to-pink-dark to-[55%]">
         <FootprintField />
 
-        {/* Two soft highlights turn a flat pink field into a lit surface. At
-            12 to 16 percent on pink they are invisible as shapes and only read
-            as depth.
-
-            They bleed off the left and right but are held clear of the top and
-            bottom edges: overflow-hidden slices a wash that crosses one, and a
-            sliced highlight is a straight bright line. The hard cream/pink seam
-            used to hide that. The arcs put pink on both sides of it, so now it
-            would show. */}
-        <WatercolorWash
-          tone="white"
-          strength={0.09}
-          className="-left-24 top-0 h-80 w-80 print:hidden"
-        />
-        <WatercolorWash
-          tone="white"
-          strength={0.12}
-          className="-right-20 bottom-0 h-96 w-96 print:hidden"
-        />
-
-        {/* The logo's other two colors, entering as light rather than as paint.
-
-            `screen` is the whole point: compositing amber or leaf *over* pink
-            mixes pigment and gives mud - leaf at any useful strength lands on a
-            dull brown-pink. Screen adds light instead, so these read as a warm
-            flare and a green-gold one falling across the surface.
-
-            Written as two gradients on one full-bleed layer rather than as a
-            pair of WatercolorWash blobs, because a blob positioned near the top
-            or bottom edge gets sliced by overflow-hidden and the slice reads as
-            a straight bright line. These are sized so that 62% of the vertical
-            radius lands just inside the edge, which is what keeps the top-right
-            flare from cutting off against the arc. Both fall to zero well
-            before the centre column, so the copy still sits on the deep pink
-            the contrast was measured against.
-
-            Off below `sm`. A 375px band is narrow enough that a corner glow is
-            still on top of the sentence by the time it has any strength, which
-            measured as low as 3.2:1. */}
+        {/* Amber and leaf glows, screened so they add light rather than mix
+            to mud on pink. Off below sm, where they would sit under the copy
+            and drop contrast. */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 hidden mix-blend-screen sm:block print:hidden"
@@ -118,7 +82,7 @@ export function CTABand({
                 the button that acts on it. */}
             <HeartDots className="mb-6 [&_span]:!bg-white [&_svg_path]:!fill-white" />
 
-            <h2 className="text-3d-light text-h2 text-white">{title}</h2>
+            <h2 className="text-h2 text-white">{title}</h2>
             <p className="mx-auto mt-4 max-w-2xl text-lead text-white">
               {sentences(body).map((sentence) => (
                 <span key={sentence} className="block text-balance">

@@ -1,14 +1,15 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Footprint } from "@/components/brand/Footprints";
 import { Button } from "@/components/ui/Button";
 import { BUSINESS } from "@/lib/constants";
 
+export const metadata: Metadata = {
+  title: "Page not found",
+};
+
 const LINKS = [
   { href: "/programs", label: "Programs and rates" },
-  /* Was "/#availability", which no longer exists: the home page's "Current
-     openings" section was folded into the hero status pill and the highlights
-     bar. The enrolling status is on the home page and in the FAQ below, so
-     this slot goes to a page that was not otherwise reachable from here. */
   { href: "/what-to-expect", label: "What to expect day to day" },
   { href: "/tour", label: "Request a tour" },
   { href: "/faq", label: "Frequently asked questions" },
@@ -23,7 +24,7 @@ export default function NotFound() {
           <Footprint className="h-10 w-auto rotate-[10deg] fill-pink" />
         </div>
 
-        <h1 className="text-3d mt-8 text-h1">This page wandered off</h1>
+        <h1 className="mt-8 text-h1">This page wandered off</h1>
         <p className="mx-auto mt-5 max-w-[46ch] text-body">
           The link you followed does not lead anywhere on this site. Here is where most
           people are heading.

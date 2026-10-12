@@ -1,28 +1,15 @@
 import type { ArticleTopic } from "@/lib/mdx";
 import { FootprintGlyph } from "@/components/brand/Footprints";
+import { STROKE } from "@/components/brand/iconStroke";
 import { cn } from "@/lib/cn";
 
 /**
- * The marks on the resource card icon badges.
- *
- * Same system as HighlightIcon and ProgramIcon: one stroke weight (1.75 at a
- * 24px canvas), round caps and joins, geometry built from circles and arcs,
- * never more than two brand colors in a mark. leaf-dark carries the structure
- * in all five and the accent alternates amber / pink down the set, the same
- * rotation HighlightIcon uses, so the five read as one family rather than as
- * icons picked from different sets.
+ * Topic marks for the resource cards. leaf-dark carries the structure and the
+ * accent alternates amber / pink, matching the other brand icon sets.
  */
 
-const STROKE = {
-  fill: "none",
-  strokeWidth: 1.75,
-  strokeLinecap: "round",
-  strokeLinejoin: "round",
-} as const;
-
 function Choosing() {
-  // A magnifying glass over one of the logo's own prints: looking closely at
-  // a place, not a generic search icon.
+  // A magnifying glass over one of the logo's prints.
   return (
     <>
       <circle cx="10.4" cy="10.4" r="6.8" className="stroke-leaf-dark" {...STROKE} />
@@ -34,9 +21,8 @@ function Choosing() {
   );
 }
 
-function Cost() {
-  // A coin stamped with a heart, the way HighlightIcon's Subsidy mark keeps
-  // the heart as the site's one filled shape.
+/** A coin stamped with a heart. Also used for the subsidy highlight. */
+export function CostMark() {
   return (
     <>
       <circle cx="12" cy="12" r="8.4" className="stroke-leaf-dark" {...STROKE} />
@@ -63,8 +49,7 @@ function Licensing() {
 }
 
 function Starting() {
-  // The logo's print mid-step, a small motion arc trailing behind it: a
-  // first day, not an abstract compass or flag.
+  // The logo's print mid-step, with motion arcs either side.
   return (
     <>
       <path
@@ -81,9 +66,7 @@ function Starting() {
 }
 
 function DayToDay() {
-  // The sun-over-arc HighlightIcon's own comment rejected for Hours, reused
-  // here on purpose: it reads as a day's rhythm, which is exactly what this
-  // topic covers, and the two marks never sit in the same list.
+  // A sun over the horizon: the rhythm of a day.
   return (
     <>
       <path d="M4.4 15.6a7.6 7.6 0 0 1 15.2 0" className="stroke-leaf-dark" {...STROKE} />
@@ -118,7 +101,7 @@ function Family() {
 
 const ICONS: Record<ArticleTopic, () => React.JSX.Element> = {
   choosing: Choosing,
-  cost: Cost,
+  cost: CostMark,
   licensing: Licensing,
   starting: Starting,
   "day-to-day": DayToDay,

@@ -256,8 +256,6 @@ export function FaqHeroBackdrop() {
         className="absolute inset-x-0 -inset-y-[12%] will-change-transform"
       >
         <WatercolorWash tone="amber" strength={0.12} className="-left-32 -top-24 h-[34rem] w-[34rem]" />
-        <WatercolorWash tone="leaf" strength={0.09} className="-right-28 -top-16 h-[30rem] w-[30rem]" />
-        <WatercolorWash tone="pink" strength={0.08} className="-bottom-32 left-1/4 h-[36rem] w-[36rem]" />
       </motion.div>
 
       {/* Front layer: smaller, closer-reading accents with more travel. */}
@@ -266,12 +264,6 @@ export function FaqHeroBackdrop() {
         className="absolute inset-x-0 -inset-y-[12%] will-change-transform"
       >
         <WatercolorWash tone="pink" strength={0.1} className="-right-16 bottom-0 h-72 w-72" />
-        <WatercolorWash tone="leaf" strength={0.07} className="left-[6%] top-[8%] h-56 w-56" />
-        <WatercolorWash
-          tone="amber"
-          strength={0.07}
-          className="right-[18%] top-[42%] hidden h-64 w-64 lg:block"
-        />
         <FootprintScatter />
       </motion.div>
 

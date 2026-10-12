@@ -4,33 +4,21 @@ import { useEffect, useId, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 
 /**
- * A kid's painting of the house - blue sky, sun, clouds, a rainbow over the
- * roof - as the About hero's background. It ships as a pencil sketch, and the
- * cursor colours it in: paint laid down where the pointer passes *stays*
- * there, so moving around the hero fills the picture in, and each patch then
+ * A kid's painting of the house as the About hero's background. It ships as
+ * a pencil sketch, and the cursor colors it in: each dab of paint stays, then
  * fades slowly back to line art.
  *
- * Two full SVGs stacked, not one recolored by JS: `sketch` is flat cocoa
- * linework, `painted` is the same drawing filled in. What differs from the
- * first version of this file is how the painted layer is revealed. That one
- * used a single CSS `mask-image` circle pinned to the cursor, so colour
- * existed only directly under the pointer and vanished the instant it moved -
- * a flashlight, not colouring. This one accumulates: every STRIDE units of
- * cursor travel drops a dab into an SVG mask, each dab holds full opacity for
- * HOLD_MS and then fades over FADE_MS on its own clock, and the whole mask is
- * blurred so overlapping dabs blend into one wash instead of reading as a
- * string of circles.
+ * Two stacked SVGs: `sketch` is flat cocoa linework, `painted` the same
+ * drawing filled in. Every STRIDE units of cursor travel drops a dab into an
+ * SVG mask; each holds for HOLD_MS, fades over FADE_MS, and the mask is
+ * blurred so overlapping dabs blend into one wash.
  *
- * Pointer tracking listens on the *window*, not on this element, and
- * hit-tests against its own box. PageHero's section is painted over this
- * scene and covers the same area, so a listener bound here would never fire:
- * every move over the hero targets that section, which is a sibling, so the
- * event bubbles past without touching this subtree. FootprintTrail listens on
- * the window for the same reason.
+ * Pointer tracking listens on the window and hit-tests against this box,
+ * because PageHero's section is painted over this scene and would swallow
+ * events bound here.
  *
- * Fine-pointer only, and off under reduced motion - both fall back to the
- * painted layer fully revealed rather than leaving anyone holding a grey
- * drawing they have no way to colour.
+ * Fine-pointer only, and off under reduced motion; both fall back to the
+ * painted layer fully revealed.
  */
 
 const VB_W = 1600;
@@ -51,12 +39,8 @@ const BLOB_R = 170;
 /** Blur over the whole mask, so overlapping dabs read as a wash, not discs. */
 const BLOB_BLUR = 45;
 /**
- * Cursor travel between dabs. Spacing by distance, not by time, the way
- * FootprintTrail spaces its prints: time-based spawns smear when the cursor
- * is slow and leave gaps when it is fast. Tighter than the first version
- * (was 70): a smaller gap between dabs, each already growing in rather than
- * popping (see the `coloring-blob` keyframes in globals.css), is what turns
- * a cursor sweep into one continuous stroke instead of a series of stamps.
+ * Cursor travel between dabs. Spaced by distance, not time, so slow and fast
+ * strokes both come out continuous.
  */
 const STRIDE = 46;
 /** Hard cap on live dabs. Fast scribbling across the hero is the stress case. */
@@ -727,9 +711,8 @@ function Rainbow({ painted = false }: { painted?: boolean }) {
  * strokes - the crayon-drawing vocabulary this whole scene is drawn in, not
  * a rendered person. Deliberately not a countable cast: DifferentiatorIcon.tsx
  * documents the same rule this scene follows - no mark on this site may
- * depict a specific number of children, because the brief states no capacity
- * or ratio and a fixed count in art reads as a claim about how many the house
- * cares for. FIGURE_PLACEMENTS below is one adult and two children, drawn
+ * depict a specific number of children, because a fixed count in art reads as
+ * a claim about how many the house cares for. FIGURE_PLACEMENTS below is one adult and two children, drawn
  * small and loosely grouped on the grass rather than lined up and counted -
  * "children playing in the yard," not a roster.
  *
@@ -796,10 +779,8 @@ function Figures({ painted = false }: { painted?: boolean }) {
 }
 
 /**
- * Moved left and enlarged from the first version (was x=260-470, now
- * x=170-440) and given a bolder stroke in the outline layer (see
- * SceneOutline) - it used to sit dead centre under the heaviest part of the
- * left-side reading scrim and read as barely-there next to the rainbow.
+ * Kept left of the reading scrim, with a bolder outline stroke (see
+ * SceneOutline) so it holds its own next to the rainbow.
  */
 function House({
   painted = false,

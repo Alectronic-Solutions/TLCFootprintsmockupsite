@@ -10,11 +10,8 @@ import { cn } from "@/lib/cn";
  * a loop, laying down a green arc as they go, and the wedge they never cover
  * is the part of the evening the house is closed.
  *
- * This replaced an eight-step "daily rhythm" dial. That version was prettier
- * and every time on it was invented - La Trell's brief gives her open hours and
- * her meals, and no schedule whatsoever. So the dial shows the two times she
- * actually gave, and the arc between them carries the idea the schedule was
- * reaching for: the day here has a shape, and it is a long one.
+ * The dial shows only the opening and closing times, and the arc between them
+ * carries the idea: the day here has a shape, and it is a long one.
  *
  * The geometry is honest by construction. 7:30 sits at 225 degrees and 6:00 at
  * 180 on a twelve-hour face, which puts the 45-degree closed wedge at the
@@ -319,8 +316,7 @@ export function HoursClock({ className }: { className?: string }) {
       </div>
 
       {/* The legend names the two dots. Hovering or focusing a row pins the
-          hands to that time, which is the same interaction the rim labels
-          used to carry. */}
+          hands to that time. */}
       <ol className="mx-auto mt-7 flex w-fit flex-col gap-2">
         {anchors.map((anchor, i) => {
           const on = i === active;

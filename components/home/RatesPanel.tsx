@@ -10,27 +10,11 @@ import { ProgramIcon } from "@/components/brand/ProgramIcon";
 import { PROGRAMS, TUITION, monthlyEquivalent } from "@/lib/constants";
 
 /**
- * What it costs.
+ * What it costs. The only place on the home page the two tiers appear, and
+ * the number is the largest thing in each card.
  *
- * The one section on the home page whose entire job is to hand over a number,
- * which is why the number is the largest thing in each card rather than a line
- * under a paragraph. The subtitle claims other sites make you call to find out;
- * a price set at the same size as the body copy above it does not read like a
- * site that means that.
- *
- * The schedule toggle is here because the brief prices both a full-time and a
- * part-time rate, and only the full-time pair was ever rendered on this page.
- *
- * It had a second job until August 2026: the availability panel above rendered
- * these same two programs as centred icon-and-name cards a few hundred pixels
- * up, and without something that belonged only to this section, two centred
- * grids of the same two programs read as the same component pasted twice. That
- * panel is gone - the duplication was the reason it went - so this is now the
- * only place on the home page the two tiers appear.
- *
- * Both prices stay on screen. Putting one program's rate behind a click would
- * reintroduce exactly the friction the subtitle is bragging about removing -
- * the toggle changes which pair of rates is shown, never how many.
+ * The toggle switches between full-time and part-time pairs; both programs'
+ * prices always stay on screen.
  */
 
 const SCHEDULES = [
@@ -100,7 +84,7 @@ export function RatesPanel() {
       <div className="container-page">
         <AnimatedSection className="mx-auto max-w-2xl text-center">
           <SectionLabel className="text-center">Programs and rates</SectionLabel>
-          <h2 className="text-3d mt-3 text-h2 max-sm:text-[1.7rem] sm:mt-4">What it costs</h2>
+          <h2 className="mt-3 text-h2 max-sm:text-[1.7rem] sm:mt-4">What it costs</h2>
           {/* The second line is the one to lose on a phone: the first rate is
               already a thumb's length below it, so "here are the rates" points
               at something the eye has arrived at anyway. The claim it is

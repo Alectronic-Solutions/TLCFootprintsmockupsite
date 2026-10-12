@@ -12,7 +12,7 @@ import { BUSINESS } from "@/lib/constants";
 
 /**
  * The three things a parent is actually screening for. Originally built for
- * About's "Meet La Trell" section, and now shared with What to Expect's
+ * About's provider section, and now shared with What to Expect's
  * safety chapter as well - both were stating the same three facts in
  * different words, so this is the one rendering of them.
  *
@@ -89,7 +89,7 @@ export function Credentials({
             <SectionLabel className="text-center">{label}</SectionLabel>
           </AnimatedItem>
           <AnimatedItem>
-            <h2 className="text-3d mt-3 text-h2">{title}</h2>
+            <h2 className="mt-3 text-h2">{title}</h2>
           </AnimatedItem>
           {lead ? (
             <AnimatedItem>
@@ -121,7 +121,7 @@ export function Credentials({
                   viewport={{ once: true, margin: "-80px" }}
                   transition={{ duration: 0.5, ease: EASE, delay: i * 0.08 }}
                 >
-                  <div className="card-lift card-rule relative flex h-full flex-col items-center rounded-2xl border-hair border-cocoa/10 bg-gradient-to-b from-white to-cream p-5 text-center shadow-soft sm:p-6">
+                  <div className="card-lift relative flex h-full flex-col items-center rounded-2xl border-hair border-cocoa/10 bg-white p-5 text-center shadow-soft sm:p-6">
                     <motion.span
                       aria-hidden="true"
                       className="pointer-events-none absolute inset-0 rounded-2xl"

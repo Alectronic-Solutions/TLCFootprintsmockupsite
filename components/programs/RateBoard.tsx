@@ -19,7 +19,7 @@ import { PROGRAMS, TUITION, MEALS } from "@/lib/constants";
 export function RateBoard() {
   return (
     <AnimatedSection>
-      <div className="relative rounded-3xl border-hair border-cocoa/10 bg-gradient-to-b from-white to-cream px-5 py-8 shadow-lift sm:px-10 sm:py-10">
+      <div className="relative rounded-3xl border-hair border-cocoa/10 bg-white px-5 py-8 shadow-lift sm:px-10 sm:py-10">
         {/* A strip of washi tape holding the card down, the way a parent
             would actually pin a rate sheet to a fridge. Sized in px, not
             clipped by the card, so it reads as tape overlapping the edge

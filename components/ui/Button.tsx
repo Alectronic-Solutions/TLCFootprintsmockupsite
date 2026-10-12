@@ -9,19 +9,8 @@ type Size = "sm" | "md" | "lg";
  * Pill radius throughout: the geometric expression of "home, not institution."
  * Minimum heights meet the 48px touch target on md and up.
  *
- * Depth model, so the whole set stays physically consistent:
- *
- *   rest    a hard 2px shadow directly beneath the pill, in a darker shade of
- *           the pill's own color. That flat offset is what reads as an edge;
- *           a blurred shadow alone just reads as a glow.
- *   hover   the pill lifts 2px, and the hard edge grows to 3px to match, so
- *           the object appears to rise off the page rather than to stretch.
- *           A sheen sweeps across (`.btn-shine`, globals.css).
- *   active  the pill drops to 1px above the page and the edge collapses to
- *           1px: it is being pressed into the paper.
- *
- * Hover states are gated behind `@media (hover: hover)` inside `.btn-shine`,
- * because a phone that fires :hover on tap leaves the sheen frozen mid-sweep.
+ * Depth: a hard 2px ledge in a darker shade of the pill's color, which
+ * collapses to 1px when pressed.
  */
 const base =
   "inline-flex items-center justify-center gap-2 rounded-full font-semibold " +
@@ -36,39 +25,28 @@ const base =
   "motion-reduce:transform-none motion-reduce:transition-none";
 
 const variants: Record<Variant, string> = {
-  // The one saturated control on the page. Gradient runs light-to-dark top to
-  // bottom, which is the direction light actually falls.
   primary:
-    "btn-shine text-white bg-gradient-to-b from-[#EA4A6B] to-[#D22F51] " +
-    "shadow-[0_2px_0_0_#9E1F3B,0_6px_16px_-4px_rgba(226,58,94,0.45)] " +
-    "hover:from-[#ED5776] hover:to-[#D93758] hover:-translate-y-0.5 " +
-    "hover:shadow-[0_3px_0_0_#9E1F3B,0_12px_26px_-6px_rgba(226,58,94,0.55)] " +
-    "active:translate-y-px active:shadow-[0_1px_0_0_#9E1F3B,0_3px_8px_-2px_rgba(226,58,94,0.4)]",
+    "text-white bg-pink-dark shadow-[0_2px_0_0_#8A1A33] " +
+    "hover:bg-[#AD2543] " +
+    "active:translate-y-px active:shadow-[0_1px_0_0_#8A1A33]",
 
-  // Paper, not plastic: a cream pill raised off a cream page. Its edge is a
-  // cocoa tint rather than a color, so it never competes with primary.
   secondary:
-    "btn-shine btn-shine-soft text-cocoa border-hair border-cocoa/20 " +
-    "bg-gradient-to-b from-white to-cream-deep " +
-    "shadow-[0_2px_0_0_rgba(62,42,33,0.10),0_6px_14px_-6px_rgba(62,42,33,0.18)] " +
-    "hover:border-cocoa/35 hover:-translate-y-0.5 " +
-    "hover:shadow-[0_3px_0_0_rgba(62,42,33,0.12),0_12px_22px_-8px_rgba(62,42,33,0.22)] " +
+    "text-cocoa border-hair border-cocoa/20 bg-white " +
+    "shadow-[0_2px_0_0_rgba(62,42,33,0.10)] " +
+    "hover:border-cocoa/35 hover:bg-cream " +
     "active:translate-y-px active:shadow-[0_1px_0_0_rgba(62,42,33,0.10)]",
 
-  // White pill for use on the pink CTA band. Same physics, inverted palette.
+  // White pill for use on the pink CTA band.
   invert:
-    "btn-shine btn-shine-soft text-pink-dark bg-gradient-to-b from-white to-[#FDEFF2] " +
-    "shadow-[0_2px_0_0_rgba(154,31,59,0.55),0_8px_20px_-6px_rgba(90,10,28,0.35)] " +
-    "hover:-translate-y-0.5 " +
-    "hover:shadow-[0_3px_0_0_rgba(154,31,59,0.55),0_14px_30px_-8px_rgba(90,10,28,0.45)] " +
+    "text-pink-dark bg-white shadow-[0_2px_0_0_rgba(154,31,59,0.55)] " +
+    "hover:bg-pink-light " +
     "active:translate-y-px active:shadow-[0_1px_0_0_rgba(154,31,59,0.55)]",
 
   // Ghost pill for the pink band's secondary action.
   outlineLight:
-    "btn-shine border border-white/55 text-white bg-white/10 backdrop-blur-[2px] " +
+    "border border-white/55 text-white bg-white/10 " +
     "shadow-[0_2px_0_0_rgba(154,31,59,0.35)] " +
-    "hover:bg-white/20 hover:border-white/80 hover:-translate-y-0.5 " +
-    "hover:shadow-[0_3px_0_0_rgba(154,31,59,0.35)] " +
+    "hover:bg-white/20 hover:border-white/80 " +
     "active:translate-y-px active:shadow-none",
 
   // Text link. Deliberately flat: giving it depth would make every inline
@@ -118,13 +96,11 @@ export function Button(props: AsButton | AsLink) {
     className,
   );
 
-  // The label sits above the gloss layers so the sheen passes over the text
-  // rather than under it, which is where the highlight actually belongs.
   const label =
     variant === "quiet" ? (
       children
     ) : (
-      <span className="relative z-[1] inline-flex items-center gap-2">{children}</span>
+      <span className="inline-flex items-center gap-2">{children}</span>
     );
 
   if ("href" in props && props.href !== undefined) {

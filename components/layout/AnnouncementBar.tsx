@@ -9,9 +9,8 @@ import { cn } from "@/lib/cn";
  * tap to the availability form.
  *
  * It is driven by `AVAILABILITY.status`, the same value the home page pill
- * reads, so La Trell keeps both current by editing one field in constants.ts.
- * No count is published here for the same reason it is not published there -
- * the brief supports "limited openings", not a number.
+ * reads, so both stay current by editing one field in constants.ts. No count
+ * is published here for the same reason it is not published there.
  *
  * Green is the exception to the "color lives in marks, never in large fields"
  * rule in tailwind.config.ts, and it is deliberate: the bar is 36px of a

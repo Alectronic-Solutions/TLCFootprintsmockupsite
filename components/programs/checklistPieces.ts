@@ -8,6 +8,8 @@
  * yellow half. That keeps the checklist's three food lines understandable
  * without turning the footprint into eight tiny pieces.
  */
+import { TUITION } from "@/lib/constants";
+
 export type ChecklistList = "included" | "notIncluded" | "enrollment";
 export type FootRegion =
   | "heel"
@@ -27,7 +29,7 @@ export interface PuzzlePiece {
 }
 
 export const PUZZLE_PIECES: readonly PuzzlePiece[] = [
-  { id: "deposit", label: "$150 deposit", region: "heel", list: "enrollment", indices: [0] },
+  { id: "deposit", label: `$${TUITION.depositAmount} deposit`, region: "heel", list: "enrollment", indices: [0] },
   { id: "schedule", label: "Weekly /\nbi-weekly", region: "arch", list: "enrollment", indices: [1] },
   { id: "breakfast", label: "Breakfast", region: "ballLeft", list: "included", indices: [0] },
   { id: "snacks", label: "AM + PM snacks", region: "ballRight", list: "included", indices: [1, 2] },

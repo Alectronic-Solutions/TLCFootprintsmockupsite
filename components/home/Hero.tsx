@@ -15,43 +15,18 @@ import { EASE } from "@/components/ui/AnimatedSection";
 import { cn } from "@/lib/cn";
 
 /*
- * The chip row that used to sit under the CTAs - "Licensed", "Birth to 5",
- * "CPR certified", "Child Action accepted" - is gone, and so is the amber
- * availability pill that replaced it.
- *
- * Three of the four chips repeated something within two hundred pixels of
- * themselves: "Licensed" sat directly under the licence pill above the
- * headline, "Birth to 5" directly under a lead that says *birth through five*,
- * and "Child Action accepted" directly above the highlights-bar tile that says
- * the same thing with a detail line attached. Only "CPR certified" was new
- * information, and it is on /what-to-expect under Safety, where a parent
- * looking for credentials goes.
- *
- * The enrolling status is still above the fold - it is in the announcement bar
- * at the very top of every page and in the "Now enrolling" highlights tile
- * directly below this section, both driven by the same AVAILABILITY.status
- * La Trell edits. Saying it a third time between the copy and the CTAs was the
- * one thing standing between a parent reading the hero and acting on it.
+ * No chip row under the CTAs: each chip repeated something stated within a
+ * couple hundred pixels. Enrolling status lives in the announcement bar and
+ * the highlights tile, both driven by AVAILABILITY.status.
  */
 
 /**
  * Three prints walking in along the bottom of the hero, climbing toward the
- * foot of the arch on the right.
+ * arch on the right. Coordinates are percentages of the section; the trail
+ * starts past the middle to stay clear of the copy.
  *
- * Coordinates are percentages of the *section* now that the photo is the
- * section background rather than a card in a right-hand column. The old rule
- * here was "keep them off the photo", which no longer means anything when the
- * photo is the whole hero; what matters instead is that they stay clear of the
- * copy, which is why the trail starts past the middle.
- *
- * sm and up only. Percent-of-section is a safe frame at those widths because
- * the copy sits in its own column and the band below it is empty by
- * construction. It is not safe on a phone, where the section is a single
- * stack and every horizontal band it could name already has type in it - see
- * PHONE_TRAIL.
- *
- * Colors run pink -> leaf -> amber rather than alternating two, so the three
- * prints carry the same three inks as the arch above them.
+ * sm and up only. On a phone every band of the stacked section has type in
+ * it; see PHONE_TRAIL.
  */
 const TRAIL = [
   { pos: "left-[40%] bottom-[4%]", r: -22, left: false, tint: "fill-pink" },
@@ -60,30 +35,11 @@ const TRAIL = [
 ];
 
 /**
- * The phone set: a different idea, not a rescaled version of the same one.
- *
- * These used to climb the ragged right edge of the headline, on the theory
- * that a stacked hero has no other white space. It does not hold up. The
- * headline is the one block on the page whose width is set by its own glyphs,
- * so the "edge" the trail was aiming at moves with the font, the viewport and
- * the wrap, and on a 360px screen it moves straight through "Everlasting" -
- * three prints sitting on the largest type on the site.
- *
- * So they are anchored to the arch instead, in its right-hand gutter, and the
- * frame is the arch's own box rather than the section: the arch is `w-[58%]`
- * of the copy column and centred, which leaves a fifth of the column empty on
- * each side, and a box whose width the layout states outright cannot drift
- * onto type the way a percentage of the section can.
- *
- * They climb toward the arch's right foot, which is the same sentence the
- * sm-and-up trail tells, mirrored: the prints there walk in from the left and
- * up, so here they walk in from the right and up, and the rotations flip sign
- * with them. Smaller than the desktop set (h-6, not h-7) because next to a
- * 185px arch they are a detail beside the mark, not a third element.
- *
- * The lowest print overhangs the arch's box by a few pixels, into the `mb-5`
- * above the licence pill. That margin is why the overhang is safe, and why
- * the vertical stops short of the arch's feet rather than sitting on them.
+ * The phone set: anchored to the arch's right-hand gutter rather than the
+ * headline, whose ragged edge moves with the font and wrap. The prints climb
+ * toward the arch's right foot, mirroring the sm-and-up trail. The lowest
+ * print overhangs into the `mb-5` above the licence pill, which is why the
+ * overhang is safe.
  */
 const PHONE_TRAIL = [
   { pos: "right-[-36%] top-[78%]", r: 20, left: true, tint: "fill-pink" },
@@ -155,18 +111,12 @@ export function Hero() {
       <EmbraceBranches />
 
       {/* ------------------------------------------------------------------
-          The arch, whole, from sm up.
-
-          It used to rise from behind the photo card, and only the top of it
-          cleared the frame - a pink dome on the page rather than the logo's
-          mark. With the photo behind everything there is nothing left to hide
-          it, so it stands at full height on the right and the footprint trail
-          walks in toward its foot.
+          The arch, whole, from sm up, with the footprint trail walking in
+          toward its foot.
 
           Off on phones, where the in-flow arch at the head of the copy stands
-          in for it. A 76%-wide arch pinned to the bottom of a stacked hero
-          lands under the fixed Call / Text / Tour bar, which cuts its feet off
-          and reads as a broken graphic wedged behind the bar.
+          in for it; pinned to the bottom of a stacked hero it would land
+          under the fixed Call / Text / Tour bar.
           ------------------------------------------------------------------ */}
       <motion.div
         aria-hidden="true"

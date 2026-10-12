@@ -1,13 +1,11 @@
 import {
-  Baby,
-  CalendarCheck,
-  Clock,
   Mail,
   MessageSquare,
   Phone,
 } from "lucide-react";
 import { AvailabilityRequestForm } from "@/components/availability/AvailabilityRequestForm";
 import { ArcDivider } from "@/components/brand/ArcDivider";
+import { HighlightIcon } from "@/components/brand/HighlightIcon";
 import { CTABand } from "@/components/sections/CTABand";
 import { PageHero } from "@/components/sections/PageHero";
 import { TourHeroBackdrop } from "@/components/tour/TourHeroBackdrop";
@@ -120,9 +118,9 @@ export default function AvailabilityPage() {
                 <AnimatedSection as="li" key={method.label} delay={index * 0.06}>
                   <a
                     href={method.href}
-                    className="card-lift card-rule flex h-full flex-col items-center gap-4 overflow-hidden rounded-2xl border-hair border-cocoa/10 bg-gradient-to-b from-white to-cream-deep p-5 text-center shadow-soft"
+                    className="card-lift flex h-full flex-col items-center gap-4 overflow-hidden rounded-2xl border-hair border-cocoa/10 bg-white p-5 text-center shadow-soft"
                   >
-                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-gradient-to-b from-white to-cream shadow-[0_1px_0_0_rgba(255,255,255,0.9)_inset,0_2px_6px_-2px_rgba(62,42,33,0.18)]">
+                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-cream-deep">
                       <method.Icon className="h-5 w-5 text-pink-dark" aria-hidden="true" />
                     </span>
                     <span className="min-w-0">
@@ -151,8 +149,8 @@ export default function AvailabilityPage() {
             </AnimatedSection>
 
             <AnimatedSection delay={0.08} className="space-y-6 lg:sticky lg:top-24 lg:mt-8">
-              <div className="rounded-2xl border-hair border-leaf/20 bg-gradient-to-b from-white to-cream p-6 text-center shadow-soft">
-                <CalendarCheck className="mx-auto h-6 w-6 text-leaf-dark" aria-hidden="true" />
+              <div className="rounded-2xl border-hair border-leaf/20 bg-white p-6 text-center">
+                <HighlightIcon name="openings" className="mx-auto h-7 w-7" />
                 <h2 className="mt-3 text-h3">{status.title}</h2>
                 <p className="mt-2 text-base font-semibold text-leaf-dark">{status.detail}</p>
                 <p className="mt-2 text-sm text-cocoa-mid">
@@ -160,9 +158,8 @@ export default function AvailabilityPage() {
                 </p>
               </div>
 
-              <div className="rounded-2xl border-hair border-cocoa/10 bg-gradient-to-b from-white to-cream p-6 text-center shadow-soft">
-                <Baby className="mx-auto h-6 w-6 text-leaf-dark" aria-hidden="true" />
-                <h2 className="mt-3 text-h3">Care offered</h2>
+              <div className="rounded-2xl border-hair border-cocoa/10 bg-white p-6 text-center">
+                <h2 className="text-h3">Care offered</h2>
                 <ul className="mt-3 space-y-2 text-sm text-cocoa-mid">
                   {PROGRAMS.map((program) => (
                     <li key={program.slug}>
@@ -174,8 +171,8 @@ export default function AvailabilityPage() {
                 <p className="mt-3 text-sm text-cocoa-mid">Full-time and part-time care</p>
               </div>
 
-              <div className="rounded-2xl border-hair border-cocoa/10 bg-gradient-to-b from-white to-cream p-6 text-center shadow-soft">
-                <Clock className="mx-auto h-6 w-6 text-leaf-dark" aria-hidden="true" />
+              <div className="rounded-2xl border-hair border-cocoa/10 bg-white p-6 text-center">
+                <HighlightIcon name="hours" className="mx-auto h-7 w-7" />
                 <h2 className="mt-3 text-h3">Hours</h2>
                 <p className="tabular mt-2 text-base">
                   {BUSINESS.hours.days}
@@ -184,14 +181,14 @@ export default function AvailabilityPage() {
                 </p>
               </div>
 
-              <div className="rounded-2xl border-hair border-cocoa/10 bg-gradient-to-b from-white to-cream p-6 text-center shadow-soft">
+              <div className="rounded-2xl border-hair border-cocoa/10 bg-white p-6 text-center">
                 <SectionLabel>What happens next</SectionLabel>
                 <ol className="mt-4 space-y-3 text-left">
                   {NEXT_STEPS.map((step, index) => (
                     <li key={step} className="flex gap-3">
                       <span
                         aria-hidden="true"
-                        className="tabular grid h-6 w-6 shrink-0 place-items-center rounded-full bg-gradient-to-b from-[#EA4A6B] to-[#D22F51] text-xs font-semibold text-white shadow-[0_1px_0_0_#9E1F3B]"
+                        className="tabular grid h-6 w-6 shrink-0 place-items-center rounded-full bg-pink-dark text-xs font-semibold text-white"
                       >
                         {index + 1}
                       </span>

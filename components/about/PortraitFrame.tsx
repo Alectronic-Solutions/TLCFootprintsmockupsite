@@ -4,21 +4,10 @@ import { BotanicalSprig } from "@/components/brand/BotanicalSprig";
 import { cn } from "@/lib/cn";
 
 /**
- * Decoration around the "Meet La Trell" portrait: a wash behind it and a sprig
+ * Decoration around the About page portrait: a wash behind it and a sprig
  * tucked at its corner, plus a caption slot that keeps the signature grouped
- * with the photo as one plate.
- *
- * This used to be ParallaxFrame - a scroll-linked follower that measured its
- * own travel with a ResizeObserver and smoothed the result through a spring.
- * That was the wrong tool for what the page wanted: a spring is always
- * drifting toward its target and never rests at it, so the portrait could
- * never read as *stuck*. The pinning is now native `position: sticky`,
- * applied by the caller in app/about/page.tsx, which is genuinely motionless
- * while held and costs no JS at all. There is deliberately no motion left in
- * this file.
- *
- * Purely presentational: it takes whatever `children` the caller gives it
- * (the `<Photo>` slot) and never touches the photo workflow in lib/photos.ts.
+ * with the photo as one plate. Pinning is native `position: sticky`, applied
+ * by the caller; there is no motion in this file.
  */
 export function PortraitFrame({
   children,

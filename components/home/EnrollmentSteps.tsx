@@ -123,7 +123,7 @@ export function EnrollmentSteps({
       <div className="container-page">
         <AnimatedSection className="mx-auto max-w-2xl text-center">
           <SectionLabel className="text-center">Getting started</SectionLabel>
-          <h2 className="text-3d mt-3 text-h2 sm:mt-4">How enrollment works</h2>
+          <h2 className="mt-3 text-h2 sm:mt-4">How enrollment works</h2>
           <p className="mx-auto mt-3 max-w-[42ch] text-lead text-ink sm:mt-5">
             Three steps, and you can stop at any of them.
           </p>
@@ -172,7 +172,7 @@ export function EnrollmentSteps({
                 >
                   {/* No `overflow-hidden`: at lg the numeral sits clear above
                       the card, and the lit ring throws a glow past the edge. */}
-                  <div className="card-lift card-rule relative flex h-full flex-col items-center rounded-2xl border-hair border-cocoa/10 bg-gradient-to-b from-white to-cream p-4 text-center shadow-soft sm:p-5 lg:p-6">
+                  <div className="card-lift relative flex h-full flex-col items-center rounded-2xl border-hair border-cocoa/10 bg-white p-4 text-center shadow-soft sm:p-5 lg:p-6">
                     {/* The lit state rides on its own overlay rather than on the
                         card's own border and shadow, which `.card-lift` already
                         owns a transition for. Two rules animating one property

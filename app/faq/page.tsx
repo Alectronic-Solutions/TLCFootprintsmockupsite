@@ -47,7 +47,7 @@ export default function FaqPage() {
       <section className="section-y bg-cream-deep">
         <div className="container-prose">
           <AnimatedSection>
-            <div className="rounded-2xl border-hair border-cocoa/10 bg-cream px-6 py-2 shadow-soft sm:px-8">
+            <div className="rounded-2xl border-hair border-cocoa/10 bg-cream px-6 py-2 sm:px-8">
               <Accordion items={FAQS} align="center" />
             </div>
           </AnimatedSection>

@@ -24,25 +24,14 @@ import {
 } from "./footGeometry";
 
 /**
- * The puzzle board: a real anatomical footprint, assembled from the shared
- * geometry in footGeometry.ts, with six separately-fillable regions - a
- * jigsaw board rather than one big drop zone.
+ * The puzzle board: an anatomical footprint built from footGeometry.ts, with
+ * six separately-fillable regions.
  *
- * Which piece landed where, and whether a drag is currently hovering the
- * board, are both decided by the parent (FootprintChecklist.tsx) and passed
- * in as plain props (`filled`, `dropActive`) - this component no longer
- * listens for drag events itself. Placement used to be driven by native
- * HTML5 drag-and-drop (`onDragOver`/`onDrop`), which never fires for touch
- * input; the whole puzzle now runs on one Pointer Events based drag
- * implementation (see PuzzleTile.tsx) that works the same for mouse, touch,
- * and pen, so the board's only job is to render whatever state it's told.
+ * Controlled: `filled` and `dropActive` come from FootprintChecklist.tsx,
+ * which runs the Pointer Events drag in PuzzleTile.tsx (mouse, touch, pen).
  *
- * Unfilled regions show a dashed outline of their own shape, tinted with a
- * faint wash of the color that eventually belongs there - an empty
- * puzzle-board slot a visitor can read before they even pick up a piece,
- * not just a gap in one shared outline. A filled region switches to a solid
- * gradient fill in that piece's intentionally assigned brand color (passed
- * in via `filled`), producing the same balanced footprint on every visit.
+ * Unfilled regions show a dashed outline tinted with their eventual color;
+ * a filled region switches to a solid fill in its assigned brand color.
  */
 
 const REGION_PIECE: Record<FootRegion, string> = PUZZLE_PIECES.reduce(

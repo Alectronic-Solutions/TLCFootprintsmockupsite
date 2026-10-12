@@ -142,7 +142,7 @@ export default function AboutPage() {
 
       <ArcDivider variant="shallow" from="bg-cream" to="fill-cream-deep" />
 
-      {/* Meet La Trell */}
+      {/* Meet the provider */}
       <section className="section-y bg-cream-deep">
         <div className="container-page">
           {/* Grid alignment stays at its `stretch` default so the photo
@@ -203,13 +203,8 @@ export default function AboutPage() {
                 the page reads too long, drop this back to lg:pb-10 first. */}
             <AnimatedSection delay={0.08} className="text-center lg:pb-16 lg:text-left">
               <SectionLabel className="text-center lg:text-left">Meet La Trell</SectionLabel>
-              <h2 className="text-3d mt-3 text-h2">The person caring for your child each day</h2>
+              <h2 className="mt-3 text-h2">The person caring for your child each day</h2>
 
-              {/* Copy approved with La Trell's brief in hand. Everything here is
-                  either a stated fact (name, role, license, CPR, mandated
-                  reporter) or her own stated intent for the house. Nothing
-                  invents biography: no career history, no numbers, and no
-                  claim about her own childhood. */}
               <div className="mx-auto mt-6 max-w-[42ch] space-y-5 text-body leading-relaxed lg:mx-0">
                 <p>
                   I&apos;m {BUSINESS.owner}, owner and provider at {BUSINESS.shortName}. I created
@@ -257,8 +252,7 @@ export default function AboutPage() {
 
       <ArcDivider variant="scallop" from="bg-cream-deep" to="fill-cream" />
 
-      {/* The day this house is open - hours only, nothing invented. See the
-          hard constraint documented in AboutDayBand and in lib/constants.ts. */}
+      {/* The day this house is open - hours only. */}
       <AboutDayBand />
 
       <ArcDivider variant="deep" from="bg-cream" to="fill-cream-deep" />
@@ -268,7 +262,7 @@ export default function AboutPage() {
         <div className="container-page">
           <AnimatedSection className="mx-auto max-w-2xl text-center">
             <SectionLabel className="text-center">How I work</SectionLabel>
-            <h2 className="text-3d mt-3 text-h2">Play-based and child-led</h2>
+            <h2 className="mt-3 text-h2">Play-based and child-led</h2>
             <p className="mx-auto mt-4 max-w-[52ch] text-lead text-ink">
               Those two phrases get used loosely, so here is what they mean in this house.
             </p>
@@ -288,7 +282,7 @@ export default function AboutPage() {
                       would stack two brand colours in one 48px circle. */}
                   <span
                     aria-hidden="true"
-                    className="grid h-12 w-12 shrink-0 place-items-center rounded-full border-hair border-cocoa/15 bg-gradient-to-b from-white to-cream-deep shadow-[0_1px_0_0_rgba(255,255,255,0.9)_inset,0_2px_6px_-2px_rgba(62,42,33,0.15)]"
+                    className="grid h-12 w-12 shrink-0 place-items-center rounded-full border-hair border-cocoa/15 bg-cream-deep"
                   >
                     <Footprint className={cn("h-8 w-auto", item.tint)} />
                   </span>
@@ -323,9 +317,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Tour logistics stay at what the brief actually states: by appointment,
-          La Trell confirms the time. The earlier "you are welcome to bring your
-          child" was never confirmed by her, so it is not promised here. */}
       <CTABand
         title={`Come see if ${BUSINESS.shortName} is right for your family`}
         body="A website can tell you a lot, but visiting is the best way to get a feel for the place. Tours are by appointment. Call, text, or email La Trell to request a time."

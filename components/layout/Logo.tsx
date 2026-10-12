@@ -4,7 +4,7 @@ import { BUSINESS } from "@/lib/constants";
 import { cn } from "@/lib/cn";
 
 /**
- * The T.L.C. Footprints mark, rebuilt from La Trell's logo.
+ * The T.L.C. Footprints mark, rebuilt from the original logo.
  *
  * Hybrid by design: the rainbow, footprints, and botanicals are pure SVG paths
  * (so they never depend on a webfont loading), while the wordmark is real HTML

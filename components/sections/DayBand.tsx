@@ -12,17 +12,11 @@ import { cn } from "@/lib/cn";
 import type { PhotoKey } from "@/lib/photos";
 
 /**
- * The full-bleed photo-plus-clock band, in one place.
+ * The full-bleed photo-plus-clock band, shared by home, What to Expect and
+ * About. Variation goes through props.
  *
- * This used to be three near-identical copies - "Inside the day" on the home
- * page, "The day" on What to Expect, and "Hours and availability" on About -
- * that had already drifted apart in gap, measure and source order. Every
- * caller now renders this component, so the recipe can only drift on
- * purpose, through a prop.
- *
- * HARD CONSTRAINT, from lib/constants.ts (the removed DAILY_RHYTHM note): no
- * daily schedule is published. This band shows the open window -
- * BUSINESS.hours - and nothing else.
+ * HARD CONSTRAINT: no daily schedule is published. This band shows the open
+ * window (BUSINESS.hours) and nothing else.
  */
 export function DayBand({
   photo,
@@ -116,7 +110,7 @@ export function DayBand({
             delay={0.08}
           >
             <SectionLabel className={copyAlign}>{label}</SectionLabel>
-            <h2 className="text-3d mt-4 text-balance text-h2">{title}</h2>
+            <h2 className="mt-4 text-balance text-h2">{title}</h2>
             <div className={cn("mx-auto mt-5 max-w-[42ch] text-lead text-ink", copyMeasureAlign)}>{lead}</div>
             {body ? (
               <div className={cn("mx-auto mt-6 max-w-[42ch] text-body", copyMeasureAlign)}>{body}</div>

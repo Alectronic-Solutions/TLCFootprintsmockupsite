@@ -77,7 +77,7 @@ export const PHOTOS = {
     spec: "Back yard, shade visible, fence in frame. Subject left of center, quiet right third. 2000 x 1333",
   },
 
-  /** About page, "Meet La Trell". */
+  /** About page, provider portrait. */
   portrait: {
     src: "latrell-armstrong-portrait.webp",
     alt: "La Trell Armstrong, owner of T.L.C. Footprints Home Daycare",

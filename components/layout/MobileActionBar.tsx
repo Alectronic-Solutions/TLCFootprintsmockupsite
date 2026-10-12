@@ -48,12 +48,6 @@ export function MobileActionBar() {
         boxShadow: "0 -1px 0 rgba(62,42,33,0.05), 0 -8px 24px rgba(62,42,33,0.07)",
       }}
     >
-      {/* Rainbow hairline along the top edge, matching the navbar's. */}
-      <span
-        aria-hidden="true"
-        className="rule-rainbow absolute inset-x-0 top-0 block h-[2px] opacity-70"
-      />
-
       <nav aria-label="Quick contact" className="grid grid-cols-3">
         {items.map(({ href, label, Icon, primary }) => {
           const content = (

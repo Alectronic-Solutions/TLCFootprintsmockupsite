@@ -52,7 +52,8 @@ export function TurnstileWidget({
         callback: (token) => onTokenChange(token),
         "expired-callback": () => onTokenChange(""),
         "error-callback": () => onTokenChange(""),
-        theme: "auto",
+        // The site is light-only (see color-scheme in globals.css).
+        theme: "light",
         size: "flexible",
       });
     };

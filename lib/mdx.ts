@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
+import { BUSINESS, TUITION } from "@/lib/constants";
 
 /**
  * Resource library loader.
@@ -74,10 +75,29 @@ function readingTimeMinutes(body: string): number {
   return Math.max(1, Math.round(words / 220));
 }
 
+/**
+ * Facts an article can write as {{NAME}}, so articles read the same values as
+ * the rest of the site instead of carrying their own copy.
+ */
+const ARTICLE_FACTS: Record<string, string> = {
+  DEPOSIT: `$${TUITION.depositAmount}`,
+  LICENSE: BUSINESS.license,
+  LICENSE_URL: BUSINESS.licenseRecordUrl,
+};
+
+function fillFacts(body: string, fileName: string): string {
+  return body.replace(/\{\{([A-Z_]+)\}\}/g, (_, name: string) => {
+    const value = ARTICLE_FACTS[name];
+    if (value === undefined) throw new Error(`${fileName}: unknown fact {{${name}}}`);
+    return value;
+  });
+}
+
 function parseFile(fileName: string): Article {
   const slug = fileName.replace(/\.mdx?$/, "");
   const raw = fs.readFileSync(path.join(CONTENT_DIR, fileName), "utf8");
-  const { data, content } = matter(raw);
+  const { data, content: source } = matter(raw);
+  const content = fillFacts(source, fileName);
 
   return {
     slug,

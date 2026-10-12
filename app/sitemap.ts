@@ -1,11 +1,16 @@
 import type { MetadataRoute } from "next";
 import { getAllArticles } from "@/lib/mdx";
 import { SITE_URL, toIsoMonthDate } from "@/lib/seo";
+import { IS_INDEXABLE } from "@/lib/site";
 
 /** Static routes plus every resource article, read from the filesystem. */
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  // Previews are noindex, so they publish an empty sitemap rather than a map
+  // of every URL.
+  if (!IS_INDEXABLE) return [];
+
   const staticRoutes = [
     { path: "/", priority: 1 },
     { path: "/programs", priority: 0.9 },
