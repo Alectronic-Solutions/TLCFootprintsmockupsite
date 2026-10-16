@@ -24,7 +24,7 @@ export default function PrivacyPage() {
       label="Privacy policy"
       title="How information is handled"
       subtitle="This policy explains what this website collects, what it does not collect, and the choices available to you."
-      updated="August 31, 2026"
+      updated="October 16, 2026"
     >
       <h2>The short version</h2>
       <p>
@@ -105,6 +105,15 @@ export default function PrivacyPage() {
       <ul>
         <li>The hosting, security, and form-processing providers that deliver and protect the website</li>
         <li>Email-delivery providers used to send form inquiries to {BUSINESS.name}</li>
+        <li>
+          Brightwheel, a third-party child care platform, when a family chooses to join the
+          interest list or sign in through the Brightwheel links on this site. Details entered
+          there are handled under{" "}
+          <a href="https://mybrightwheel.com/privacy/" target="_blank" rel="noopener noreferrer">
+            Brightwheel&apos;s privacy policy
+          </a>
+          .
+        </li>
         <li>
           Phone, mobile carrier, messaging, and email providers involved when a person
           chooses to call, text, or email
@@ -189,7 +198,7 @@ export default function PrivacyPage() {
 
       <h2>Effective date and contact</h2>
       <p>
-        Effective August 31, 2026. Questions or requests may be sent to{" "}
+        Effective October 16, 2026. Questions or requests may be sent to{" "}
         <a href={BUSINESS.emailHref}>{BUSINESS.email}</a> or made by calling{" "}
         <a href={BUSINESS.phoneHref}>{BUSINESS.phone}</a>.
       </p>

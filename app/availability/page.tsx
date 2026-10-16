@@ -6,6 +6,7 @@ import {
 import { AvailabilityRequestForm } from "@/components/availability/AvailabilityRequestForm";
 import { ArcDivider } from "@/components/brand/ArcDivider";
 import { HighlightIcon } from "@/components/brand/HighlightIcon";
+import { BrightwheelPanel } from "@/components/sections/BrightwheelPanel";
 import { CTABand } from "@/components/sections/CTABand";
 import { PageHero } from "@/components/sections/PageHero";
 import { TourHeroBackdrop } from "@/components/tour/TourHeroBackdrop";
@@ -157,6 +158,8 @@ export default function AvailabilityPage() {
                   Updated <CurrentMonth />. Exact availability varies by age and schedule.
                 </p>
               </div>
+
+              <BrightwheelPanel variant="compact" />
 
               <div className="rounded-2xl border-hair border-cocoa/10 bg-white p-6 text-center">
                 <h2 className="text-h3">Care offered</h2>

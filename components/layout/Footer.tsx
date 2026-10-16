@@ -1,8 +1,17 @@
 import Link from "next/link";
-import { Mail, MapPin, MessageSquare, Phone } from "lucide-react";
+import {
+  ArrowUpRight,
+  BadgeCheck,
+  Clock,
+  Mail,
+  MapPin,
+  MessageSquare,
+  Phone,
+} from "lucide-react";
 import { Logo } from "./Logo";
+import { BotanicalSprig } from "@/components/brand/BotanicalSprig";
 import { HeartDots } from "@/components/brand/HeartDots";
-import { BUSINESS, NAV_LINKS } from "@/lib/constants";
+import { BRIGHTWHEEL, BUSINESS, NAV_LINKS } from "@/lib/constants";
 
 const LEGAL_LINKS = [
   { href: "/privacy", label: "Privacy" },
@@ -12,6 +21,16 @@ const LEGAL_LINKS = [
 
 const SOCIAL_LINK =
   "grid h-11 w-11 place-items-center rounded-full transition-transform motion-safe:hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-dark focus-visible:ring-offset-2 focus-visible:ring-offset-cream-deep";
+
+const EYEBROW = "text-eyebrow font-bold uppercase tracking-[0.12em] text-leaf-dark";
+
+const CONTACT_ROW =
+  "flex items-center gap-2.5 text-sm font-medium text-cocoa transition-colors hover:text-pink-dark";
+
+const OUT_ICON =
+  "shrink-0 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5";
+
+const NEW_TAB = <span className="sr-only"> (opens in a new tab)</span>;
 
 const TIKTOK_NOTE =
   "M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z";
@@ -53,165 +72,206 @@ function TikTokIcon({ className }: { className?: string }) {
   );
 }
 
+/**
+ * Four groups: who we are, where to go, how to reach us, and the family
+ * portal. Below lg the brand spans the full width, Explore and contact share
+ * a row, and the portal card spans the full width beneath them.
+ *
+ * No top border. Most pages hand over from the CTA band's arc, which already
+ * draws the seam, and a hairline under it read as a stray second edge. The
+ * heart divider marks the start of the footer on pages without the band.
+ */
 export function Footer() {
   return (
-    <footer className="border-t-hair border-cocoa/10 bg-cream-deep">
-      <div className="container-page py-10 sm:py-12">
-        <div className="grid gap-8 md:grid-cols-[1.2fr_1fr_1fr]">
-          <div className="text-center md:text-left">
+    <footer className="relative overflow-hidden bg-cream-deep">
+      <BotanicalSprig
+        flip
+        still
+        leavesOnly
+        className="pointer-events-none absolute -right-8 bottom-20 hidden h-44 w-auto opacity-40 lg:block"
+      />
+
+      <div className="container-page relative pb-8 pt-10 sm:pt-12">
+        <HeartDots className="mb-10 sm:mb-12" />
+
+        <div className="grid grid-cols-[2fr_3fr] gap-x-4 gap-y-10 sm:gap-x-8 lg:grid-cols-[1.35fr_0.75fr_1fr_1.1fr] lg:gap-x-10">
+          <div className="col-span-2 text-center lg:col-span-1 lg:text-left">
             <Logo variant="compact" asLink={false} />
-            <p className="mt-4 text-sm text-cocoa-mid md:max-w-xs">
+            <p className="mx-auto mt-4 max-w-sm text-sm leading-relaxed text-cocoa-mid lg:mx-0 lg:max-w-xs">
               A licensed California Family Child Care Home in {BUSINESS.city}, offering
               play-based, child-led care for children birth through age five and welcoming
               Child Action families.
             </p>
-            <p className="mt-4 text-sm text-cocoa-mid">
-              License{" "}
-              <a
-                href={BUSINESS.licenseRecordUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline decoration-cocoa/30 underline-offset-2 transition-colors hover:text-pink-dark"
-              >
-                #{BUSINESS.license}
-              </a>
-            </p>
 
-            <div className="mt-5">
-              <p className="text-eyebrow font-bold uppercase tracking-[0.12em] text-leaf-dark">
-                Follow along
-              </p>
-              <ul className="mt-3 flex items-center justify-center gap-3 md:justify-start">
-                <li>
-                  <a
-                    href={BUSINESS.social.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Follow T.L.C. Footprints on Instagram"
-                    title="Instagram"
-                    className={SOCIAL_LINK}
-                  >
-                    <InstagramIcon className="h-7 w-7" />
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={BUSINESS.social.tiktok}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Follow T.L.C. Footprints on TikTok"
-                    title="TikTok"
-                    className={SOCIAL_LINK}
-                  >
-                    <TikTokIcon className="h-7 w-7" />
-                  </a>
-                </li>
-              </ul>
-            </div>
+            <a
+              href={BUSINESS.licenseRecordUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group mt-5 inline-flex items-center gap-2 rounded-full border-hair border-leaf/25 bg-white/70 px-3.5 py-1.5 text-xs font-semibold text-cocoa transition-colors hover:border-leaf/50 hover:bg-white"
+            >
+              <BadgeCheck className="h-4 w-4 shrink-0 text-leaf-dark" aria-hidden="true" />
+              <span>
+                State licensed{" "}
+                <span className="tabular font-medium text-cocoa-mid">#{BUSINESS.license}</span>
+              </span>
+              <ArrowUpRight className={`h-3.5 w-3.5 text-cocoa-mid ${OUT_ICON}`} aria-hidden="true" />
+              {NEW_TAB}
+            </a>
+
+            <ul className="mt-4 flex items-center justify-center gap-2 lg:justify-start">
+              <li>
+                <a
+                  href={BUSINESS.social.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Follow T.L.C. Footprints on Instagram"
+                  title="Instagram"
+                  className={SOCIAL_LINK}
+                >
+                  <InstagramIcon className="h-7 w-7" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href={BUSINESS.social.tiktok}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Follow T.L.C. Footprints on TikTok"
+                  title="TikTok"
+                  className={SOCIAL_LINK}
+                >
+                  <TikTokIcon className="h-7 w-7" />
+                </a>
+              </li>
+            </ul>
           </div>
 
-          <div className="grid grid-cols-[2fr_3fr] items-start gap-x-4 gap-y-8 md:contents">
-            <div>
-              <h2 className="text-eyebrow font-bold uppercase tracking-[0.12em] text-leaf-dark">
-                Explore
-              </h2>
-              <ul className="mt-4 space-y-3">
-                {NAV_LINKS.map((link) => (
-                  <li key={link.href} className="leading-tight">
-                    <Link
-                      href={link.href}
-                      className="text-sm font-medium text-cocoa transition-colors hover:text-pink-dark"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <nav aria-labelledby="footer-explore">
+            <h2 id="footer-explore" className={EYEBROW}>
+              Explore
+            </h2>
+            <ul className="mt-4 space-y-3">
+              {NAV_LINKS.map((link) => (
+                <li key={link.href} className="leading-tight">
+                  <Link
+                    href={link.href}
+                    className="text-sm font-medium text-cocoa transition-colors hover:text-pink-dark"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-            <div>
-              <h2 className="text-eyebrow font-bold uppercase tracking-[0.12em] text-leaf-dark">
-                Get in touch
-              </h2>
-              <ul className="mt-4 space-y-3">
-                <li>
-                  <a
-                    href={BUSINESS.phoneHref}
-                    className="flex items-center gap-2.5 text-sm font-medium text-cocoa transition-colors hover:text-pink-dark"
-                  >
-                    <Phone className="h-4 w-4 shrink-0 text-leaf-dark" aria-hidden="true" />
-                    {BUSINESS.phone}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={BUSINESS.smsHref}
-                    className="flex items-center gap-2.5 text-sm font-medium text-cocoa transition-colors hover:text-pink-dark"
-                  >
-                    <MessageSquare
-                      className="h-4 w-4 shrink-0 text-leaf-dark"
-                      aria-hidden="true"
-                    />
-                    Send a text
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={BUSINESS.emailHref}
-                    className="flex items-center gap-2.5 break-all text-sm font-medium text-cocoa transition-colors hover:text-pink-dark"
-                  >
-                    <Mail className="h-4 w-4 shrink-0 text-leaf-dark" aria-hidden="true" />
-                    {BUSINESS.email}
-                  </a>
-                </li>
-                <li className="flex items-center gap-2.5 text-sm text-cocoa-mid">
-                  <MapPin className="h-4 w-4 shrink-0 text-leaf-dark" aria-hidden="true" />
-                  {BUSINESS.city}, {BUSINESS.state}
-                </li>
-              </ul>
+          <div>
+            <h2 className={EYEBROW}>Get in touch</h2>
+            <ul className="mt-4 space-y-3">
+              <li>
+                <a href={BUSINESS.phoneHref} className={CONTACT_ROW}>
+                  <Phone className="h-4 w-4 shrink-0 text-leaf-dark" aria-hidden="true" />
+                  {BUSINESS.phone}
+                </a>
+              </li>
+              <li>
+                <a href={BUSINESS.smsHref} className={CONTACT_ROW}>
+                  <MessageSquare className="h-4 w-4 shrink-0 text-leaf-dark" aria-hidden="true" />
+                  Send a text
+                </a>
+              </li>
+              <li>
+                <a href={BUSINESS.emailHref} className={`${CONTACT_ROW} break-all`}>
+                  <Mail className="h-4 w-4 shrink-0 text-leaf-dark" aria-hidden="true" />
+                  {BUSINESS.email}
+                </a>
+              </li>
+              <li className="flex items-center gap-2.5 text-sm text-cocoa-mid">
+                <MapPin className="h-4 w-4 shrink-0 text-leaf-dark" aria-hidden="true" />
+                {BUSINESS.city}, {BUSINESS.state}
+              </li>
+              <li className="flex items-start gap-2.5 text-sm text-cocoa-mid">
+                <Clock className="mt-0.5 h-4 w-4 shrink-0 text-leaf-dark" aria-hidden="true" />
+                <span>
+                  {BUSINESS.hours.days}
+                  <br />
+                  <span className="tabular">
+                    {BUSINESS.hours.open} to {BUSINESS.hours.close}
+                  </span>
+                  <span className="mt-1 block text-xs">{BUSINESS.hours.closed}</span>
+                </span>
+              </li>
+            </ul>
+          </div>
 
-              <p className="mt-5 text-sm text-cocoa-mid">
-                {BUSINESS.hours.days}
-                <br />
-                {BUSINESS.hours.open} to {BUSINESS.hours.close}
-                <br />
-                <span className="text-xs">{BUSINESS.hours.closed}</span>
-              </p>
+          {/* The family portal as one small card, so it reads as a destination
+              rather than two more links in a list. */}
+          <div className="col-span-2 lg:col-span-1">
+            <h2 className={`${EYEBROW} text-center lg:text-left`}>Families</h2>
+            <div className="mt-4 overflow-hidden rounded-2xl border-hair border-cocoa/10 bg-white shadow-soft">
+              <div aria-hidden="true" className="rule-rainbow h-1 w-full" />
+              <div className="grid sm:grid-cols-2 lg:grid-cols-1">
+                <div className="p-4 text-center sm:p-5 lg:text-left">
+                  <p className="text-sm font-semibold text-cocoa">Prospective families</p>
+                  <p className="mt-1 text-xs leading-relaxed text-cocoa-mid">
+                    Join our interest list through Brightwheel.
+                  </p>
+                  <a
+                    href={BRIGHTWHEEL.interestListUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group mt-3 inline-flex min-h-[42px] w-full items-center justify-center gap-1.5 rounded-full bg-pink-dark px-4 py-2 text-sm font-semibold text-white shadow-[0_2px_0_0_#8A1A33] transition-colors hover:bg-[#AD2543] active:translate-y-px active:shadow-[0_1px_0_0_#8A1A33]"
+                  >
+                    Join the Interest List
+                    <ArrowUpRight className={`h-4 w-4 ${OUT_ICON}`} aria-hidden="true" />
+                    {NEW_TAB}
+                  </a>
+                </div>
+                <div className="flex flex-col items-center justify-center border-t-hair border-cocoa/10 bg-cream-deep/50 p-4 text-center sm:border-l-hair sm:border-t-0 sm:p-5 lg:items-start lg:border-l-0 lg:border-t-hair lg:text-left">
+                  <p className="text-sm font-semibold text-cocoa">Current families</p>
+                  <p className="mt-1 text-xs leading-relaxed text-cocoa-mid">
+                    Forms, messages, and payments.
+                  </p>
+                  <a
+                    href={BRIGHTWHEEL.familySignInUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group mt-2 inline-flex items-center gap-1 text-sm font-semibold text-cocoa underline decoration-pink/50 underline-offset-4 transition-colors hover:text-pink-dark"
+                  >
+                    Brightwheel sign-in
+                    <ArrowUpRight className={`h-3.5 w-3.5 ${OUT_ICON}`} aria-hidden="true" />
+                    {NEW_TAB}
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <HeartDots className="mt-9" />
-
-        <div className="mt-6 flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left">
-          <p className="text-xs text-cocoa-mid">
+        <div className="mt-12 flex flex-col items-center gap-3 border-t-hair border-cocoa/10 pt-6 text-center text-xs leading-5 text-cocoa-mid lg:flex-row lg:justify-between lg:text-left">
+          <p>
             © {new Date().getFullYear()} {BUSINESS.name}. All rights reserved.
           </p>
-          <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+          <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1">
             {LEGAL_LINKS.map((link) => (
               <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="text-xs text-cocoa-mid transition-colors hover:text-pink-dark"
-                >
+                <Link href={link.href} className="transition-colors hover:text-pink-dark">
                   {link.label}
                 </Link>
               </li>
             ))}
           </ul>
+          <p>
+            Designed with care by{" "}
+            <a
+              href="https://alectronicsolutions.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-cocoa transition-colors hover:text-pink-dark"
+            >
+              Alectronic Solutions
+            </a>
+          </p>
         </div>
-
-        <p className="mt-6 text-center text-xs text-cocoa-mid">
-          Designed with care by{" "}
-          <a
-            href="https://alectronicsolutions.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-medium text-cocoa transition-colors hover:text-pink-dark"
-          >
-            Alectronic Solutions
-          </a>
-        </p>
       </div>
     </footer>
   );

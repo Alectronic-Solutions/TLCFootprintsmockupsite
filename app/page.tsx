@@ -11,6 +11,7 @@ import {
 } from "@/components/home/DifferentiatorBlocks";
 import { EnrollmentSteps } from "@/components/home/EnrollmentSteps";
 import { RatesPanel } from "@/components/home/RatesPanel";
+import { BrightwheelPanel } from "@/components/sections/BrightwheelPanel";
 import { CTABand } from "@/components/sections/CTABand";
 import { DayBand } from "@/components/sections/DayBand";
 import { ArcDivider } from "@/components/brand/ArcDivider";
@@ -36,12 +37,14 @@ export const metadata = pageMeta({
 });
 
 /**
- * The home page answers six questions in order, and nothing else:
+ * The home page answers seven questions in order, and nothing else:
  *
- *   Is there room for my child?      The hero status pill, the highlights bar
+ *   Is there room for my child?      The hero status pill
+ *   How do I get on the list?        The interest list, straight after it
+ *   What are the basics?             The highlights bar
+ *   What does it cost?               Rates
  *   Can I get help paying?           The Child Action starting path
  *   Why a home instead of a center?  Differentiators
- *   What does it cost?               Rates
  *   What is the day like?            Inside the day
  *   Can I trust her?                 The name, the process, the FAQ
  *
@@ -81,16 +84,19 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      {/* Cream like the hero and the top of the highlights gradient, so it
+          needs no divider on either side. */}
+      <BrightwheelPanel surface="bg-cream" />
+      {/* The highlights gradient ends in cream-deep, the rates surface, so the
+          two run on without a divider. */}
       <HighlightsBar />
-      <ArcDivider variant="shallow" from="bg-cream-deep" to="fill-cream" />
-
-      <ChildActionSection />
-
-      <ArcDivider variant="deep" from="bg-cream" to="fill-cream-deep" />
-
       <RatesPanel />
 
       <ArcDivider variant="scallop" from="bg-cream-deep" to="fill-cream" />
+
+      {/* Cream, like the section below it. The Child Action panel is its own
+          bordered card, so the two read apart without a divider. */}
+      <ChildActionSection />
 
       {/* Why a home */}
       <section className="section-y relative overflow-hidden bg-cream">

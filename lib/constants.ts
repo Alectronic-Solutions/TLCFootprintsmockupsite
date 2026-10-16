@@ -69,6 +69,18 @@ export const BUSINESS = {
 } as const;
 
 /**
+ * The family portal. Prospective families join the interest list through a
+ * self-service form; enrolled families sign in for forms, messages, and
+ * payments. The form link passes through the portal's sign-in page first,
+ * which may ask a visitor to sign in or create an account.
+ */
+export const BRIGHTWHEEL = {
+  interestListUrl:
+    "https://schools.mybrightwheel.com/sign-in?redirect_path=forms/cb287a62-5555-4c91-bf39-20b08f7aa0f3/self-service",
+  familySignInUrl: "https://schools.mybrightwheel.com/sign-in",
+} as const;
+
+/**
  * Drives the hero's status pill, the "Now enrolling" tile in the highlights
  * bar, and the announcement bar above the navbar. The freshness date shown
  * to families follows the current California month automatically; only the
