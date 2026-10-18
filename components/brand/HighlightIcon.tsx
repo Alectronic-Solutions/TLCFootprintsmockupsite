@@ -34,7 +34,7 @@ function Extras({ prefix }: { prefix: string }) {
 
 function Hours({ ids }: { ids: GlossyIds }) {
   const rim = (fill: string) => <circle cx="24" cy="25" r="14.4" fill={fill} />;
-  const bell = (cx: number) => (fill: string) => <circle cx={cx} cy="14.6" r="4.8" fill={fill} />;
+  const bell = (cx: number, fill: string) => <circle cx={cx} cy="14.6" r="4.8" fill={fill} />;
   const hands = (stroke: string) => (
     <path d="M24 25.6v-7.4M24 25.6l4.4 3" stroke={stroke} strokeWidth="2.4" strokeLinecap="round" fill="none" />
   );
@@ -47,8 +47,8 @@ function Hours({ ids }: { ids: GlossyIds }) {
       <path d="M16.4 36.4l-2.6 5M31.6 36.4l2.6 5" stroke={ids.side("leaf")} strokeWidth="2.8" strokeLinecap="round" />
       <path d="M24 10.6V8.2" stroke={TONES.leaf.side[0]} strokeWidth="1.8" strokeLinecap="round" />
       <circle cx="24" cy="7.6" r="1.7" fill={ids.face("amber")} />
-      <Solid shape={bell(14)} tone="amber" ids={ids} depth={1.4} />
-      <Solid shape={bell(34)} tone="amber" ids={ids} depth={1.4} />
+      <Solid shape={(fill) => bell(14, fill)} tone="amber" ids={ids} depth={1.4} />
+      <Solid shape={(fill) => bell(34, fill)} tone="amber" ids={ids} depth={1.4} />
 
       <Solid shape={rim} tone="leaf" ids={ids} depth={2.4} />
       <path d="M13.2 20.6a11.6 11.6 0 0 1 7-6.6" stroke="#FFFFFF" strokeOpacity="0.7" strokeWidth="1.2" strokeLinecap="round" fill="none" />

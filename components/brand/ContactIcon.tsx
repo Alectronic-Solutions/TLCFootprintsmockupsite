@@ -23,12 +23,12 @@ function Call({ ids }: { ids: GlossyIds }) {
   const handle = (fill: string) => (
     <path d="M12.5 26Q24 5 35.5 26" transform={TURN} stroke={fill} strokeWidth="8" strokeLinecap="round" fill="none" />
   );
-  const cup = (dx: number) => (fill: string) => (
+  const cup = (dx: number, fill: string) => (
     <path d={CUP} transform={`${TURN} translate(${dx} 0)`} fill={fill} />
   );
 
   /* Two ring waves off the earpiece, the outer one fainter. */
-  const wave = (r: number) => (fill: string) => (
+  const wave = (r: number, fill: string) => (
     <path
       d={`M${30.4 + r * 0.17} ${19 - r * 0.98}A${r} ${r} 0 0 1 ${30.4 + r * 0.98} ${19 - r * 0.17}`}
       stroke={fill}
@@ -41,13 +41,13 @@ function Call({ ids }: { ids: GlossyIds }) {
   return (
     <>
       <Ground ids={ids} rx={13} />
-      <Solid shape={wave(11)} tone="pink" ids={ids} depth={1} />
+      <Solid shape={(fill) => wave(11, fill)} tone="pink" ids={ids} depth={1} />
       <g opacity="0.6">
-        <Solid shape={wave(15.6)} tone="pink" ids={ids} depth={1} />
+        <Solid shape={(fill) => wave(15.6, fill)} tone="pink" ids={ids} depth={1} />
       </g>
       <Solid shape={handle} tone="pink" ids={ids} depth={2.2} />
-      <Solid shape={cup(0)} tone="pink" ids={ids} depth={2.4} />
-      <Solid shape={cup(23)} tone="pink" ids={ids} depth={2.4} />
+      <Solid shape={(fill) => cup(0, fill)} tone="pink" ids={ids} depth={2.4} />
+      <Solid shape={(fill) => cup(23, fill)} tone="pink" ids={ids} depth={2.4} />
 
       <g transform={TURN}>
         {/* Darker bands where each cup meets the handle. */}
