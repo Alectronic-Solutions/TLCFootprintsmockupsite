@@ -7,6 +7,7 @@ import { ArcDivider } from "@/components/brand/ArcDivider";
 import { HeartDots } from "@/components/brand/HeartDots";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { ResourcesHeroBackdrop } from "@/components/resources/ResourcesHeroBackdrop";
+import { Checklist, CopyList } from "@/components/resources/GuideLists";
 import { getAllArticles, getArticle, getRelated } from "@/lib/mdx";
 import { BUSINESS } from "@/lib/constants";
 import {
@@ -37,7 +38,7 @@ export async function generateMetadata({
   });
 }
 
-/** Prose styling for MDX output. Articles ship no client JS of their own. */
+/** Prose styling for MDX output. The only client JS is the copy and check lists. */
 const components = {
   h2: (p: React.ComponentProps<"h2">) => (
     <h2 className="mt-9 scroll-mt-28 text-h2 first:mt-0" {...p} />
@@ -104,6 +105,12 @@ const components = {
     <td className="border-b-hair border-cocoa/10 p-3" {...p} />
   ),
   hr: () => <HeartDots className="my-8" />,
+  CopyList: (p: React.ComponentProps<typeof CopyList>) => (
+    <CopyList className="mx-auto mt-5 max-w-[60ch] text-left" {...p} />
+  ),
+  Checklist: (p: React.ComponentProps<typeof Checklist>) => (
+    <Checklist className="mx-auto mt-5 max-w-[60ch] text-left" {...p} />
+  ),
 };
 
 export default async function ArticlePage({

@@ -96,6 +96,22 @@
     background-color: var(--color-pink-light);
     color: var(--color-cocoa);
   }
+
+  /* Skips style, layout and paint for sections that are nowhere near the
+     screen. Without it a phone lays out the whole page, several thousand
+     elements and a few hundred SVGs, before it paints the first screen of it.
+     The first section is left alone: it is the first screen.
+
+     content-visibility also applies paint containment, which would clip a
+     `fixed` child to its section and pin it there (FootprintChecklist's drag
+     preview), so a section holding one opts out. 900px is only the stand-in
+     height until a section has rendered once; `auto` then remembers the real
+     one. */
+  #main-content > section:not(:first-child):not(:has(.fixed)),
+  body footer {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 900px;
+  }
 }
 
 /* The Programs hero is grayscale at rest on every input - a cursor sweep or
@@ -694,6 +710,82 @@
   justify-self: center;
 }
 
+/* The home page pen as a tabletop rather than a rug: a wall behind, and a
+   wooden table the blocks stand on. The tabletop is drawn in the same oblique
+   projection as the cubes - a cube's whole depth reads as --depth - so a band
+   a few --depths tall is a table a few cubes deep, and the blocks' top faces
+   land inside it instead of poking past its back edge.
+
+   Only the floor moves: its bottom inset is the table's front line, so the
+   physics ground (which useBlockPhysics reads off the floor box) is exactly
+   where the blocks are drawn standing. */
+.toy-pen--table {
+  /* Pen bottom to where the blocks stand. */
+  --table-line: 3.25rem;
+  /* How far the tabletop runs in front of the blocks. */
+  --table-lip: 0.75rem;
+  /* Deeper than the rug pen's cubes: on a table the depth is the point. */
+  --depth: 14px;
+
+  height: calc(var(--cube) * 3 + 6rem);
+  background:
+    radial-gradient(ellipse 70% 60% at 25% 0%, #fffaf2 0%, transparent 70%),
+    linear-gradient(180deg, #f9f1e4 0%, #f1e3cd 100%);
+}
+
+/* The tabletop. Grain runs along the table, darkening slightly toward the
+   back edge, which is where the wall meets it. */
+.toy-pen--table::before {
+  inset: auto 0 calc(var(--table-line) - var(--table-lip)) 0;
+  height: calc(var(--depth) * 3 + var(--table-lip));
+  border: 0;
+  border-radius: 0;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(140, 86, 40, 0.07) 0 1px,
+      transparent 1px 6px
+    ),
+    linear-gradient(180deg, #dfbe92 0%, #ecd3ad 100%);
+  box-shadow: 0 -1px 0 rgba(62, 42, 33, 0.12);
+}
+
+/* The table's front edge, then the shade under it. Rounded to the pen's own
+   bottom corners, because this is the one face that reaches them. */
+.toy-pen--table::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(var(--table-line) - var(--table-lip));
+  border-radius: 0 0 calc(2rem - 1px) calc(2rem - 1px);
+  background: linear-gradient(
+    180deg,
+    #fbe9cf 0,
+    #c8975d 2px,
+    #b1824a 1rem,
+    rgba(62, 42, 33, 0.16) 1rem,
+    rgba(62, 42, 33, 0) 100%
+  );
+  pointer-events: none;
+}
+
+/* The right inset and the gap both clear --depth, so a cube's painted side
+   face never reaches the pen edge or tucks under its neighbour's front. */
+.toy-pen--table .toy-pen-floor {
+  inset: calc(var(--depth) + 0.5rem) calc(var(--depth) + 0.5rem)
+    var(--table-line) 1rem;
+  column-gap: calc(var(--depth) + 0.4rem);
+  z-index: 1;
+}
+
+@media (min-width: 640px) {
+  .toy-pen--table {
+    --depth: 22px;
+  }
+}
+
 .toy-block {
   /* Overridden per block below. Every value comes off the brand triad:
        --face-front  the -light token. The title sits on this, so it has to be
@@ -817,24 +909,11 @@
   text-align: center;
 }
 
+/* The mark is a glossy object in its own right, so it stands on the face
+   with nothing behind it. */
 .toy-block-mark {
   display: grid;
   place-items: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 999px;
-  background: #ffffff;
-  border: 1px solid rgba(62, 42, 33, 0.1);
-  box-shadow:
-    0 1px 0 0 rgba(255, 255, 255, 0.9) inset,
-    0 2px 6px -2px rgba(62, 42, 33, 0.18);
-}
-
-@media (min-width: 640px) {
-  .toy-block-mark {
-    width: 2.75rem;
-    height: 2.75rem;
-  }
 }
 
 /* Fraunces by hand rather than an h3: the pen is aria-hidden, so these titles
@@ -850,19 +929,13 @@
   text-wrap: balance;
 }
 
-/* A cube in miniature, so the legend is unmistakably about the things in the
-   pen once they are lying in a heap. Takes its colours from the same
-   .toy-block--* modifiers. */
+/* The same glossy mark as on the block, so the legend is unmistakably about
+   the things in the pen once they are lying in a heap. */
 .toy-legend-mark {
   display: grid;
   place-items: center;
   flex: none;
-  width: 2.75rem;
-  height: 2.75rem;
-  border-radius: 0.4rem;
-  background: linear-gradient(180deg, #ffffff 0%, var(--face-front) 100%);
-  border: 1px solid var(--arris);
-  box-shadow: 0 3px 0 0 var(--face-side);
+  width: fit-content;
 }
 
 .toy-block--leaf {
@@ -884,6 +957,104 @@
   --face-top: #f5b75c;
   --face-side: var(--color-amber-dark);
   --arris: rgba(217, 138, 32, 0.5);
+}
+
+/* The roof block: a triangular prism laid across the two cubes below it, so
+   the stack reads as a little house. Spans both floor columns and the gap
+   between them, and rests on the cubes rather than centring in its row.
+
+   Three clipped faces stand in for the cube's border and pseudo-elements,
+   all in the same oblique projection: the front triangle, and both roof
+   slopes receding --depth up and to the right behind it. The left slope faces
+   the light and takes the lit colour; the right slope takes the shaded one.
+   clip-path would cut away a border, so the outline and the shadow are drop
+   shadows on the whole silhouette instead.
+
+   transform-origin is the triangle's centroid, because that is the point the
+   physics body turns about - see `measure` in useBlockPhysics. */
+/* Placed by shape rather than by position, so the roof can sit anywhere in
+   the list (the legend below reads in list order) and still go on top. The
+   cubes fill the bottom row in order; z-index keeps the roof painted over
+   whichever cube follows it in the DOM. */
+.toy-pen--table .toy-pen-floor > * {
+  grid-area: auto;
+  grid-row: 2;
+  justify-self: auto;
+}
+
+.toy-pen--table .toy-pen-floor > .toy-block--prism {
+  grid-area: 1 / 1 / 2 / 3;
+  justify-self: stretch;
+  align-self: end;
+  z-index: 1;
+}
+
+.toy-block--prism,
+.toy-block--prism.toy-block--held {
+  width: auto;
+  height: calc(var(--cube) * 0.9);
+  align-items: flex-end;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  transform-origin: 50% 66.667%;
+  filter: drop-shadow(0 0 0.5px var(--arris))
+    drop-shadow(0 10px 9px rgba(62, 42, 33, 0.2));
+}
+
+.toy-block--prism::before,
+.toy-block--prism::after {
+  content: none;
+}
+
+.toy-prism-front,
+.toy-prism-slope {
+  position: absolute;
+  pointer-events: none;
+}
+
+.toy-prism-front {
+  z-index: 1;
+  inset: 0;
+  background: linear-gradient(180deg, #ffffff 20%, var(--face-front) 100%);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+/* Both slopes share one box: the block's own, grown --depth up and to the
+   right. In it the apex sits at (50% - d/2, d), its far copy at
+   (50% + d/2, 0), and the base corners at 0 / 100% - d along the bottom. */
+.toy-prism-slope {
+  z-index: 0;
+  top: calc(var(--depth) * -1);
+  right: calc(var(--depth) * -1);
+  bottom: 0;
+  left: 0;
+}
+
+.toy-prism-slope--left {
+  background: var(--face-top);
+  clip-path: polygon(
+    calc(50% + var(--depth) / 2) 0,
+    calc(50% - var(--depth) / 2) var(--depth),
+    0 100%,
+    var(--depth) calc(100% - var(--depth))
+  );
+}
+
+.toy-prism-slope--right {
+  background: var(--face-side);
+  clip-path: polygon(
+    calc(50% + var(--depth) / 2) 0,
+    100% calc(100% - var(--depth)),
+    calc(100% - var(--depth)) 100%,
+    calc(50% - var(--depth) / 2) var(--depth)
+  );
+}
+
+.toy-block--prism .toy-block-face {
+  gap: 0.35rem;
+  padding-bottom: 0.9rem;
 }
 
 /* A card-sized pen: same physics, same cube skin, a much smaller room. Used
@@ -1085,6 +1256,87 @@
   will-change: transform;
 }
 
+/* BrightwheelPanel marks. Both loop, quietly, and both rest on a fully drawn
+   base style: under reduced motion the animations are switched off (below), so
+   what remains is a still heart, no ripple, and three lit prints. */
+
+/* The heart: a double beat, then rest, about 50 beats a minute. */
+@keyframes heart-beat {
+  0%,
+  40%,
+  100% {
+    transform: scale(1);
+  }
+  8% {
+    transform: scale(1.13);
+  }
+  16% {
+    transform: scale(0.97);
+  }
+  24% {
+    transform: scale(1.08);
+  }
+}
+
+.heart-beat {
+  transform-origin: 50% 60%;
+  animation: heart-beat 2.4s ease-in-out infinite;
+}
+
+/* A ring that leaves the halo on the first beat and fades as it widens. */
+@keyframes heart-ripple {
+  0% {
+    opacity: 0.55;
+    transform: scale(0.85);
+  }
+  45%,
+  100% {
+    opacity: 0;
+    transform: scale(1.45);
+  }
+}
+
+.heart-ripple {
+  opacity: 0;
+  animation: heart-ripple 2.4s ease-out infinite;
+}
+
+/* The prints: each presses in and lights up in turn, holds, then fades back,
+   in the same order, so the trail reads as steps rather than a blink. The
+   per-print delay is set inline. */
+@keyframes print-light {
+  0%,
+  88%,
+  100% {
+    opacity: 0.18;
+    transform: scale(0.82);
+  }
+  9% {
+    opacity: 1;
+    transform: scale(1.14);
+  }
+  16%,
+  66% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.print-light {
+  transform-origin: 50% 80%;
+  animation: print-light 3.6s ease-in-out infinite both;
+}
+
+/* `both` would otherwise hold a print on its dim first frame once the global
+   reset has cut the animation short. */
+@media (prefers-reduced-motion: reduce) {
+  .print-light,
+  .heart-beat,
+  .heart-ripple {
+    animation: none !important;
+  }
+}
+
 @keyframes float-slow {
   0%,
   100% {
@@ -1164,6 +1416,67 @@
   animation-play-state: paused;
 }
 
+/* --------------------------------------------------------------------------
+   Footprint trail (FaqHeroBackdrop)
+
+   Each print in a trail runs the same cycle, offset by its place in the
+   trail (the delay is set inline), so prints appear one step behind the last
+   and fade out in the same order: the trail reads as being walked rather
+   than blinking on as a block. Each print holds for most of the cycle, so
+   once the last step lands the whole trail stays up long enough for the
+   shape it walks (a question mark) to read before it fades.
+
+   `backwards` fill holds each print at its 0% frame during its delay, so the
+   trail does not flash fully drawn on first paint. The resting style is
+   fully visible, which is what reduced motion falls back to below.
+
+   The speech bubbles bob gently on their own clock.
+   -------------------------------------------------------------------------- */
+@keyframes trail-step {
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  3% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  84% {
+    opacity: 1;
+  }
+  94%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.trail-step {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: trail-step 12s ease-out infinite backwards;
+}
+
+@keyframes bubble-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.bubble-bob {
+  animation: bubble-bob 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trail-step,
+  .bubble-bob {
+    animation: none;
+  }
+}
+
 /* Progress bar in the navbar. Width is set inline from scroll position. */
 .scroll-rule {
   transition: width 0.1s linear;
@@ -1181,6 +1494,7 @@
    -------------------------------------------------------------------------- */
 
 .book-frame {
+  --flip-inset: calc(0.375rem + 1px);
   /* A warm cloth cover around the paper. The actual content stays inside the
      normal grid so the three persistent spreads and the flipping leaf keep
      their existing, stable geometry. */
@@ -1226,11 +1540,42 @@
 }
 
 .book-page {
+  position: relative;
   overflow: hidden;
   background:
-    radial-gradient(circle at 16% 12%, rgb(var(--book-accent) / 0.15), transparent 36%),
+    radial-gradient(circle at var(--book-glow), rgb(var(--book-accent) / 0.15), transparent 42%),
     linear-gradient(135deg, #fffdf8 0%, rgb(var(--book-paper) / 0.9) 100%);
+  /* Opaque underneath, or the page below shows through a turning leaf. */
+  background-color: #fffdf8;
   box-shadow: inset 0 0 26px rgb(var(--book-accent-deep) / 0.08);
+}
+
+/* Each half carries its own paper, so a turn can lay one chapter's left page
+   beside another chapter's right page without a seam. */
+.book-page-left {
+  --book-glow: 18% 12%;
+}
+
+.book-page-right {
+  --book-glow: 88% 92%;
+  border-top: 0.5px solid rgba(62, 42, 33, 0.1);
+}
+
+@media (min-width: 768px) {
+  /* The spine: each page darkens toward the gutter it shares. */
+  .book-page-left {
+    box-shadow:
+      inset -28px 0 30px -22px rgba(62, 42, 33, 0.26),
+      inset 0 0 26px rgb(var(--book-accent-deep) / 0.08);
+  }
+
+  .book-page-right {
+    border-top: 0;
+    border-left: 0.5px solid rgba(62, 42, 33, 0.14);
+    box-shadow:
+      inset 28px 0 30px -22px rgba(62, 42, 33, 0.2),
+      inset 0 0 26px rgb(var(--book-accent-deep) / 0.08);
+  }
 }
 
 .book-page-care {
@@ -1251,14 +1596,10 @@
   --book-paper: 237 245 225;
 }
 
-.book-leaf {
-  inset: 0.375rem;
-}
-
 .book-page::before {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 0;
   background-image: radial-gradient(rgba(94, 64, 53, 0.12) 0.5px, transparent 0.5px);
   background-size: 5px 5px;
   opacity: 0.18;
@@ -1266,14 +1607,25 @@
   pointer-events: none;
 }
 
-.book-page > div:not(.book-spine):not(.book-page-corner) {
+.book-page-body {
   position: relative;
-  z-index: 2;
+  z-index: 1;
+}
+
+.book-folio {
+  display: block;
+  margin-top: 1.75rem;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  color: rgb(107 82 69 / 0.5);
 }
 
 .book-page-corner {
   position: absolute;
-  z-index: 3;
+  z-index: 2;
   height: 3.25rem;
   width: 3.25rem;
   border-color: rgb(var(--book-accent) / 0.48);
@@ -1296,13 +1648,6 @@
   border-bottom-right-radius: 0.3rem;
 }
 
-.book-spine {
-  z-index: 10;
-  background:
-    linear-gradient(90deg, rgba(62, 42, 33, 0.16), transparent 30%, transparent 70%, rgba(62, 42, 33, 0.1)),
-    linear-gradient(90deg, transparent 45%, rgba(62, 42, 33, 0.16) 50%, transparent 55%);
-}
-
 .book-title-rule {
   display: block;
   width: 4.5rem;
@@ -1311,23 +1656,93 @@
   border-bottom: 1px solid rgb(var(--book-accent) / 0.58);
 }
 
-.book-turn-shade {
+/* The page-turn overlay sits over the frame's content box (frame border plus
+   padding in), outside the frame's clip so the lifting leaf is never cut. */
+.book-turn {
   position: absolute;
-  inset: 0;
+  inset: calc(0.375rem + 1px);
   z-index: 20;
   pointer-events: none;
 }
 
-.book-turn-shade-forward {
-  background: linear-gradient(90deg, transparent 28%, rgba(62, 42, 33, 0.06) 54%, rgba(62, 42, 33, 0.4) 100%);
+/* --------------------------------------------------------------------------
+   Page flip (components/ui/PageFlip.tsx), shared by both books
+   -------------------------------------------------------------------------- */
+
+.flip-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
-.book-turn-shade-backward {
-  background: linear-gradient(270deg, transparent 28%, rgba(62, 42, 33, 0.06) 54%, rgba(62, 42, 33, 0.4) 100%);
+.flip-face > * {
+  box-shadow: 0 10px 30px -12px rgba(62, 42, 33, 0.35);
 }
 
+.flip-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.flip-shade-flat {
+  background: linear-gradient(90deg, rgba(62, 42, 33, 0.16), rgba(62, 42, 33, 0.3));
+}
+
+.flip-shade-to-left {
+  background: linear-gradient(90deg, rgba(62, 42, 33, 0.42), transparent 45%);
+}
+
+.flip-shade-to-right {
+  background: linear-gradient(270deg, rgba(62, 42, 33, 0.42), transparent 45%);
+}
+
+/* The dog-ear: folded back from an outer bottom corner on hover, showing the
+   page's paler underside and the cover beneath. Positioned at the paper's
+   corner via --flip-inset, which each book sets to its cover padding. */
+.flip-corner {
+  position: absolute;
+  bottom: var(--flip-inset, 0.375rem);
+  z-index: 15;
+  height: 0;
+  width: 0;
+  pointer-events: none;
+  filter: drop-shadow(-2px -2px 3px rgba(62, 42, 33, 0.18));
+  transition:
+    width 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.flip-corner-right {
+  right: var(--flip-inset, 0.375rem);
+  background: linear-gradient(to left top, #6f4f42 50%, #efe4d4 50%, #fffdf8 100%);
+  border-bottom-right-radius: 0.9rem;
+}
+
+.flip-corner-left {
+  left: var(--flip-inset, 0.375rem);
+  background: linear-gradient(to right top, #6f4f42 50%, #efe4d4 50%, #fffdf8 100%);
+  border-bottom-left-radius: 0.9rem;
+  filter: drop-shadow(2px -2px 3px rgba(62, 42, 33, 0.18));
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .flip-frame:hover .flip-corner {
+    height: 2.4rem;
+    width: 2.4rem;
+  }
+
+  .flip-frame:active .flip-corner {
+    height: 0;
+    width: 0;
+  }
+}
+
+/* No `display` here: the component toggles it (hidden below sm). */
 .book-nav-btn {
-  display: grid;
   place-items: center;
   height: 2.75rem;
   width: 2.75rem;
@@ -1444,6 +1859,7 @@
   display: flex;
   min-width: 0;
   align-items: flex-end;
+  justify-content: center;
   gap: clamp(0.65rem, 1.5vw, 1rem);
   overflow-x: auto;
   padding: 0.8rem 0.45rem 1.25rem;
@@ -1565,14 +1981,12 @@
   opacity: 0.55;
 }
 
+/* The same glossy badge as the open book's title page, standing on the
+   cover with no chip behind it. */
 .resource-shelf-book-icon {
-  display: grid;
-  height: 2.25rem;
-  width: 2.25rem;
-  place-items: center;
-  border: 1px solid currentColor;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.48);
+  display: block;
+  height: 2.6rem;
+  width: 2.6rem;
 }
 
 .resource-shelf-book-label {
@@ -1596,6 +2010,19 @@
   text-wrap: balance;
 }
 
+/* A bookmark ribbon hanging from the open book's top edge. */
+.resource-shelf-book-ribbon {
+  position: absolute;
+  top: -1px;
+  left: 0.85rem;
+  z-index: 2;
+  height: 1.7rem;
+  width: 0.62rem;
+  background: linear-gradient(to bottom, #c22b4b, #e23a5e);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 78%, 0 100%);
+  box-shadow: 0 2px 3px rgba(62, 42, 33, 0.25);
+}
+
 .resource-shelf-book-selected {
   border-color: rgba(62, 42, 33, 0.48);
   filter: saturate(1.06);
@@ -1608,6 +2035,7 @@
 }
 
 .resource-reader-book {
+  --flip-inset: calc(0.38rem + 1px);
   padding: 0.38rem;
   border: 1px solid rgba(62, 42, 33, 0.25);
   background:
@@ -1639,18 +2067,44 @@
   box-shadow: 0 5px 12px rgba(62, 42, 33, 0.12);
 }
 
-.resource-reader-paper {
+.resource-reader-page {
+  position: relative;
   overflow: hidden;
   background:
-    radial-gradient(circle at 14% 8%, rgba(226, 58, 94, 0.08), transparent 30%),
-    radial-gradient(circle at 88% 90%, rgba(111, 168, 60, 0.07), transparent 32%),
+    radial-gradient(circle at var(--reader-glow), var(--reader-glow-color), transparent 34%),
     linear-gradient(135deg, #fffdf9, #fcf4e8);
+  /* Opaque underneath, or the page below shows through a turning leaf. */
+  background-color: #fffdf9;
 }
 
-.resource-reader-paper::before {
+.resource-reader-page-left {
+  --reader-glow: 14% 8%;
+  --reader-glow-color: rgba(226, 58, 94, 0.08);
+  border-bottom: 0.5px solid rgba(62, 42, 33, 0.1);
+}
+
+.resource-reader-page-right {
+  --reader-glow: 88% 92%;
+  --reader-glow-color: rgba(111, 168, 60, 0.07);
+}
+
+@media (min-width: 1024px) {
+  /* The spine: each page darkens toward the gutter it shares. */
+  .resource-reader-page-left {
+    border-bottom: 0;
+    box-shadow: inset -28px 0 30px -22px rgba(62, 42, 33, 0.24);
+  }
+
+  .resource-reader-page-right {
+    border-left: 0.5px solid rgba(62, 42, 33, 0.14);
+    box-shadow: inset 28px 0 30px -22px rgba(62, 42, 33, 0.18);
+  }
+}
+
+.resource-reader-page::before {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 0;
   background-image: radial-gradient(rgba(94, 64, 53, 0.1) 0.5px, transparent 0.5px);
   background-size: 5px 5px;
   opacity: 0.16;
@@ -1658,30 +2112,66 @@
   pointer-events: none;
 }
 
-.resource-reader-left,
-.resource-reader-right {
+.resource-reader-page-body {
   position: relative;
-  z-index: 2;
+  z-index: 1;
 }
 
-.resource-reader-right {
+/* The contents list on the title page. */
+.resource-toc {
   display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
-  align-items: center;
+  gap: 0.1rem;
 }
 
-.resource-reader-gutter {
-  position: absolute;
-  inset-y: 0;
-  left: 39%;
-  z-index: 10;
-  display: none;
-  width: 2rem;
-  transform: translateX(-50%);
-  background:
-    linear-gradient(90deg, rgba(62, 42, 33, 0.14), transparent 28%, transparent 72%, rgba(62, 42, 33, 0.09)),
-    linear-gradient(90deg, transparent 45%, rgba(62, 42, 33, 0.14) 50%, transparent 55%);
-  pointer-events: none;
+.resource-toc-item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.7rem;
+  border-radius: 0.6rem;
+  padding: 0.28rem 0.6rem;
+  color: var(--color-cocoa-mid);
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: left;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.resource-toc-n {
+  display: grid;
+  height: 1.45rem;
+  width: 1.45rem;
+  flex-shrink: 0;
+  place-items: center;
+  border: 1px solid rgba(62, 42, 33, 0.16);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+button.resource-toc-item:hover {
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--color-cocoa);
+}
+
+.resource-toc-item:focus-visible {
+  outline: 2px solid rgba(62, 42, 33, 0.4);
+  outline-offset: 1px;
+}
+
+.resource-toc-item[aria-current="page"] {
+  background: #fff;
+  color: var(--color-cocoa);
+  box-shadow: 0 1px 0 rgba(62, 42, 33, 0.1), 0 0 0 1px rgba(226, 58, 94, 0.18);
+}
+
+.resource-toc-item[aria-current="page"] .resource-toc-n {
+  border-color: transparent;
+  background: var(--color-pink);
+  color: #fff;
 }
 
 .resource-reader-control {
@@ -1709,7 +2199,8 @@
   flex: 1;
   min-height: 2.65rem;
   min-width: 0;
-  max-width: min(15rem, 46vw);
+  max-width: min(17rem, 46vw);
+  text-overflow: ellipsis;
   border: 1px solid rgba(62, 42, 33, 0.16);
   border-radius: 999px;
   background: #fffdf8;
@@ -1719,35 +2210,26 @@
   font-weight: 800;
 }
 
-.resource-reader-leaf {
-  inset: 0.38rem;
-}
-
-.resource-reader-turn-shade {
+/* The page-turn overlay sits over the book's content box (border plus
+   padding in), outside the paper's clip so the lifting leaf is never cut. */
+.resource-reader-turn {
   position: absolute;
-  inset: 0;
+  inset: calc(0.38rem + 1px);
   z-index: 20;
   pointer-events: none;
-}
-
-.resource-reader-turn-shade-forward {
-  background: linear-gradient(90deg, transparent 25%, rgba(62, 42, 33, 0.06) 55%, rgba(62, 42, 33, 0.38));
-}
-
-.resource-reader-turn-shade-backward {
-  background: linear-gradient(270deg, transparent 25%, rgba(62, 42, 33, 0.06) 55%, rgba(62, 42, 33, 0.34));
 }
 
 .resource-book-prose > :first-child {
   margin-top: 0;
 }
 
+/* Left-aligned: these are handbooks people read line by line, and a
+   centred paragraph is hard to follow past two lines. */
 .resource-book-prose {
   width: 100%;
-  align-self: center;
   margin-inline: auto;
-  max-width: 42rem;
-  text-align: center;
+  max-width: 34rem;
+  text-align: left;
   text-wrap: pretty;
 }
 
@@ -1763,15 +2245,322 @@
   font-weight: 800;
 }
 
-.resource-book-prose :is(ul, ol) {
-  display: inline-block;
-  max-width: 38rem;
-  text-align: left;
+/* Guide lists a reader can act on (GuideLists.tsx): lines that copy to the
+   clipboard, and statements that tick off. Rows sit lightly on the page at
+   rest so they still read as a list, and lift to white under the pointer. */
+.guide-copy .guide-copy-list,
+.guide-check .guide-check-list {
+  display: grid;
+  gap: 0.3rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.resource-book-prose blockquote {
-  text-align: center;
+.guide-copy-item,
+.guide-check-row {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  gap: 0.65rem;
+  border: 1px solid rgba(62, 42, 33, 0.07);
+  border-radius: 0.8rem;
+  background: rgba(255, 255, 255, 0.45);
+  padding: 0.42rem 0.65rem;
+  color: var(--color-ink);
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
 }
+
+.guide-copy-item:hover,
+.guide-check-row:hover {
+  border-color: rgba(226, 58, 94, 0.2);
+  background: #fff;
+  box-shadow:
+    0 1px 0 rgba(62, 42, 33, 0.06),
+    0 8px 18px -12px rgba(62, 42, 33, 0.4);
+  transform: translateY(-1px);
+}
+
+.guide-copy-item:active {
+  transform: translateY(0) scale(0.995);
+}
+
+.guide-copy-item:focus-visible,
+.guide-copy-all:focus-visible,
+.guide-check-copy:focus-visible,
+.guide-check-clear:focus-visible {
+  outline: 2px solid rgba(62, 42, 33, 0.4);
+  outline-offset: 2px;
+}
+
+.guide-copy-n {
+  min-width: 1.4rem;
+  flex-shrink: 0;
+  color: var(--color-leaf-dark);
+  font-weight: 700;
+}
+
+.guide-copy-dot {
+  height: 0.4rem;
+  width: 0.4rem;
+  flex-shrink: 0;
+  margin: 0.62rem 0.25rem 0 0.15rem;
+  border-radius: 999px;
+  background: var(--color-leaf-dark);
+}
+
+.guide-copy-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.2rem;
+  color: var(--color-cocoa-mid);
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0.4;
+  transition:
+    color 0.18s ease,
+    opacity 0.18s ease;
+}
+
+.guide-copy-item:hover .guide-copy-icon {
+  color: var(--color-pink-dark);
+  opacity: 1;
+}
+
+.guide-copy-item[data-copied],
+.guide-copy-item[data-copied]:hover {
+  border-color: rgba(111, 168, 60, 0.35);
+  background: var(--color-leaf-light);
+}
+
+.guide-copy-item[data-copied] .guide-copy-icon {
+  color: var(--color-leaf-dark);
+  opacity: 1;
+}
+
+.guide-copy-bar,
+.guide-check-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.6rem;
+  padding-inline: 0.65rem;
+  color: var(--color-cocoa-mid);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.guide-copy-bar {
+  justify-content: space-between;
+}
+
+.guide-copy-all {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid rgba(62, 42, 33, 0.14);
+  border-radius: 999px;
+  background: #fff;
+  padding: 0.3rem 0.75rem;
+  color: var(--color-cocoa);
+  font-weight: 700;
+  box-shadow: 0 1px 0 rgba(62, 42, 33, 0.06);
+  transition:
+    color 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.guide-copy-all:hover {
+  border-color: rgba(226, 58, 94, 0.3);
+  color: var(--color-pink-dark);
+  transform: translateY(-1px);
+}
+
+.guide-copy-all[data-copied] {
+  border-color: rgba(111, 168, 60, 0.4);
+  color: var(--color-leaf-dark);
+}
+
+/* The real checkbox stays in the label for keyboards and screen readers;
+   the drawn box beside it shows its state. */
+.guide-check-input {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* A checklist row is two controls side by side: the label that ticks, and
+   a copy button. The row carries the card look; each control its padding. */
+.guide-check-row {
+  padding: 0;
+  cursor: default;
+}
+
+.guide-check-item {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 0.42rem 0 0.42rem 0.65rem;
+  cursor: pointer;
+}
+
+.guide-check-copy {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 0.25rem;
+  align-self: stretch;
+  border-radius: 0 0.8rem 0.8rem 0;
+  padding: 0.62rem 0.65rem 0 0.5rem;
+  align-items: flex-start;
+  color: var(--color-cocoa-mid);
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0.4;
+  transition:
+    color 0.18s ease,
+    opacity 0.18s ease;
+}
+
+.guide-check-row:hover .guide-check-copy {
+  opacity: 0.7;
+}
+
+.guide-check-row .guide-check-copy:hover {
+  color: var(--color-pink-dark);
+  opacity: 1;
+}
+
+.guide-check-row .guide-check-copy[data-copied] {
+  color: var(--color-leaf-dark);
+  opacity: 1;
+}
+
+.guide-check-mark {
+  display: grid;
+  height: 1.3rem;
+  width: 1.3rem;
+  flex-shrink: 0;
+  place-items: center;
+  margin-top: 0.12rem;
+  border: 1.5px solid rgba(62, 42, 33, 0.26);
+  border-radius: 0.4rem;
+  background: #fff;
+  color: #fff;
+  box-shadow: inset 0 1px 2px rgba(62, 42, 33, 0.08);
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.guide-check-mark svg {
+  opacity: 0;
+  transform: scale(0.4);
+  transition:
+    opacity 0.18s ease,
+    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.guide-check-item:hover .guide-check-mark {
+  border-color: var(--color-leaf);
+}
+
+.guide-check-input:focus-visible + .guide-check-mark {
+  outline: 2px solid rgba(62, 42, 33, 0.4);
+  outline-offset: 2px;
+}
+
+.guide-check-row[data-checked],
+.guide-check-row[data-checked]:hover {
+  border-color: rgba(111, 168, 60, 0.32);
+  background: var(--color-leaf-light);
+  color: var(--color-cocoa);
+}
+
+.guide-check-input:checked + .guide-check-mark {
+  border-color: var(--color-leaf-dark);
+  background: linear-gradient(180deg, #8cc152 0%, var(--color-leaf-dark) 100%);
+  box-shadow:
+    0 3px 7px -3px rgba(78, 122, 40, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.guide-check-input:checked + .guide-check-mark svg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.guide-check-meter {
+  height: 4px;
+  flex: 1;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(62, 42, 33, 0.08);
+}
+
+.guide-check-meter > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--color-leaf), var(--color-leaf-dark));
+  transition: width 0.35s ease;
+}
+
+.guide-check-bar [data-complete] {
+  color: var(--color-leaf-dark);
+}
+
+.guide-check-clear {
+  flex-shrink: 0;
+  color: var(--color-cocoa-mid);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: rgba(226, 58, 94, 0.45);
+  text-underline-offset: 3px;
+}
+
+.guide-check-clear:hover {
+  color: var(--color-pink-dark);
+}
+
+.guide-check-bar .guide-copy-all {
+  margin-left: auto;
+}
+
+/* Narrow pages: the meter takes its own line above the count and buttons,
+   rather than shrinking to a stub between them. */
+@media (max-width: 30rem) {
+  .guide-check-bar {
+    flex-wrap: wrap;
+    row-gap: 0.5rem;
+  }
+
+  .guide-check-meter {
+    flex-basis: 100%;
+  }
+}
+
+
 
 /* Raw HTML tables in an MDX article do not pass through the component map
    above the reader. Keep them inside the article card on narrow phones and
@@ -1826,12 +2615,6 @@
     transform: translateY(-1px);
     color: var(--color-pink-dark);
     box-shadow: 0 3px 0 rgba(62, 42, 33, 0.13), 0 8px 14px -10px rgba(62, 42, 33, 0.4);
-  }
-}
-
-@media (min-width: 768px) {
-  .resource-reader-gutter {
-    display: block;
   }
 }
 
@@ -1910,8 +2693,8 @@
   }
 
   .resource-shelf-book-icon {
-    width: 1.75rem;
-    height: 1.75rem;
+    width: 2.1rem;
+    height: 2.1rem;
   }
 
   .resource-shelf-book-label {
@@ -1945,51 +2728,11 @@
     inset: 0.35rem -0.18rem -0.18rem 0.35rem;
   }
 
-  .resource-reader-leaf {
-    inset: 0.18rem;
-  }
-
   .resource-reader-select {
     max-width: none;
     padding-inline: 2rem;
     text-align: center;
     text-align-last: center;
-  }
-
-  .resource-reader-left {
-    padding: 0.7rem 0.8rem 0.6rem;
-  }
-
-  .resource-reader-left > div:first-child > div {
-    gap: 0.45rem;
-  }
-
-  .resource-reader-left > div:first-child > div > span:first-child {
-    width: 1.75rem;
-    height: 1.75rem;
-  }
-
-  .resource-reader-left h2 {
-    margin-top: 0.35rem;
-    font-size: 1.25rem;
-    line-height: 1.1;
-  }
-
-  .resource-reader-left > div:first-child > p {
-    display: none;
-  }
-
-  .resource-reader-right h2 {
-    text-wrap: balance;
-  }
-
-  .resource-reader-right {
-    min-height: 14.5rem;
-    padding: 0.9rem 0.85rem 0.7rem;
-  }
-
-  .resource-reader-right > p:last-child {
-    display: none;
   }
 
   .resource-reader-footer {
@@ -2005,15 +2748,6 @@
   .resource-reader-footer > a {
     padding: 0.45rem 0.85rem;
     font-size: 0.75rem;
-  }
-
-  .resource-reader-hint {
-    display: none;
-  }
-
-  .resource-book-prose p {
-    font-size: 0.9rem;
-    line-height: 1.55;
   }
 
   .resource-book-prose h2 {
@@ -2057,12 +2791,20 @@
     box-shadow: none;
   }
 
+  /* Print every page of the open book, not just the one on screen. Below
+     lg the inactive pages are display:none, so that is undone too, and the
+     repeated title page is kept only once. */
   .resource-reader-spread {
     position: static !important;
+    display: block !important;
     visibility: visible !important;
     grid-area: auto !important;
     page-break-inside: avoid;
     margin-bottom: 1.5rem;
+  }
+
+  .resource-reader-spread:not(:first-child) .resource-reader-page-left {
+    display: none;
   }
 }
 
@@ -2075,10 +2817,6 @@
   .book-frame::before {
     inset: 0.13rem;
     border-radius: 0.94rem;
-  }
-
-  .book-leaf {
-    inset: 0.25rem;
   }
 
   .book-page-corner {

@@ -129,7 +129,7 @@ export default function AboutPage() {
               over it, so there is nothing here to card. */}
           <PageHero
             decor={false}
-            topPaddingClassName="pt-0 lg:pt-[calc(var(--header-h)_+_3rem)]"
+            topPaddingClassName="pt-0 lg:pt-[var(--header-h)]"
             surface="bg-cream lg:bg-transparent"
             align="responsive"
             contentClassName="relative max-w-[30rem] lg:rounded-[2rem] lg:bg-cream/90 lg:px-8 lg:py-7 lg:shadow-[0_20px_50px_-30px_rgba(62,42,33,0.45)] lg:backdrop-blur-sm lg:[&_h1]:leading-[1.2] lg:[&_p]:mt-6 lg:max-w-[32rem] xl:max-w-[36rem]"

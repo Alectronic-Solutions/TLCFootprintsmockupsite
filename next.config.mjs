@@ -21,9 +21,15 @@ const nextConfig = {
   // (~217 KB gzipped) in the production bundle on every route.
   devIndicators: false,
   images: {
-    // Required for `output: "export"`: there is no server to transcode at
-    // request time, so images are optimized ahead of time by scripts/optimize-images.mjs.
-    unoptimized: true,
+    // `output: "export"` has no server to transcode at request time, so photos
+    // are resized ahead of time by scripts/optimize-images.mjs and this loader
+    // maps each srcset width onto those files.
+    loader: "custom",
+    loaderFile: "./lib/imageLoader.ts",
+    // The original (capped at 1920) plus the copies in lib/photoSizes.mjs.
+    // imageSizes stays small: every width below 640 resolves to the 640 copy.
+    deviceSizes: [640, 1080, 1920],
+    imageSizes: [320],
   },
 };
 

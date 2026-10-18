@@ -149,7 +149,7 @@ export function RatesPanel() {
                   <div className="flex items-center gap-3 sm:w-full sm:flex-col sm:gap-0">
                     <ProgramIcon
                       name={program.icon}
-                      className="h-8 w-8 shrink-0 sm:h-9 sm:w-9"
+                      className="h-9 w-9 shrink-0 sm:h-16 sm:w-16"
                     />
                     {/*
                       One name wraps to two lines on its own and the other is
@@ -166,7 +166,7 @@ export function RatesPanel() {
                       would spend a line of the screen this section is trying to
                       fit inside on the word "Care".
                     */}
-                    <h3 className="text-balance text-h3 max-sm:text-[0.95rem] max-sm:leading-tight sm:mt-5 md:min-h-[2.6em]">
+                    <h3 className="text-balance text-h3 max-sm:text-[0.95rem] max-sm:leading-tight sm:mt-3 md:min-h-[2.6em]">
                       {program.slug === "infant" && program.name.includes(" ") ? (
                         <>
                           <span className="md:hidden">{program.name}</span>

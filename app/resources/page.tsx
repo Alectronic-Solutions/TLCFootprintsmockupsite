@@ -3,7 +3,9 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { PageHero } from "@/components/sections/PageHero";
 import { CTABand } from "@/components/sections/CTABand";
 import { ArcDivider } from "@/components/brand/ArcDivider";
+import { BrightwheelPanel } from "@/components/sections/BrightwheelPanel";
 import { ResourcesHeroBackdrop } from "@/components/resources/ResourcesHeroBackdrop";
+import { Checklist, CopyList } from "@/components/resources/GuideLists";
 import {
   ResourceLibrary,
   type ResourceBookData,
@@ -76,6 +78,10 @@ const bookComponents = {
   ),
   td: (props: React.ComponentProps<"td">) => (
     <td className="border-b-hair border-cocoa/10 p-3" {...props} />
+  ),
+  CopyList: (props: React.ComponentProps<typeof CopyList>) => <CopyList className="mt-4" {...props} />,
+  Checklist: (props: React.ComponentProps<typeof Checklist>) => (
+    <Checklist className="mt-4" {...props} />
   ),
 };
 
@@ -178,7 +184,10 @@ export default function ResourcesPage() {
 
       <ArcDivider variant="shallow" from="bg-cream" to="fill-cream-deep" />
 
-      <ResourceLibrary books={books} />
+      <ResourceLibrary
+        books={books}
+        afterLinks={<BrightwheelPanel surface="bg-cream-deep" />}
+      />
 
       <CTABand
         title="Have a question about your family?"

@@ -1,4 +1,5 @@
 import { PageHero } from "@/components/sections/PageHero";
+import { BrightwheelPanel } from "@/components/sections/BrightwheelPanel";
 import { CTABand } from "@/components/sections/CTABand";
 import { Accordion } from "@/components/ui/Accordion";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
@@ -9,7 +10,7 @@ import { breadcrumbJsonLd, faqJsonLd, jsonLdScript, pageMeta } from "@/lib/seo";
 export const metadata = pageMeta({
   title: "Frequently Asked Questions",
   description:
-    "Licensing, hours, rates, meals, Child Action, tours, and enrollment questions answered for T.L.C. Footprints Home Daycare in Elk Grove, CA.",
+    "Licensing, hours, rates, meals, Child Action, tours, Brightwheel, and enrollment questions answered for T.L.C. Footprints Home Daycare in Elk Grove, CA.",
   path: "/faq",
   keywords: ["home daycare questions Elk Grove", "licensed daycare Elk Grove"],
 });
@@ -34,7 +35,7 @@ export default function FaqPage() {
       <PageHero
         label="Frequently asked questions"
         title="Answers to the questions families ask most"
-        subtitle="Find the essentials on licensing, hours, rates, meals, enrollment, and tours. If your question is not here, call or text me."
+        subtitle="Find the essentials on licensing, hours, rates, meals, enrollment, tours, and Brightwheel. If your question is not here, call or text me."
         align="center"
         backdrop
         backdropScrimClassName="bg-cream/25"
@@ -66,6 +67,8 @@ export default function FaqPage() {
           </AnimatedSection>
         </div>
       </section>
+
+      <BrightwheelPanel surface="bg-cream-deep" />
 
       <CTABand />
     </>

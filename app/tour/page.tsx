@@ -1,10 +1,11 @@
-import { Mail, MapPin, MessageSquare, Phone } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { PageHero } from "@/components/sections/PageHero";
 import { CTABand } from "@/components/sections/CTABand";
 import { TourRequestForm } from "@/components/tour/TourRequestForm";
 import { TourHeroBackdrop } from "@/components/tour/TourHeroBackdrop";
 import { ArcDivider } from "@/components/brand/ArcDivider";
 import { HighlightIcon } from "@/components/brand/HighlightIcon";
+import { ContactIcon } from "@/components/brand/ContactIcon";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Button } from "@/components/ui/Button";
@@ -24,23 +25,30 @@ const CONTACT_METHODS = [
     label: "Call",
     value: BUSINESS.phone,
     href: BUSINESS.phoneHref,
-    Icon: Phone,
+    icon: "call" as const,
     note: "Best for a quick conversation",
   },
   {
     label: "Text",
     value: BUSINESS.phone,
     href: BUSINESS.smsHref,
-    Icon: MessageSquare,
+    icon: "text" as const,
     note: "Easy for a quick question",
   },
   {
     label: "Email",
     value: BUSINESS.email,
     href: BUSINESS.emailHref,
-    Icon: Mail,
+    icon: "email" as const,
     note: "Best when you want to share details",
   },
+];
+
+// Red, yellow, green, like a traffic light counting down to the first day.
+const STEP_BADGE_COLORS = [
+  "bg-pink-dark text-white",
+  "bg-amber text-cocoa",
+  "bg-leaf-dark text-white",
 ];
 
 export default function TourPage() {
@@ -96,9 +104,7 @@ export default function TourPage() {
                     href={m.href}
                     className="card-lift flex h-full flex-col items-center gap-4 overflow-hidden rounded-2xl border-hair border-cocoa/10 bg-white p-5 text-center shadow-soft"
                   >
-                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-cream-deep">
-                      <m.Icon className="h-5 w-5 text-pink-dark" aria-hidden="true" />
-                    </span>
+                    <ContactIcon name={m.icon} className="h-14 w-14 shrink-0" />
                     <span className="min-w-0">
                       <span className="block font-semibold text-cocoa">{m.label}</span>{" "}
                       <span className="block break-all text-base text-cocoa">
@@ -136,7 +142,7 @@ export default function TourPage() {
               className="space-y-6 lg:sticky lg:top-24 lg:mt-8"
             >
               <div className="rounded-2xl border-hair border-cocoa/10 bg-white p-6 text-center">
-                <HighlightIcon name="hours" className="mx-auto h-7 w-7" />
+                <HighlightIcon name="hours" className="mx-auto h-12 w-12" />
                 <h2 className="mt-3 text-h3">Hours</h2>
                 <p className="tabular mt-2 text-base">
                   {BUSINESS.hours.days}
@@ -161,11 +167,11 @@ export default function TourPage() {
               <div className="rounded-2xl border-hair border-cocoa/10 bg-white p-6 text-center">
                 <SectionLabel>What happens next</SectionLabel>
                 <ol className="mt-4 space-y-3 text-left">
-                  {ENROLLMENT_STEPS.map((s) => (
+                  {ENROLLMENT_STEPS.map((s, i) => (
                     <li key={s.n} className="flex gap-3">
                       <span
                         aria-hidden="true"
-                        className="tabular grid h-6 w-6 shrink-0 place-items-center rounded-full bg-pink-dark text-xs font-semibold text-white"
+                        className={`tabular grid h-6 w-6 shrink-0 place-items-center rounded-full text-xs font-semibold ${STEP_BADGE_COLORS[i % STEP_BADGE_COLORS.length]}`}
                       >
                         {s.n}
                       </span>

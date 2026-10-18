@@ -163,7 +163,7 @@ export default function WhatToExpectPage() {
 
             <AnimatedSection delay={0.08}>
               <div className="rounded-2xl border-hair border-cocoa/10 bg-white p-7 text-center sm:p-8">
-                <HighlightIcon name="meals" className="mx-auto h-8 w-8" />
+                <HighlightIcon name="meals" className="mx-auto h-12 w-12" />
                 <p className="mt-5 text-eyebrow font-semibold uppercase tracking-[0.12em] text-leaf-dark">Meals and snacks</p>
                 <h2 className="mt-3 text-h2">Simple planning for the day</h2>
                 <p className="mt-4 text-lead text-ink">I provide:</p>

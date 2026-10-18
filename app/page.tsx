@@ -40,8 +40,8 @@ export const metadata = pageMeta({
  * The home page answers seven questions in order, and nothing else:
  *
  *   Is there room for my child?      The hero status pill
- *   How do I get on the list?        The interest list, straight after it
- *   What are the basics?             The highlights bar
+ *   What are the basics?             The highlights bar, straight after it
+ *   How do I get on the list?        The interest list
  *   What does it cost?               Rates
  *   Can I get help paying?           The Child Action starting path
  *   Why a home instead of a center?  Differentiators
@@ -65,18 +65,19 @@ const DIFFERENTIATORS: Differentiator[] = [
     body: "No moving up to a different room every September. Your child stays where they started, first day to last.",
   },
   {
+    icon: "play",
+    edge: "amber",
+    shape: "prism",
+    title: "Play-based and child-led",
+    titleBreakAfter: "Play-based and",
+    body: "Children learn by exploring and asking questions, inside a routine they can count on.",
+  },
+  {
     icon: "home",
     edge: "pink",
     title: "A small group",
     titleBreakAfter: "A small",
     body: "I know each child's temperament, what settles them, and what they are working on right now.",
-  },
-  {
-    icon: "play",
-    edge: "amber",
-    title: "Play-based and child-led",
-    titleBreakAfter: "Play-based and",
-    body: "Children learn by exploring and asking questions, inside a routine they can count on.",
   },
 ];
 
@@ -84,12 +85,11 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      {/* Cream like the hero and the top of the highlights gradient, so it
-          needs no divider on either side. */}
-      <BrightwheelPanel surface="bg-cream" />
-      {/* The highlights gradient ends in cream-deep, the rates surface, so the
-          two run on without a divider. */}
+      {/* The highlights gradient starts on the hero's cream and ends in
+          cream-deep, the surface of the two sections after it, so all of them
+          run on without a divider. */}
       <HighlightsBar />
+      <BrightwheelPanel surface="bg-cream-deep" />
       <RatesPanel />
 
       <ArcDivider variant="scallop" from="bg-cream-deep" to="fill-cream" />

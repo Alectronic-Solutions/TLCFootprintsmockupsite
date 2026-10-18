@@ -40,9 +40,7 @@ export function ProgramPanels() {
                   }
                 >
                   <div className="flex flex-col items-center text-center">
-                    <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-white shadow-[0_3px_0_rgba(62,42,33,0.10)]">
-                      <ProgramIcon name={program.icon} className="h-9 w-9" />
-                    </div>
+                    <ProgramIcon name={program.icon} className="h-16 w-16 shrink-0" />
                     <div className="mt-4">
                       <p className="text-eyebrow font-bold uppercase text-leaf-dark">{programIndex === 0 ? "The early days" : "As they grow"}</p>
                       <h3 className="mt-1 font-display text-h3 text-cocoa">{program.name}</h3>

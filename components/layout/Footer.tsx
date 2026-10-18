@@ -22,6 +22,9 @@ const LEGAL_LINKS = [
 const SOCIAL_LINK =
   "grid h-11 w-11 place-items-center rounded-full transition-transform motion-safe:hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-dark focus-visible:ring-offset-2 focus-visible:ring-offset-cream-deep";
 
+const SPRIG =
+  "pointer-events-none absolute bottom-3 hidden h-28 w-auto opacity-50 min-[1400px]:block 2xl:h-36";
+
 const EYEBROW = "text-eyebrow font-bold uppercase tracking-[0.12em] text-leaf-dark";
 
 const CONTACT_ROW =
@@ -74,8 +77,14 @@ function TikTokIcon({ className }: { className?: string }) {
 
 /**
  * Four groups: who we are, where to go, how to reach us, and the family
- * portal. Below lg the brand spans the full width, Explore and contact share
- * a row, and the portal card spans the full width beneath them.
+ * portal. Below lg every group is centered, so the column reads as one
+ * spine; from lg all four sit side by side on a shared left edge. On a phone
+ * the groups stack, with Explore's links split into two columns. From sm,
+ * Explore and contact share a row.
+ *
+ * A mirrored pair of sprigs stands in the bottom corners, the way the two
+ * sprigs flank the rainbow in the logo. Only from 1400px, where the gutters are
+ * wide enough to hold them clear of the columns.
  *
  * No top border. Most pages hand over from the CTA band's arc, which already
  * draws the seam, and a hairline under it read as a stray second edge. The
@@ -84,20 +93,18 @@ function TikTokIcon({ className }: { className?: string }) {
 export function Footer() {
   return (
     <footer className="relative overflow-hidden bg-cream-deep">
-      <BotanicalSprig
-        flip
-        still
-        leavesOnly
-        className="pointer-events-none absolute -right-8 bottom-20 hidden h-44 w-auto opacity-40 lg:block"
-      />
+      <BotanicalSprig still leavesOnly className={`-left-4 ${SPRIG}`} />
+      <BotanicalSprig flip still leavesOnly className={`-right-4 ${SPRIG}`} />
 
-      <div className="container-page relative pb-8 pt-10 sm:pt-12">
+      {/* The extra bottom padding below md keeps the last line clear of the
+          floating back-to-top button, which sits above the action bar. */}
+      <div className="container-page relative pb-20 pt-10 sm:pt-12 md:pb-8">
         <HeartDots className="mb-10 sm:mb-12" />
 
-        <div className="grid grid-cols-[2fr_3fr] gap-x-4 gap-y-10 sm:gap-x-8 lg:grid-cols-[1.35fr_0.75fr_1fr_1.1fr] lg:gap-x-10">
-          <div className="col-span-2 text-center lg:col-span-1 lg:text-left">
+        <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-[2fr_3fr] sm:gap-x-8 lg:grid-cols-[1.35fr_0.75fr_1fr_1.1fr] lg:gap-x-10">
+          <div className="text-center sm:col-span-2 lg:col-span-1 lg:text-left">
             <Logo variant="compact" asLink={false} />
-            <p className="mx-auto mt-4 max-w-sm text-sm leading-relaxed text-cocoa-mid lg:mx-0 lg:max-w-xs">
+            <p className="mx-auto mt-4 max-w-sm text-balance text-sm leading-relaxed text-cocoa-mid lg:mx-0 lg:max-w-xs lg:text-pretty">
               A licensed California Family Child Care Home in {BUSINESS.city}, offering
               play-based, child-led care for children birth through age five and welcoming
               Child Action families.
@@ -118,7 +125,9 @@ export function Footer() {
               {NEW_TAB}
             </a>
 
-            <ul className="mt-4 flex items-center justify-center gap-2 lg:justify-start">
+            {/* From lg, pulled left by the hit area's inset, so the glyphs sit on
+                the same edge as the text above rather than 8px in from it. */}
+            <ul className="mt-4 flex items-center justify-center gap-2 lg:-ml-2 lg:justify-start">
               <li>
                 <a
                   href={BUSINESS.social.instagram}
@@ -146,11 +155,11 @@ export function Footer() {
             </ul>
           </div>
 
-          <nav aria-labelledby="footer-explore">
+          <nav aria-labelledby="footer-explore" className="text-center lg:text-left">
             <h2 id="footer-explore" className={EYEBROW}>
               Explore
             </h2>
-            <ul className="mt-4 space-y-3">
+            <ul className="mt-4 grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-1">
               {NAV_LINKS.map((link) => (
                 <li key={link.href} className="leading-tight">
                   <Link
@@ -164,23 +173,30 @@ export function Footer() {
             </ul>
           </nav>
 
-          <div>
+          <div className="text-center lg:text-left">
             <h2 className={EYEBROW}>Get in touch</h2>
-            <ul className="mt-4 space-y-3">
+            {/* Centered as one block, rows left-aligned inside it, so the icons
+                stand in a single column instead of zig-zagging with each
+                row's width. */}
+            <ul className="mx-auto mt-4 w-fit space-y-3 text-left lg:mx-0">
               <li>
                 <a href={BUSINESS.phoneHref} className={CONTACT_ROW}>
                   <Phone className="h-4 w-4 shrink-0 text-leaf-dark" aria-hidden="true" />
-                  {BUSINESS.phone}
+                  <span>
+                    Call <span className="tabular">{BUSINESS.phone}</span>
+                  </span>
                 </a>
               </li>
               <li>
                 <a href={BUSINESS.smsHref} className={CONTACT_ROW}>
                   <MessageSquare className="h-4 w-4 shrink-0 text-leaf-dark" aria-hidden="true" />
-                  Send a text
+                  <span>
+                    Text <span className="tabular">{BUSINESS.phone}</span>
+                  </span>
                 </a>
               </li>
               <li>
-                <a href={BUSINESS.emailHref} className={`${CONTACT_ROW} break-all`}>
+                <a href={BUSINESS.emailHref} className={CONTACT_ROW}>
                   <Mail className="h-4 w-4 shrink-0 text-leaf-dark" aria-hidden="true" />
                   {BUSINESS.email}
                 </a>
@@ -205,12 +221,12 @@ export function Footer() {
 
           {/* The family portal as one small card, so it reads as a destination
               rather than two more links in a list. */}
-          <div className="col-span-2 lg:col-span-1">
-            <h2 className={`${EYEBROW} text-center lg:text-left`}>Families</h2>
-            <div className="mt-4 overflow-hidden rounded-2xl border-hair border-cocoa/10 bg-white shadow-soft">
+          <div className="text-center sm:col-span-2 lg:col-span-1 lg:text-left">
+            <h2 className={EYEBROW}>Families</h2>
+            <div className="mt-4 overflow-hidden rounded-2xl border-hair border-cocoa/10 bg-white/70">
               <div aria-hidden="true" className="rule-rainbow h-1 w-full" />
               <div className="grid sm:grid-cols-2 lg:grid-cols-1">
-                <div className="p-4 text-center sm:p-5 lg:text-left">
+                <div className="p-4">
                   <p className="text-sm font-semibold text-cocoa">Prospective families</p>
                   <p className="mt-1 text-xs leading-relaxed text-cocoa-mid">
                     Join our interest list through Brightwheel.
@@ -219,14 +235,14 @@ export function Footer() {
                     href={BRIGHTWHEEL.interestListUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group mt-3 inline-flex min-h-[42px] w-full items-center justify-center gap-1.5 rounded-full bg-pink-dark px-4 py-2 text-sm font-semibold text-white shadow-[0_2px_0_0_#8A1A33] transition-colors hover:bg-[#AD2543] active:translate-y-px active:shadow-[0_1px_0_0_#8A1A33]"
+                    className="group mt-3 inline-flex min-h-[40px] w-full items-center justify-center gap-1.5 rounded-full bg-pink-dark px-4 py-2 text-sm font-semibold text-white shadow-[0_2px_0_0_#8A1A33] transition-colors hover:bg-[#AD2543] active:translate-y-px active:shadow-[0_1px_0_0_#8A1A33]"
                   >
                     Join the Interest List
                     <ArrowUpRight className={`h-4 w-4 ${OUT_ICON}`} aria-hidden="true" />
                     {NEW_TAB}
                   </a>
                 </div>
-                <div className="flex flex-col items-center justify-center border-t-hair border-cocoa/10 bg-cream-deep/50 p-4 text-center sm:border-l-hair sm:border-t-0 sm:p-5 lg:items-start lg:border-l-0 lg:border-t-hair lg:text-left">
+                <div className="flex flex-col items-center justify-center border-t-hair border-cocoa/10 bg-cream-deep/50 p-4 sm:border-l-hair sm:border-t-0 lg:items-start lg:border-l-0 lg:border-t-hair">
                   <p className="text-sm font-semibold text-cocoa">Current families</p>
                   <p className="mt-1 text-xs leading-relaxed text-cocoa-mid">
                     Forms, messages, and payments.

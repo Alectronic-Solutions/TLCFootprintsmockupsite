@@ -18,14 +18,18 @@ import {
 import { IS_INDEXABLE } from "@/lib/site";
 
 /**
- * Fraunces carries the SOFT and WONK axes, which is what makes it read warm
- * rather than institutional. Latin subset only, to stay inside the font budget.
+ * Weight plus optical size, which the browser sets on its own from the font
+ * size. Nothing on the site sets SOFT or WONK through font-variation-settings,
+ * so requesting those axes only made this, the headline face, the heaviest
+ * font on every page: Google pins an axis that is left out at its default,
+ * which is exactly how they were rendering. Latin subset only, to stay inside
+ * the font budget.
  */
 const fraunces = Fraunces({
   subsets: ["latin"],
   variable: "--font-fraunces",
   display: "swap",
-  axes: ["SOFT", "WONK", "opsz"],
+  axes: ["opsz"],
 });
 
 const nunito = Nunito_Sans({
@@ -50,11 +54,17 @@ const greatVibes = Great_Vibes({
  * Caveat is a casual hand with even strokes and a tall x-height, which is what
  * makes it readable at 27px where the other is not. Variable 400-700 in one
  * file, latin only.
+ *
+ * Not preloaded. A layout font's preload goes out on every route, and at
+ * 73 KB this one was competing with the stylesheet for first paint on pages
+ * that never use it. Where it is used, the browser fetches it as soon as
+ * that text is laid out.
  */
 const caveat = Caveat({
   subsets: ["latin"],
   variable: "--font-caveat",
   display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {

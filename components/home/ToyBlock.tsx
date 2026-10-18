@@ -26,6 +26,12 @@ export interface Differentiator {
   body: string;
   /** The paint. Picks the block's three face colours; matches its mark. */
   edge: "leaf" | "pink" | "amber";
+  /**
+   * A cube by default. "prism" is a triangular roof block, laid across the two
+   * below it. useBlockPhysics reads this off `data-shape` to give it a
+   * triangular body, so it tumbles and stacks the way it is drawn.
+   */
+  shape?: "cube" | "prism";
 }
 
 export const EDGE_CLASS = {
@@ -37,10 +43,25 @@ export const EDGE_CLASS = {
 export const ToyBlock = forwardRef<HTMLLIElement, { item: Differentiator }>(
   function ToyBlock({ item }, ref) {
     return (
-      <li ref={ref} className={cn("toy-block", EDGE_CLASS[item.edge])}>
+      <li
+        ref={ref}
+        data-shape={item.shape ?? "cube"}
+        className={cn(
+          "toy-block",
+          EDGE_CLASS[item.edge],
+          item.shape === "prism" && "toy-block--prism",
+        )}
+      >
+        {item.shape === "prism" && (
+          <>
+            <span className="toy-prism-slope toy-prism-slope--left" />
+            <span className="toy-prism-slope toy-prism-slope--right" />
+            <span className="toy-prism-front" />
+          </>
+        )}
         <span className="toy-block-face">
           <span className="toy-block-mark">
-            <DifferentiatorIcon name={item.icon} className="h-7 w-7 sm:h-8 sm:w-8" />
+            <DifferentiatorIcon name={item.icon} className="h-10 w-10 sm:h-12 sm:w-12" />
           </span>
           <span className="toy-block-title">{item.title}</span>
         </span>

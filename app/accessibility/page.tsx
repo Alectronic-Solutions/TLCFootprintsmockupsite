@@ -15,7 +15,7 @@ export default function AccessibilityPage() {
       label="Accessibility"
       title="Using this website"
       subtitle="T.L.C. Footprints wants parents and guardians to be able to get the information they need, including people who use assistive technology."
-      updated="August 31, 2026"
+      updated="October 18, 2026"
     >
       <h2>Our commitment</h2>
       <p>
@@ -30,10 +30,10 @@ export default function AccessibilityPage() {
 
       <h2>Measures used on this site</h2>
       <ul>
-        <li>Semantic headings, lists, tables, form labels, and page landmarks</li>
+        <li>Semantic headings, lists, form labels, and page landmarks</li>
         <li>Visible keyboard focus and keyboard-operable navigation and controls</li>
         <li>A skip link that moves directly to the main content</li>
-        <li>Text alternatives for meaningful images and hidden treatment for decoration</li>
+        <li>Text alternatives for meaningful images, with decorative artwork hidden from screen readers</li>
         <li>Color and non-color cues for form errors and important status information</li>
         <li>Support for browser zoom, text reflow, mobile layouts, and reduced motion</li>
         <li>Permanently visible form labels and descriptive validation messages</li>
@@ -42,20 +42,23 @@ export default function AccessibilityPage() {
 
       <h2>Current limitations</h2>
       <p>
-        The tour and availability forms validate entries and send submitted inquiries to
-        {" "}{BUSINESS.name}. Call, text, and email options are also provided on both pages
-        so the same inquiry can be made without using a form.
+        The tour and availability forms use Cloudflare Turnstile spam protection, which
+        needs JavaScript and may occasionally ask you to complete a check before a form
+        can be sent. Call, text, and email options are provided on both pages so the same
+        inquiry can be made without using a form.
       </p>
       <p>
-        One resource article contains a rate table that scrolls horizontally on narrow
-        screens. The same rates are also available as responsive cards on the Programs and
-        Rates page, and a visible instruction explains how to view every table column on a
-        small screen.
+        Some pages contain optional animations and playful interactions, such as a
+        footprint puzzle, a tic-tac-toe game, stackable toy blocks, page-turning books,
+        and an illustration that colors in as the pointer moves. The child care
+        information they relate to is always provided as text, and nothing depends on
+        completing an interaction. The puzzle, game, and books can be operated with a
+        keyboard. The toy blocks are decorative, are hidden from screen readers, and
+        require a mouse or touch screen to move. Most animation is reduced or switched off
+        when your device asks for reduced motion.
       </p>
       <p>
-        Some pages contain optional motion or visual interactions, such as animated
-        illustrations and a puzzle. The essential child care information is also provided
-        as text, and the content does not depend on completing an interaction. External
+        Brightwheel, social media profiles, government agencies, and other external
         websites linked from this site are controlled by their respective owners and may
         have different accessibility practices.
       </p>
@@ -89,7 +92,7 @@ export default function AccessibilityPage() {
       </p>
 
       <h2>Effective date</h2>
-      <p>Effective August 31, 2026.</p>
+      <p>Effective October 18, 2026.</p>
     </PolicyPage>
   );
 }

@@ -65,7 +65,7 @@ export function DifferentiatorBlocks({ items }: { items: Differentiator[] }) {
       {/* The pen is scenery. Everything it says is said again below, so it is
           hidden from assistive tech rather than read out as three stray
           headings in whatever order the blocks ended up in. */}
-      <div ref={penRef} className="toy-pen mx-auto max-w-3xl" aria-hidden="true">
+      <div ref={penRef} className="toy-pen toy-pen--table mx-auto max-w-3xl lg:max-w-4xl" aria-hidden="true">
         <ul ref={floorRef} className="toy-pen-floor">
           {items.map((item, i) => (
             <ToyBlock
@@ -83,7 +83,7 @@ export function DifferentiatorBlocks({ items }: { items: Differentiator[] }) {
           blocks stack more easily, not less. Making this depend on `reduce`
           meant the server and the client disagreed about the markup, which is a
           hydration mismatch for exactly the visitors it was meant to help. */}
-      <div className="mx-auto mt-3 flex min-h-[2.5rem] max-w-3xl items-center gap-4">
+      <div className="mx-auto mt-3 flex min-h-[2.5rem] max-w-3xl items-center gap-4 lg:max-w-4xl">
         <p className="text-sm text-cocoa-mid">Try stacking the blocks.</p>
         {disturbed && (
           <button
@@ -106,7 +106,7 @@ export function DifferentiatorBlocks({ items }: { items: Differentiator[] }) {
               aria-hidden="true"
               className={cn("toy-legend-mark mx-auto", EDGE_CLASS[item.edge])}
             >
-              <DifferentiatorIcon name={item.icon} className="h-6 w-6" />
+              <DifferentiatorIcon name={item.icon} className="h-14 w-14" />
             </span>
             {/* The three entries sit side by side from sm up, so their titles
                 and sentences have to start and finish on the same lines even

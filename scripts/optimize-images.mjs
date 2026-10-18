@@ -1,9 +1,11 @@
 // Converts public/photos/*.jpg or *.png to WebP, resizing anything wider than
-// 1920px. The site's illustrated heroes already live in public as WebP files.
+// 1920px, then writes the smaller widths in lib/photoSizes.mjs beside every
+// photo. The site's illustrated heroes already live in public as WebP files.
 //
-// `images.unoptimized: true` is required for static export, which means Next
-// cannot transcode or resize at request time. This has to happen at build time
-// instead. Run it after adding new photos:
+// A static export has no server to transcode or resize at request time, so
+// this has to happen at build time instead. lib/imageLoader.ts points each
+// srcset entry at these files, which is what lets a phone download a 1080px
+// photo rather than the 1920px original. Run it after adding new photos:
 //
 //   npm run optimize-images
 
@@ -11,6 +13,7 @@ import sharp from "sharp";
 import { readdirSync, unlinkSync, existsSync, mkdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
+import { PHOTO_WIDTHS, photoVariantName, VARIANT_PATTERN } from "../lib/photoSizes.mjs";
 
 const rootDir = path.dirname(fileURLToPath(import.meta.url)) + "/..";
 const photosDir = path.join(rootDir, "public", "photos");
@@ -43,3 +46,18 @@ for (const file of files) {
 }
 
 console.log(`Converted ${files.length} photo(s) to WebP.`);
+
+// Every width is written even for a photo narrower than it (never enlarged),
+// because the loader assumes the file exists and would otherwise 404.
+const photos = readdirSync(photosDir).filter((f) => /\.webp$/i.test(f) && !VARIANT_PATTERN.test(f));
+
+for (const file of photos) {
+  for (const width of PHOTO_WIDTHS) {
+    await sharp(path.join(photosDir, file))
+      .resize({ width, withoutEnlargement: true })
+      .webp({ quality: QUALITY })
+      .toFile(path.join(photosDir, photoVariantName(file, width)));
+  }
+}
+
+console.log(`Wrote ${PHOTO_WIDTHS.join("px, ")}px versions of ${photos.length} photo(s).`);

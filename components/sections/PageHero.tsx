@@ -3,7 +3,6 @@ import { cn } from "@/lib/cn";
 import { ScrollSprig } from "@/components/brand/ScrollSprig";
 import { WatercolorWash } from "@/components/brand/Texture";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { FaqHeroBackdrop } from "@/components/sections/FaqHeroBackdrop";
 
 /**
@@ -50,7 +49,7 @@ export function PageHero({
    * it sews into the navbar and the arc divider below rather than ending on
    * a hard edge. Off by default.
    *
-   * `true` renders the shared watercolor-wash backdrop (FaqHeroBackdrop);
+   * `true` renders the footprint-trail backdrop (FaqHeroBackdrop);
    * pass a node instead when a caller wants its own illustrated backdrop
    * (Resources' rainbow-arc-and-footprints one) under the same scrim rather
    * than building the wrapper div dance About uses.
@@ -193,8 +192,13 @@ export function PageHero({
       >
         {/* Centered on phones and tablets, where a left-aligned block under a
             centered navbar reads as a misalignment rather than a choice. Back
-            to flush-left at lg, the same flip the body sections use. */}
-        <AnimatedSection
+            to flush-left at lg, the same flip the body sections use.
+
+            Not an AnimatedSection: its fade starts at opacity 0 and only runs
+            once the page's JS has loaded, so on a slow phone the heading and
+            subtitle stayed blank for seconds after the HTML had arrived. The
+            copy paints with the HTML, as the home hero's does. */}
+        <div
           className={cn(
             "mx-auto max-w-3xl text-center",
             align === "responsive" && "lg:mx-0 lg:text-left",
@@ -238,7 +242,7 @@ export function PageHero({
               {children}
             </div>
           ) : null}
-        </AnimatedSection>
+        </div>
       </div>
     </section>
   );

@@ -16,7 +16,7 @@ export default function TermsPage() {
       label="Terms of use"
       title="Terms for using this website"
       subtitle="These terms cover the website itself. Child care is governed by the enrollment agreement you sign, not by this page."
-      updated="August 31, 2026"
+      updated="October 18, 2026"
     >
       <h2>Acceptance of these terms</h2>
       <p>
@@ -41,8 +41,9 @@ export default function TermsPage() {
       <p>
         Published rates and openings are kept as current as reasonably possible, but they
         can change, and openings can be filled between updates. The enrollment status on
-        the site includes its last-updated date. Confirm current rates, schedules, deposit
-        terms, and availability directly before making a decision or payment.
+        the site is a general guide to whether spaces are open, limited, or full. It is not
+        a count of remaining spaces. Confirm current rates, schedules, deposit terms, and
+        availability directly before making a decision or payment.
       </p>
 
       <h2>Tour and availability forms</h2>
@@ -89,7 +90,7 @@ export default function TermsPage() {
 
       <h2>Content and intellectual property</h2>
       <p>
-        Unless otherwise stated, the original text, logo, illustrations, and site design
+        Unless otherwise stated, the original text, photographs, logo, illustrations, and site design
         belong to {BUSINESS.name} or are used with permission. You may print or save a
         reasonable copy for personal use. Do not reproduce, publish, sell, or create a
         commercial derivative of the content without permission. Government forms and
@@ -102,6 +103,11 @@ export default function TermsPage() {
         convenience. {BUSINESS.name} does not control those sites and is not responsible
         for their content, availability, security, accessibility, or privacy practices. A
         link does not imply endorsement unless the site expressly says so.
+      </p>
+      <p>
+        The interest list and family sign-in links open Brightwheel, a third-party child
+        care platform. Use of Brightwheel is governed by Brightwheel&apos;s own terms and
+        privacy policy.
       </p>
 
       <h2>Availability of the website</h2>
@@ -130,7 +136,7 @@ export default function TermsPage() {
 
       <h2>Effective date and contact</h2>
       <p>
-        Effective August 31, 2026. Questions about these terms can be sent to{" "}
+        Effective October 18, 2026. Questions about these terms can be sent to{" "}
         <a href={BUSINESS.emailHref}>{BUSINESS.email}</a> or discussed by calling{" "}
         <a href={BUSINESS.phoneHref}>{BUSINESS.phone}</a>.
       </p>

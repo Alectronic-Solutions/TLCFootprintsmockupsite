@@ -1,21 +1,24 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useMemo, useRef, useState, type ReactNode } from "react";
+import { useCallback, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { ArrowRight, BookOpen, ChevronLeft, ChevronRight, Hand } from "lucide-react";
 import {
-  ArrowRight,
-  BookOpen,
-  ChevronLeft,
-  ChevronRight,
-  MoveHorizontal,
-} from "lucide-react";
-import { motion, useReducedMotion, type PanInfo } from "framer-motion";
-import { ResourceIcon } from "@/components/brand/ResourceIcon";
+  MotionConfig,
+  motion,
+  useMotionValue,
+  useMotionValueEvent,
+  useReducedMotion,
+  type MotionValue,
+} from "framer-motion";
+import { ResourceBadge } from "@/components/brand/ResourceBadge";
 import { EASE } from "@/components/ui/AnimatedSection";
+import { FlipCorner, FlipOverlay, useBookFlip, type FlipTurn } from "@/components/ui/PageFlip";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { BUSINESS } from "@/lib/constants";
 import { cn } from "@/lib/cn";
 import type { ArticleTopic } from "@/lib/mdx";
+import { useMediaQuery } from "@/lib/useMediaQuery";
 
 export interface ResourceBookData {
   slug: string;
@@ -120,35 +123,90 @@ const OFFICIAL_LINKS = [
   },
 ] as const;
 
-type Turn = { from: number; to: number; direction: 1 | -1 };
-
-const TURN_DURATION = 0.64;
-const SWIPE_DISTANCE = 60;
-const SWIPE_VELOCITY = 300;
-
-export function ResourceLibrary({ books }: { books: ResourceBookData[] }) {
-  const reduce = useReducedMotion();
+/**
+ * `afterLinks` renders between the reference desk and the family shelf, on the
+ * desk's cream-deep surface, so the desk trims its bottom padding to meet it.
+ */
+export function ResourceLibrary({
+  books,
+  afterLinks,
+}: {
+  books: ResourceBookData[];
+  afterLinks?: ReactNode;
+}) {
+  const reduce = useReducedMotion() ?? false;
+  const wide = useMediaQuery("(min-width: 1024px)");
   const initialSlug = books.find((book) => book.topic === "licensing")?.slug ?? books[0]?.slug ?? "";
   const [selectedSlug, setSelectedSlug] = useState(initialSlug);
-  const [pageIndex, setPageIndex] = useState(0);
-  const [turning, setTurning] = useState<Turn | null>(null);
-  const [announcement, setAnnouncement] = useState("");
-  const readerRef = useRef<HTMLDivElement>(null);
+  const [opened, setOpened] = useState(false);
+  const readerRef = useRef<HTMLElement>(null);
+  const toolbarRef = useRef<HTMLDivElement>(null);
 
   const selectedBook = useMemo(
     () => books.find((book) => book.slug === selectedSlug) ?? books[0],
     [books, selectedSlug],
   );
+  const pageCount = selectedBook?.pages.length ?? 0;
+
+  const {
+    active,
+    shown,
+    turning,
+    progress,
+    enter,
+    goTo: goToPage,
+    step,
+    reset,
+    dragHandlers,
+  } = useBookFlip({
+    count: pageCount,
+    wide,
+    reduce,
+    // Stacked, a page can run past one screen. Turning from the bottom
+    // controls should land on the top of the new page, not its end.
+    onStackedTurn: () => {
+      const toolbar = toolbarRef.current;
+      if (toolbar && toolbar.getBoundingClientRect().top < parseFloat(getComputedStyle(toolbar).scrollMarginTop)) {
+        toolbar.scrollIntoView({ block: "start", behavior: reduce ? "auto" : "smooth" });
+      }
+    },
+  });
+
+  // During a turn the paper's height runs from the page being left to the
+  // page being opened, in step with the leaf, so the book resizes smoothly
+  // and lands at exactly the new page's height. Heights are read when a turn
+  // starts: the pages are all mounted, so this is just a layout read.
+  const paperRef = useRef<HTMLDivElement>(null);
+  const paperHeight = useMotionValue(0);
+  const pageHeights = useRef<number[]>([]);
+  const turnRef = useRef(turning);
+
+  const syncPaperHeight = useCallback(() => {
+    const turn = turnRef.current;
+    if (!turn) return;
+    const from = pageHeights.current[turn.from] ?? 0;
+    const to = pageHeights.current[turn.to] ?? from;
+    paperHeight.set(from + (to - from) * progress.get());
+  }, [paperHeight, progress]);
+
+  useMotionValueEvent(progress, "change", syncPaperHeight);
+
+  useLayoutEffect(() => {
+    turnRef.current = turning;
+    if (!turning || !paperRef.current) return;
+    pageHeights.current = Array.from(
+      paperRef.current.querySelectorAll<HTMLElement>(":scope > .resource-reader-spread"),
+      (el) => el.offsetHeight,
+    );
+    syncPaperHeight();
+  }, [turning, syncPaperHeight]);
 
   const openBook = useCallback(
     (slug: string) => {
-      const next = books.find((book) => book.slug === slug);
-      if (!next) return;
-
+      if (!books.some((book) => book.slug === slug)) return;
+      reset();
       setSelectedSlug(slug);
-      setPageIndex(0);
-      setTurning(null);
-      setAnnouncement(`${next.title} opened. Page 1 of ${next.pages.length}.`);
+      setOpened(true);
 
       window.setTimeout(() => {
         readerRef.current?.scrollIntoView({
@@ -157,58 +215,28 @@ export function ResourceLibrary({ books }: { books: ResourceBookData[] }) {
         });
       }, 80);
     },
-    [books, reduce],
+    [books, reduce, reset],
   );
-
-  const goToPage = useCallback(
-    (to: number) => {
-      if (!selectedBook || to === pageIndex || to < 0 || to >= selectedBook.pages.length || turning) {
-        return;
-      }
-
-      if (reduce) {
-        setPageIndex(to);
-        setAnnouncement(`${selectedBook.title}. Page ${to + 1} of ${selectedBook.pages.length}.`);
-        return;
-      }
-
-      setTurning({ from: pageIndex, to, direction: to > pageIndex ? 1 : -1 });
-    },
-    [pageIndex, reduce, selectedBook, turning],
-  );
-
-  const commitTurn = useCallback(() => {
-    setTurning((turn) => {
-      if (!turn || !selectedBook) return null;
-      setPageIndex(turn.to);
-      setAnnouncement(`${selectedBook.title}. Page ${turn.to + 1} of ${selectedBook.pages.length}.`);
-      return null;
-    });
-  }, [selectedBook]);
 
   function onReaderKeyDown(event: React.KeyboardEvent) {
+    if ((event.target as HTMLElement).closest("a, button, select, input")) return;
     if (event.key === "ArrowRight") {
       event.preventDefault();
-      goToPage(pageIndex + 1);
+      step(1);
     } else if (event.key === "ArrowLeft") {
       event.preventDefault();
-      goToPage(pageIndex - 1);
-    }
-  }
-
-  function onDragEnd(_: unknown, info: PanInfo) {
-    if (info.offset.x <= -SWIPE_DISTANCE || info.velocity.x <= -SWIPE_VELOCITY) {
-      goToPage(pageIndex + 1);
-    } else if (info.offset.x >= SWIPE_DISTANCE || info.velocity.x >= SWIPE_VELOCITY) {
-      goToPage(pageIndex - 1);
+      step(-1);
     }
   }
 
   if (!selectedBook) return null;
 
+  const slideIn = !reduce && !wide && enter.n > 0;
+  const readPercent = ((active + 1) / pageCount) * 100;
+
   return (
-    <>
-      <section className="section-y bg-cream-deep">
+    <MotionConfig reducedMotion="user">
+      <section className={cn("section-y bg-cream-deep", Boolean(afterLinks) && "pb-4 sm:pb-6")}>
         <div className="container-page">
           <div className="mx-auto max-w-3xl text-center">
             <SectionLabel className="text-center">The reference desk</SectionLabel>
@@ -242,6 +270,8 @@ export function ResourceLibrary({ books }: { books: ResourceBookData[] }) {
           </ul>
         </div>
       </section>
+
+      {afterLinks}
 
       <section className="resource-library section-y overflow-hidden bg-cream">
         <div className="container-page">
@@ -277,7 +307,7 @@ export function ResourceLibrary({ books }: { books: ResourceBookData[] }) {
                     <p className="mt-2 max-w-[38ch] text-base">{collection.description}</p>
                   </div>
 
-                  <div className="resource-shelf-books" aria-label={`${collection.title} books`}>
+                  <div className="resource-shelf-books" role="group" aria-label={`${collection.title} books`}>
                     {shelfBooks.map((book, bookIndex) => {
                       const globalIndex = books.findIndex((candidate) => candidate.slug === book.slug);
                       const selected = book.slug === selectedSlug;
@@ -289,10 +319,12 @@ export function ResourceLibrary({ books }: { books: ResourceBookData[] }) {
                           type="button"
                           onClick={() => openBook(book.slug)}
                           aria-pressed={selected}
-                          aria-label={`Open ${book.title}`}
+                          aria-label={selected ? `${book.title}, open below` : `Open ${book.title}`}
                           data-resource-slug={book.slug}
-                          whileHover={reduce ? undefined : { y: -8, rotate: 0 }}
-                          whileTap={reduce ? undefined : { y: -2, scale: 0.98 }}
+                          whileHover={{ y: -8, rotate: 0 }}
+                          whileTap={{ y: -2, scale: 0.98 }}
+                          animate={{ y: selected ? -6 : 0 }}
+                          transition={{ duration: 0.3, ease: EASE }}
                           className={cn(
                             "resource-shelf-book group",
                             tone,
@@ -302,12 +334,11 @@ export function ResourceLibrary({ books }: { books: ResourceBookData[] }) {
                           )}
                         >
                           <span className="resource-shelf-book-edge" aria-hidden="true" />
+                          {selected ? <span className="resource-shelf-book-ribbon" aria-hidden="true" /> : null}
                           <span className="resource-shelf-book-number" aria-hidden="true">
                             {String(globalIndex + 1).padStart(2, "0")}
                           </span>
-                          <span className="resource-shelf-book-icon">
-                            <ResourceIcon topic={book.topic} className="h-5 w-5" />
-                          </span>
+                          <ResourceBadge topic={book.topic} className="resource-shelf-book-icon" />
                           <span className="resource-shelf-book-label">{TOPIC_LABELS[book.topic]}</span>
                           <span className="resource-shelf-book-title">
                             {SHORT_TITLES[book.slug] ?? book.title}
@@ -321,7 +352,6 @@ export function ResourceLibrary({ books }: { books: ResourceBookData[] }) {
               );
             })}
           </div>
-
         </div>
       </section>
 
@@ -334,12 +364,14 @@ export function ResourceLibrary({ books }: { books: ResourceBookData[] }) {
         <div className="container-page">
           <motion.div
             key={selectedBook.slug}
-            initial={reduce ? false : { opacity: 0, y: 28, rotateX: -7, scale: 0.985 }}
-            animate={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
+            initial={reduce ? false : { opacity: 0, y: 28, scale: 0.985 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.48, ease: EASE }}
-            style={{ perspective: reduce ? undefined : 2200 }}
           >
-            <div className="resource-reader-toolbar mb-5 flex flex-col items-center gap-4 rounded-2xl border-hair border-cocoa/10 bg-cream/80 p-4 text-center shadow-soft backdrop-blur-sm sm:flex-row sm:justify-between sm:px-5 sm:text-left">
+            <div
+              ref={toolbarRef}
+              className="resource-reader-toolbar relative mb-5 flex scroll-mt-[calc(var(--header-h)+0.75rem)] flex-col items-center gap-4 overflow-hidden rounded-2xl border-hair border-cocoa/10 bg-cream/80 p-4 text-center shadow-soft backdrop-blur-sm sm:flex-row sm:justify-between sm:px-5 sm:text-left"
+            >
               <div className="min-w-0 text-center sm:text-left">
                 <p className="flex items-center justify-center gap-2 text-sm font-bold text-leaf-dark sm:justify-start">
                   <BookOpen className="h-4 w-4 shrink-0" aria-hidden="true" />
@@ -351,8 +383,8 @@ export function ResourceLibrary({ books }: { books: ResourceBookData[] }) {
               <div className="flex w-full items-center justify-center gap-2 sm:w-auto">
                 <button
                   type="button"
-                  onClick={() => goToPage(pageIndex - 1)}
-                  disabled={pageIndex === 0}
+                  onClick={() => step(-1)}
+                  disabled={active === 0}
                   className="resource-reader-control"
                   aria-label="Previous page"
                 >
@@ -360,25 +392,24 @@ export function ResourceLibrary({ books }: { books: ResourceBookData[] }) {
                   <span className="hidden sm:inline">Previous</span>
                 </button>
                 <label className="sr-only" htmlFor="resource-page-select">
-                  Choose a page
+                  Go to a page
                 </label>
                 <select
                   id="resource-page-select"
-                  value={pageIndex}
+                  value={active}
                   onChange={(event) => goToPage(Number(event.target.value))}
-                  disabled={Boolean(turning)}
                   className="resource-reader-select"
                 >
                   {selectedBook.pages.map((page, index) => (
                     <option key={`${page.label}-${index}`} value={index}>
-                      {index + 1}
+                      {index + 1}. {page.label}
                     </option>
                   ))}
                 </select>
                 <button
                   type="button"
-                  onClick={() => goToPage(pageIndex + 1)}
-                  disabled={pageIndex === selectedBook.pages.length - 1}
+                  onClick={() => step(1)}
+                  disabled={active === pageCount - 1}
                   className="resource-reader-control"
                   aria-label="Next page"
                 >
@@ -386,45 +417,99 @@ export function ResourceLibrary({ books }: { books: ResourceBookData[] }) {
                   <ChevronRight className="h-4 w-4" aria-hidden="true" />
                 </button>
               </div>
+
+              {/* Reading progress, along the toolbar's bottom edge. */}
+              <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-[3px] bg-cocoa/5">
+                <motion.span
+                  className="block h-full rounded-r-full bg-gradient-to-r from-pink via-amber to-leaf"
+                  initial={false}
+                  animate={{ width: `${readPercent}%` }}
+                  transition={{ duration: 0.45, ease: EASE }}
+                />
+              </span>
             </div>
 
             <div
               role="group"
               aria-roledescription="book"
-              aria-label={`${selectedBook.title}, ${selectedBook.pages.length} pages`}
+              aria-label={`${selectedBook.title}, ${pageCount} pages`}
               tabIndex={0}
               onKeyDown={onReaderKeyDown}
-              className="resource-reader-shell relative mx-auto max-w-6xl outline-none"
+              className="resource-reader-shell relative mx-auto max-w-6xl rounded-[1.4rem] outline-none focus-visible:ring-2 focus-visible:ring-cocoa/40 focus-visible:ring-offset-4 focus-visible:ring-offset-cream-deep"
             >
               <div className="resource-reader-page-edges" aria-hidden="true" />
-              <motion.div
-                layout
-                className="resource-reader-book relative isolate grid rounded-[1.4rem]"
-                drag={reduce ? false : "x"}
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.1}
-                onDragEnd={onDragEnd}
-                transition={{ layout: { duration: 0.34, ease: EASE } }}
-              >
-                <div
-                  key={`${selectedBook.slug}-${pageIndex}`}
-                  className="resource-reader-spread overflow-hidden rounded-[1.05rem]"
-                  data-resource-page={pageIndex}
-                  data-active-page="true"
+              <div className="resource-reader-book flip-frame relative isolate rounded-[1.4rem] lg:select-none" {...dragHandlers}>
+                {/* The book is as tall as the page it is open to. Every page
+                    stays mounted, but only the current one is in flow; the
+                    rest sit out of flow at their own natural height (hidden,
+                    and on phones not displayed at all), which is what lets a
+                    turn measure both pages and grow or shrink the book
+                    between them as the leaf crosses (`paperHeight`). */}
+                <motion.div
+                  ref={paperRef}
+                  className="relative overflow-hidden rounded-[1.05rem]"
+                  style={{ height: turning && wide && !reduce ? paperHeight : undefined }}
                 >
-                  <ReaderSpread book={selectedBook} pageIndex={pageIndex} />
-                </div>
+                  {selectedBook.pages.map((page, index) => {
+                    const isShown = index === shown;
+                    return (
+                      <div
+                        key={`${selectedBook.slug}-${index}`}
+                        className={cn(
+                          "resource-reader-spread overflow-hidden rounded-[1.05rem]",
+                          isShown ? "relative" : "absolute inset-x-0 top-0 max-lg:hidden",
+                        )}
+                        style={{ visibility: isShown ? "visible" : "hidden" }}
+                        aria-hidden={!isShown}
+                        inert={!isShown}
+                        data-resource-page={index}
+                        data-active-page={isShown ? "true" : undefined}
+                      >
+                        <motion.div
+                          key={isShown ? `in-${enter.n}` : "idle"}
+                          className="h-full"
+                          initial={isShown && slideIn ? { opacity: 0, x: enter.dir * 32 } : false}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, ease: EASE }}
+                        >
+                          <ReaderSpread book={selectedBook} pageIndex={index} onJump={goToPage} />
+                        </motion.div>
+                      </div>
+                    );
+                  })}
+                </motion.div>
 
-                {turning && !reduce ? (
-                  <TurningPage book={selectedBook} turn={turning} onDone={commitTurn} />
-                ) : null}
-              </motion.div>
+                {/* Dog-ears that lift on hover: the pages can be grabbed. */}
+                {!turning && active > 0 ? <FlipCorner side="left" className="hidden lg:block" /> : null}
+                {!turning && active < pageCount - 1 ? <FlipCorner side="right" className="hidden lg:block" /> : null}
+              </div>
+
+              {turning && wide && !reduce ? (
+                <ReaderTurn key={turning.seq} book={selectedBook} turn={turning} progress={progress} />
+              ) : null}
+            </div>
+
+            {/* Phones: turn from the bottom too, after reading down a page. */}
+            <div className="no-print mt-3 flex items-center justify-between gap-3 lg:hidden">
+              <button type="button" onClick={() => step(-1)} disabled={active === 0} className="resource-reader-control">
+                <ChevronLeft className="h-4 w-4" aria-hidden="true" />
+                Previous
+              </button>
+              <button
+                type="button"
+                onClick={() => step(1)}
+                disabled={active === pageCount - 1}
+                className="resource-reader-control"
+              >
+                Next
+                <ChevronRight className="h-4 w-4" aria-hidden="true" />
+              </button>
             </div>
 
             <div className="resource-reader-footer mt-5 flex flex-col items-center justify-center gap-4 text-center sm:flex-row sm:justify-between">
               <p className="text-center text-sm font-semibold text-cocoa-mid">
-                Page {pageIndex + 1} of {selectedBook.pages.length} · {selectedBook.readingTime} min read ·
-                updated {selectedBook.updated}
+                Page {active + 1} of {pageCount} · {selectedBook.readingTime} min read · updated{" "}
+                {selectedBook.updated}
               </p>
               <Link
                 href={`/resources/${selectedBook.slug}`}
@@ -434,99 +519,164 @@ export function ResourceLibrary({ books }: { books: ResourceBookData[] }) {
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </div>
-
-            <p className="resource-reader-hint mt-3 flex items-center justify-center gap-2 text-center text-sm text-cocoa-mid">
-              <MoveHorizontal className="h-4 w-4 shrink-0 text-leaf-dark" aria-hidden="true" />
-              <span className="sm:hidden">Use the arrows, page menu, or swipe to turn the page.</span>
-              <span className="hidden sm:inline">Use the arrows, page menu, arrow keys, or drag to turn the page.</span>
+            <p className="no-print mt-3 hidden items-center justify-center gap-2 text-center text-sm font-semibold text-cocoa-mid lg:flex">
+              <Hand className="h-4 w-4 shrink-0 text-leaf-dark" aria-hidden="true" />
+              Grab a page and drag it to turn, or use the arrows and contents.
             </p>
           </motion.div>
 
           <p aria-live="polite" className="sr-only">
-            {announcement}
+            {opened ? `${selectedBook.title}. ` : ""}
+            {selectedBook.pages[active]?.label}. Page {active + 1} of {pageCount}.
           </p>
         </div>
       </section>
-    </>
+    </MotionConfig>
   );
 }
 
-function ReaderSpread({ book, pageIndex }: { book: ResourceBookData; pageIndex: number }) {
-  const page = book.pages[pageIndex];
-
+/** One page of the open book: the title page on the left, the text on the right. */
+function ReaderSpread({
+  book,
+  pageIndex,
+  onJump,
+}: {
+  book: ResourceBookData;
+  pageIndex: number;
+  onJump?: (index: number) => void;
+}) {
   return (
-    <div className="resource-reader-paper relative grid h-full md:grid-cols-[0.78fr_1.22fr]">
-      <div className="resource-reader-gutter" aria-hidden="true" />
-      <div className="resource-reader-left flex flex-col items-center justify-center px-6 py-7 text-center sm:px-10 sm:py-9 md:min-h-[34rem] md:px-11 md:py-11">
-        <div>
-          <div className="flex items-center justify-center gap-3">
-            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border-hair border-cocoa/10 bg-white/55">
-              <ResourceIcon topic={book.topic} className="h-5 w-5" />
-            </span>
-            <span className="text-eyebrow font-bold uppercase tracking-[0.13em] text-leaf-dark">
-              {TOPIC_LABELS[book.topic]}
-            </span>
-          </div>
-          <h2 className="mt-4 text-[1.65rem] leading-tight md:mt-6 md:text-h2">{book.title}</h2>
-          <p className={cn("mx-auto mt-3 max-w-[36ch] text-base text-ink md:mt-4", pageIndex > 0 && "max-md:hidden")}>
-            {book.summary}
-          </p>
-        </div>
-      </div>
+    <div className="grid h-full lg:grid-cols-2">
+      <ReaderLeftPage book={book} pageIndex={pageIndex} onJump={onJump} />
+      <ReaderRightPage book={book} pageIndex={pageIndex} />
+    </div>
+  );
+}
 
-      <div className="resource-reader-right border-t-hair border-cocoa/10 px-6 py-8 text-center sm:px-10 sm:py-10 md:border-l-hair md:border-t-0 md:px-12 md:py-11">
-        <div className="resource-book-prose">{page.content}</div>
-        <p className="tabular mt-9 text-right text-sm font-semibold text-cocoa-mid/55" aria-hidden="true">
-          {pageIndex * 2 + 2}
+/**
+ * The title page, with the book's contents. On a turn's moving leaf it is a
+ * picture only (`onJump` absent), so its contents are plain text there.
+ */
+function ReaderLeftPage({
+  book,
+  pageIndex,
+  onJump,
+  className,
+}: {
+  book: ResourceBookData;
+  pageIndex: number;
+  onJump?: (index: number) => void;
+  className?: string;
+}) {
+  return (
+    <div className={cn("resource-reader-page resource-reader-page-left h-full", className)}>
+      <div className="resource-reader-page-body flex h-full flex-col justify-center px-5 py-4 text-center sm:py-6 lg:px-10 lg:py-7">
+        <div className="flex items-center justify-center gap-1.5 lg:gap-2">
+          <ResourceBadge topic={book.topic} className="h-10 w-10 shrink-0 lg:h-12 lg:w-12" />
+          <span className="text-eyebrow font-bold uppercase tracking-[0.13em] text-leaf-dark">
+            {TOPIC_LABELS[book.topic]}
+          </span>
+        </div>
+        <h2 className="mx-auto mt-2 max-w-[20ch] text-balance text-[1.3rem] leading-tight lg:mt-4 lg:text-[1.75rem]">
+          {book.title}
+        </h2>
+        <p className="mx-auto mt-2.5 hidden max-w-[42ch] text-[0.95rem] leading-relaxed text-ink lg:block">{book.summary}</p>
+
+        <nav aria-label="In this book" className="mx-auto mt-5 hidden w-full max-w-[22rem] text-left lg:block">
+          <p className="mb-2 text-center text-eyebrow font-bold uppercase tracking-[0.13em] text-cocoa-mid/70">
+            In this book
+          </p>
+          <ol className="resource-toc">
+            {book.pages.map((page, index) => {
+              const current = index === pageIndex;
+              const inner = (
+                <>
+                  <span className="resource-toc-n tabular">{index + 1}</span>
+                  <span className="min-w-0 flex-1 truncate">{page.label}</span>
+                </>
+              );
+              return (
+                <li key={`${page.label}-${index}`}>
+                  {onJump ? (
+                    <button
+                      type="button"
+                      onClick={() => onJump(index)}
+                      aria-current={current ? "page" : undefined}
+                      className="resource-toc-item"
+                    >
+                      {inner}
+                    </button>
+                  ) : (
+                    <span className="resource-toc-item" aria-current={current ? "page" : undefined}>
+                      {inner}
+                    </span>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+        </nav>
+      </div>
+    </div>
+  );
+}
+
+function ReaderRightPage({
+  book,
+  pageIndex,
+  className,
+}: {
+  book: ResourceBookData;
+  pageIndex: number;
+  className?: string;
+}) {
+  return (
+    <div className={cn("resource-reader-page resource-reader-page-right h-full", className)}>
+      <div className="resource-reader-page-body flex h-full flex-col px-5 py-6 sm:px-8 lg:px-10 lg:py-7">
+        <div className="resource-book-prose my-auto">{book.pages[pageIndex].content}</div>
+        <p className="tabular mt-4 hidden text-right text-sm font-semibold text-cocoa-mid/55 lg:block" aria-hidden="true">
+          {pageIndex + 1}
         </p>
       </div>
     </div>
   );
 }
 
-function TurningPage({
+/** A page turn: the shared leaf, dressed in this book's pages. */
+function ReaderTurn({
   book,
   turn,
-  onDone,
+  progress,
 }: {
   book: ResourceBookData;
-  turn: Turn;
-  onDone: () => void;
+  turn: FlipTurn;
+  progress: MotionValue<number>;
 }) {
-  const origin = turn.direction === 1 ? "left center" : "right center";
+  const { from, to, dir } = turn;
+  const forward = dir === 1;
 
   return (
-    <motion.div
-      className="resource-reader-leaf no-print absolute inset-0 z-20"
-      style={{ transformStyle: "preserve-3d", transformOrigin: origin }}
-      initial={{ rotateY: 0 }}
-      animate={{
-        rotateY: turn.direction === 1 ? -180 : 180,
-        rotateZ: [0, turn.direction * 0.35, 0],
-        scaleX: [1, 0.985, 1],
-        boxShadow: [
-          "0 0 0 rgba(62,42,33,0)",
-          "0 28px 72px -20px rgba(62,42,33,0.46)",
-          "0 0 0 rgba(62,42,33,0)",
-        ],
-      }}
-      transition={{ duration: TURN_DURATION, ease: EASE, times: [0, 0.5, 1] }}
-      onAnimationComplete={onDone}
-    >
-      <div
-        className="absolute inset-0 overflow-hidden rounded-[1.05rem]"
-        style={{ backfaceVisibility: "hidden" }}
-      >
-        <ReaderSpread book={book} pageIndex={turn.from} />
-        <div className="resource-reader-turn-shade resource-reader-turn-shade-forward" aria-hidden="true" />
-      </div>
-      <div
-        className="absolute inset-0 overflow-hidden rounded-[1.05rem]"
-        style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
-      >
-        <ReaderSpread book={book} pageIndex={turn.to} />
-        <div className="resource-reader-turn-shade resource-reader-turn-shade-backward" aria-hidden="true" />
-      </div>
-    </motion.div>
+    <FlipOverlay
+      turn={turn}
+      progress={progress}
+      className="resource-reader-turn"
+      radius="1.05rem"
+      staticLeft={<ReaderLeftPage book={book} pageIndex={forward ? from : to} />}
+      staticRight={<ReaderRightPage book={book} pageIndex={forward ? to : from} />}
+      front={
+        forward ? (
+          <ReaderRightPage book={book} pageIndex={from} className="rounded-r-[1.05rem]" />
+        ) : (
+          <ReaderLeftPage book={book} pageIndex={from} className="rounded-l-[1.05rem]" />
+        )
+      }
+      back={
+        forward ? (
+          <ReaderLeftPage book={book} pageIndex={to} className="rounded-l-[1.05rem]" />
+        ) : (
+          <ReaderRightPage book={book} pageIndex={to} className="rounded-r-[1.05rem]" />
+        )
+      }
+    />
   );
 }

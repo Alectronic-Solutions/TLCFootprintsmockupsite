@@ -180,7 +180,19 @@ export function ProgramsHeroArtwork({
           <img> fallback before it evaluates a <picture> source. Only the
           image selected by the active media query is requested. The resting
           state is grayscale everywhere; the SVG layer above paints colour
-          back in under a cursor or a finger. */}
+          back in under a cursor or a finger.
+
+          The preloads carry the same media split, so they keep that promise
+          while letting the hero start downloading with the HTML instead of
+          after styles and layout. React hoists them to <head>. */}
+      {resolvedMobileImageSrc ? (
+        <>
+          <link rel="preload" as="image" href={resolvedMobileImageSrc} media="(max-width: 639px)" fetchPriority="high" />
+          <link rel="preload" as="image" href={resolvedImageSrc} media="(min-width: 640px)" fetchPriority="high" />
+        </>
+      ) : (
+        <link rel="preload" as="image" href={resolvedImageSrc} fetchPriority="high" />
+      )}
       <div
         className={cn(
           "programs-hero-base absolute inset-0 bg-no-repeat",

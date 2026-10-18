@@ -26,6 +26,9 @@ export function TourHeroBackdrop() {
 
   return (
     <div ref={ref} aria-hidden="true" className="absolute inset-0 -z-10 overflow-hidden">
+      {/* A CSS background is only requested once styles and layout are done.
+          React hoists the hint to <head> so the map starts with the HTML. */}
+      <link rel="preload" as="image" href={asset("/tour-hero-map.webp")} fetchPriority="high" />
       <motion.div
         className="absolute -inset-y-16 inset-x-0 bg-cover bg-center will-change-transform"
         style={

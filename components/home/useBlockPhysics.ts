@@ -59,6 +59,8 @@ interface Home {
   y: number;
   w: number;
   h: number;
+  /** A triangular roof block rather than a cube. See ToyBlock `shape`. */
+  prism: boolean;
 }
 
 export interface BlockPhysics {
@@ -138,11 +140,18 @@ export function useBlockPhysics({
             top += node.offsetTop;
             node = node.offsetParent as HTMLElement | null;
           }
+          /* A body's position is its centroid, and so is home. For a cube that
+             is the middle of the box; for a triangle it is two thirds of the
+             way down from the apex, which is also where .toy-block--prism puts
+             its transform-origin, so the DOM turns about the same point the
+             body does. */
+          const prism = el.dataset.shape === "prism";
           return {
             x: left + el.offsetWidth / 2,
-            y: top + el.offsetHeight / 2,
+            y: top + el.offsetHeight * (prism ? 2 / 3 : 1 / 2),
             w: el.offsetWidth,
             h: el.offsetHeight,
+            prism,
           };
         });
 
@@ -179,17 +188,40 @@ export function useBlockPhysics({
          almost no restitution so a dropped block lands with a knock rather than
          bouncing. The chamfer matches the corner radius in the CSS, so a block
          resting on its corner tips the way it looks like it should. */
+      const material = {
+        friction: 0.6,
+        frictionStatic: 1,
+        // Calm mode has no gravity to settle a block, so drag does it instead:
+        // let go and it coasts to a stop rather than gliding on forever.
+        frictionAir: calm ? 0.22 : 0.012,
+        restitution: calm ? 0 : 0.06,
+        density: 0.0012,
+      };
+      /* The roof block: apex top centre, base the full width, listed
+         clockwise and relative to the centroid. Body.create recentres the
+         vertices on their centroid and moves them to `position`, so this lands
+         exactly on the drawn triangle. */
       const bodies = homes.map((h) =>
-        M.Bodies.rectangle(h.x, h.y, h.w, h.h, {
-          chamfer: { radius: Math.min(10, h.w * 0.08) },
-          friction: 0.6,
-          frictionStatic: 1,
-          // Calm mode has no gravity to settle a block, so drag does it instead:
-          // let go and it coasts to a stop rather than gliding on forever.
-          frictionAir: calm ? 0.22 : 0.012,
-          restitution: calm ? 0 : 0.06,
-          density: 0.0012,
-        }),
+        h.prism
+          ? M.Body.create({
+              ...material,
+              position: { x: h.x, y: h.y },
+              vertices: M.Vertices.chamfer(
+                [
+                  { x: 0, y: (-2 * h.h) / 3 },
+                  { x: h.w / 2, y: h.h / 3 },
+                  { x: -h.w / 2, y: h.h / 3 },
+                ],
+                4,
+                -1,
+                2,
+                14,
+              ),
+            })
+          : M.Bodies.rectangle(h.x, h.y, h.w, h.h, {
+              ...material,
+              chamfer: { radius: Math.min(10, h.w * 0.08) },
+            }),
       );
 
       // Infinite inertia is matter's way of saying "this cannot spin".

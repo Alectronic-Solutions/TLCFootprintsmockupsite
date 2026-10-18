@@ -77,11 +77,16 @@ function ParallaxPattern({ progress }: { progress: MotionValue<number> }) {
 
 function Pattern() {
   return (
-    <div
-      className="absolute -inset-8 bg-cover bg-center bg-no-repeat"
-      style={{
-        backgroundImage: `url(${asset("/resources-hero-footprints.webp")})`,
-      }}
-    />
+    <>
+      {/* A CSS background is only requested once styles and layout are done,
+          and it is this hero's largest paint. React hoists the hint to <head>. */}
+      <link rel="preload" as="image" href={asset("/resources-hero-footprints.webp")} fetchPriority="high" />
+      <div
+        className="absolute -inset-8 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url(${asset("/resources-hero-footprints.webp")})`,
+        }}
+      />
+    </>
   );
 }

@@ -1,10 +1,6 @@
-import {
-  Mail,
-  MessageSquare,
-  Phone,
-} from "lucide-react";
 import { AvailabilityRequestForm } from "@/components/availability/AvailabilityRequestForm";
 import { ArcDivider } from "@/components/brand/ArcDivider";
+import { ContactIcon } from "@/components/brand/ContactIcon";
 import { HighlightIcon } from "@/components/brand/HighlightIcon";
 import { BrightwheelPanel } from "@/components/sections/BrightwheelPanel";
 import { CTABand } from "@/components/sections/CTABand";
@@ -13,6 +9,7 @@ import { TourHeroBackdrop } from "@/components/tour/TourHeroBackdrop";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { CurrentMonth } from "@/components/ui/CurrentMonth";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { StickyColumn } from "@/components/ui/StickyColumn";
 import { AVAILABILITY, BUSINESS, PROGRAMS } from "@/lib/constants";
 import { breadcrumbJsonLd, jsonLdScript, pageMeta } from "@/lib/seo";
 
@@ -33,23 +30,29 @@ const CONTACT_METHODS = [
     label: "Call",
     value: BUSINESS.phone,
     href: BUSINESS.phoneHref,
-    Icon: Phone,
+    icon: "call" as const,
     note: "Best for a quick conversation",
   },
   {
     label: "Text",
     value: BUSINESS.phone,
     href: BUSINESS.smsHref,
-    Icon: MessageSquare,
+    icon: "text" as const,
     note: "Easy for a quick question",
   },
   {
     label: "Email",
     value: BUSINESS.email,
     href: BUSINESS.emailHref,
-    Icon: Mail,
+    icon: "email" as const,
     note: "Best when you want to share details",
   },
+];
+
+const STEP_BADGE_COLORS = [
+  "bg-pink-dark text-white",
+  "bg-amber text-cocoa",
+  "bg-leaf-dark text-white",
 ];
 
 const AVAILABILITY_COPY = {
@@ -121,9 +124,7 @@ export default function AvailabilityPage() {
                     href={method.href}
                     className="card-lift flex h-full flex-col items-center gap-4 overflow-hidden rounded-2xl border-hair border-cocoa/10 bg-white p-5 text-center shadow-soft"
                   >
-                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-cream-deep">
-                      <method.Icon className="h-5 w-5 text-pink-dark" aria-hidden="true" />
-                    </span>
+                    <ContactIcon name={method.icon} className="h-14 w-14 shrink-0" />
                     <span className="min-w-0">
                       <span className="block font-semibold text-cocoa">{method.label}</span>{" "}
                       <span className="block break-all text-base text-cocoa">{method.value}</span>{" "}
@@ -142,16 +143,20 @@ export default function AvailabilityPage() {
       <section className="section-y bg-cream-deep">
         <div className="container-page">
           <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-start">
-            <AnimatedSection>
-              <h2 className="text-center text-h2">Check current availability</h2>
-              <div className="mt-6">
-                <AvailabilityRequestForm />
-              </div>
-            </AnimatedSection>
+            {/* The sidebar runs longer than the form here, so the form is the
+                column that pins while the sidebar scrolls past. */}
+            <StickyColumn>
+              <AnimatedSection>
+                <h2 className="text-center text-h2">Check current availability</h2>
+                <div className="mt-6">
+                  <AvailabilityRequestForm />
+                </div>
+              </AnimatedSection>
+            </StickyColumn>
 
-            <AnimatedSection delay={0.08} className="space-y-6 lg:sticky lg:top-24 lg:mt-8">
+            <AnimatedSection delay={0.08} className="space-y-6 lg:mt-8">
               <div className="rounded-2xl border-hair border-leaf/20 bg-white p-6 text-center">
-                <HighlightIcon name="openings" className="mx-auto h-7 w-7" />
+                <HighlightIcon name="openings" className="mx-auto h-12 w-12" />
                 <h2 className="mt-3 text-h3">{status.title}</h2>
                 <p className="mt-2 text-base font-semibold text-leaf-dark">{status.detail}</p>
                 <p className="mt-2 text-sm text-cocoa-mid">
@@ -175,7 +180,7 @@ export default function AvailabilityPage() {
               </div>
 
               <div className="rounded-2xl border-hair border-cocoa/10 bg-white p-6 text-center">
-                <HighlightIcon name="hours" className="mx-auto h-7 w-7" />
+                <HighlightIcon name="hours" className="mx-auto h-12 w-12" />
                 <h2 className="mt-3 text-h3">Hours</h2>
                 <p className="tabular mt-2 text-base">
                   {BUSINESS.hours.days}
@@ -191,7 +196,7 @@ export default function AvailabilityPage() {
                     <li key={step} className="flex gap-3">
                       <span
                         aria-hidden="true"
-                        className="tabular grid h-6 w-6 shrink-0 place-items-center rounded-full bg-pink-dark text-xs font-semibold text-white"
+                        className={`tabular grid h-6 w-6 shrink-0 place-items-center rounded-full text-xs font-semibold ${STEP_BADGE_COLORS[index % STEP_BADGE_COLORS.length]}`}
                       >
                         {index + 1}
                       </span>

@@ -372,6 +372,18 @@ export const FAQS: Faq[] = [
     a: "I'd love to show you around! Submit the online tour form, or call, text, or email me directly. I'll confirm a time that works for you.",
   },
   {
+    q: "What is Brightwheel?",
+    a: "Brightwheel is the child care platform I use with families. Prospective families join my interest list there, and enrolled families use it for forms, messages, and payments.",
+  },
+  {
+    q: "How do I join the interest list?",
+    a: "Choose Join the Interest List on this site. You'll find it on this page and in the footer of every page. It opens my interest form in Brightwheel, which may ask you to sign in or create an account first.",
+  },
+  {
+    q: "I'm already enrolled. How do I sign in to Brightwheel?",
+    a: "Use the Brightwheel Sign-In link on this page or in the footer of any page. That's where you'll find your forms, messages, and payments.",
+  },
+  {
     q: "Is tuition based on attendance?",
     a: "Tuition is based on enrollment and reserving your child's space, so your rate stays the same whether your child attends every day that week or not.",
   },

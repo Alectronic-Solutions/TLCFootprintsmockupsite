@@ -24,7 +24,7 @@ export default function PrivacyPage() {
       label="Privacy policy"
       title="How information is handled"
       subtitle="This policy explains what this website collects, what it does not collect, and the choices available to you."
-      updated="October 16, 2026"
+      updated="October 18, 2026"
     >
       <h2>The short version</h2>
       <p>
@@ -41,8 +41,8 @@ export default function PrivacyPage() {
 
       <h2>Who operates this website</h2>
       <p>
-        This website is operated for {BUSINESS.name}, a California Family Child Care Home
-        owned by {BUSINESS.owner} in {BUSINESS.city}, {BUSINESS.state}. Privacy questions
+        This website is operated by {BUSINESS.name}, a licensed California Family Child Care
+        Home owned by {BUSINESS.owner} in {BUSINESS.city}, {BUSINESS.state}. Privacy questions
         can be sent to <a href={BUSINESS.emailHref}>{BUSINESS.email}</a> or discussed by
         calling <a href={BUSINESS.phoneHref}>{BUSINESS.phone}</a>.
       </p>
@@ -56,8 +56,9 @@ export default function PrivacyPage() {
         <li>Contact preference and anything voluntarily written in the message field</li>
       </ul>
       <p>
-        When you submit either form, these details are processed by the service that
-        operates the form and delivered to {BUSINESS.name} by email. They are used to
+        When you submit either form, these details are sent to a form service that runs on
+        Cloudflare. It checks the spam protection described below and then delivers the
+        inquiry to {BUSINESS.name} by email. The details are used to
         respond to your inquiry and discuss possible care. Please do not enter Social
         Security numbers, medical records, financial account numbers, government
         identification numbers, or other sensitive records. Required enrollment records
@@ -70,6 +71,19 @@ export default function PrivacyPage() {
         to share is processed by the phone carrier, messaging service, or email provider
         used by you and {BUSINESS.name}. It may include your contact details, information
         about the care you need, and the content of your message.
+      </p>
+
+      <h2>Brightwheel</h2>
+      <p>
+        {BUSINESS.name} uses Brightwheel, a third-party child care platform, with families.
+        The Join the Interest List and Brightwheel Sign-In links on this site open
+        Brightwheel&apos;s own website, which may ask you to sign in or create an account.
+        Anything you enter there is collected by Brightwheel, shared with {BUSINESS.name},
+        and handled under{" "}
+        <a href="https://mybrightwheel.com/privacy/" target="_blank" rel="noopener noreferrer">
+          Brightwheel&apos;s privacy policy
+        </a>
+        .
       </p>
 
       <h2>Technical information</h2>
@@ -106,15 +120,6 @@ export default function PrivacyPage() {
         <li>The hosting, security, and form-processing providers that deliver and protect the website</li>
         <li>Email-delivery providers used to send form inquiries to {BUSINESS.name}</li>
         <li>
-          Brightwheel, a third-party child care platform, when a family chooses to join the
-          interest list or sign in through the Brightwheel links on this site. Details entered
-          there are handled under{" "}
-          <a href="https://mybrightwheel.com/privacy/" target="_blank" rel="noopener noreferrer">
-            Brightwheel&apos;s privacy policy
-          </a>
-          .
-        </li>
-        <li>
           Phone, mobile carrier, messaging, and email providers involved when a person
           chooses to call, text, or email
         </li>
@@ -127,11 +132,24 @@ export default function PrivacyPage() {
       <h2>Cookies, analytics, and privacy signals</h2>
       <p>
         {BUSINESS.name} does not currently use analytics, include embedded social media
-        widgets, or use advertising trackers on this site. The online inquiry forms use
-        Cloudflare Turnstile spam protection, which may process essential technical
-        information and use necessary browser storage or cookies to detect and prevent
-        automated submissions. The hosting and security provider may also use essential
-        technical measures to serve the site and detect abuse.
+        widgets, or use advertising trackers on this site. The online inquiry forms use{" "}
+        <a
+          href="https://www.cloudflare.com/turnstile-privacy-policy/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Cloudflare Turnstile
+        </a>{" "}
+        spam protection, which may process essential technical information and use
+        necessary browser storage or cookies to detect and prevent automated submissions.
+        The hosting and security provider may also use essential technical measures to
+        serve the site and detect abuse.
+      </p>
+      <p>
+        The checklists in the parent resource articles remember the items you tick by
+        saving them in your own browser&apos;s local storage. That information stays on
+        your device and is never sent to {BUSINESS.name}. Unticking the items, or clearing
+        this site&apos;s data in your browser settings, removes it.
       </p>
       <p>
         Because the site does not sell personal information or track visitors over time
@@ -185,8 +203,9 @@ export default function PrivacyPage() {
 
       <h2>Other websites</h2>
       <p>
-        This site links to government agencies and other independent websites. Their own
-        privacy policies apply after you leave this website.
+        This site links to government agencies, Brightwheel, the program&apos;s Instagram
+        and TikTok profiles, and other independent websites. Their own privacy policies
+        apply after you leave this website.
       </p>
 
       <h2>Changes to this policy</h2>
@@ -198,7 +217,7 @@ export default function PrivacyPage() {
 
       <h2>Effective date and contact</h2>
       <p>
-        Effective October 16, 2026. Questions or requests may be sent to{" "}
+        Effective October 18, 2026. Questions or requests may be sent to{" "}
         <a href={BUSINESS.emailHref}>{BUSINESS.email}</a> or made by calling{" "}
         <a href={BUSINESS.phoneHref}>{BUSINESS.phone}</a>.
       </p>

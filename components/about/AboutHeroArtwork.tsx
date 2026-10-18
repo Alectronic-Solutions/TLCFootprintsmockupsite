@@ -184,6 +184,9 @@ export function AboutHeroArtwork({
       aria-hidden="true"
       className={cn("absolute inset-0 touch-pan-y overflow-hidden", compact ? "bg-[#b8e2f4]" : null, className)}
     >
+      {/* A CSS background is only requested once styles and layout are done,
+          and it is this hero's largest paint. React hoists the hint to <head>. */}
+      <link rel="preload" as="image" href={resolvedImageSrc} fetchPriority="high" />
       {/* The resting state: grayscale, so the scene reads as a quiet
           colouring-book backdrop rather than competing with the copy over
           it. Compact/mobile shows the whole image (contain) instead of

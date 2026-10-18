@@ -72,9 +72,9 @@ export function HighlightsBar() {
               >
                 <span
                   aria-hidden="true"
-                  className="grid h-10 w-10 shrink-0 place-items-center"
+                  className="grid h-12 w-12 shrink-0 place-items-center"
                 >
-                  <HighlightIcon name={item.icon} className="h-8 w-8" />
+                  <HighlightIcon name={item.icon} className="h-12 w-12" />
                 </span>
 
                 <div className="w-[9.5rem] min-w-0 sm:w-auto">
