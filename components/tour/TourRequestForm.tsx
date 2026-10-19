@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
@@ -258,7 +259,7 @@ export function TourRequestForm() {
                 {isSubmitting ? "Sending…" : "Request a Tour"}
               </Button>
               <p className="mt-3 text-center text-sm text-cocoa-mid">
-                Your request will be emailed directly to T.L.C. Footprints. Please do not include medical records, payment information, or other sensitive information.
+                Your request will be emailed directly to T.L.C. Footprints. Please do not include medical records, payment information, or other sensitive information. Read the <Link className="font-semibold underline" href="/privacy">Privacy Policy</Link> to see how it is handled.
               </p>
             </div>
           </motion.form>
