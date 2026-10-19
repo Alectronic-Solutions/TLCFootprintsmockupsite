@@ -132,7 +132,7 @@ export default function AboutPage() {
             topPaddingClassName="pt-0 lg:pt-[var(--header-h)]"
             surface="bg-cream lg:bg-transparent"
             align="responsive"
-            contentClassName="relative max-w-[30rem] lg:rounded-[2rem] lg:bg-cream/90 lg:px-8 lg:py-7 lg:shadow-[0_20px_50px_-30px_rgba(62,42,33,0.45)] lg:backdrop-blur-sm lg:[&_h1]:leading-[1.2] lg:[&_p]:mt-6 lg:max-w-[32rem] xl:max-w-[36rem]"
+            contentClassName="relative max-w-[30rem] lg:rounded-[2rem] lg:bg-cream/90 lg:px-8 lg:py-7 lg:shadow-[0_20px_50px_-30px_rgba(62,42,33,0.45)] lg:backdrop-blur-sm lg:[&_h1]:leading-[1.2] lg:[&_p]:mt-6 lg:[&_p]:max-w-none lg:max-w-[40rem] xl:max-w-[46rem]"
             label="About"
             title="A licensed home daycare in Elk Grove"
             subtitle={`${BUSINESS.shortName} is a licensed home daycare for children from birth through age five. Small-group care keeps each day personal, playful, and responsive to every child’s pace.`}

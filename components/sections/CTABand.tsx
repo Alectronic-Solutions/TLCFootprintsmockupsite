@@ -125,7 +125,11 @@ export function CTABand({
         </div>
       </section>
 
-      <ArcDivider variant="shallow" from="bg-pink-dark" to="fill-cream-deep" rule />
+      {/* -mt-px tucks the seam under the band. The band is composited (blend
+          layers, animated prints) and snaps to a different pixel than the
+          divider below it, which on some page heights left a 1px gap of page
+          background between them. */}
+      <ArcDivider variant="shallow" from="bg-pink-dark" to="fill-cream-deep" rule className="-mt-px" />
     </>
   );
 }
