@@ -85,7 +85,6 @@ export const metadata: Metadata = {
     ],
     apple: [{ url: asset("/apple-touch-icon.png") }],
   },
-  manifest: asset("/manifest.json"),
   robots: IS_INDEXABLE
     ? {
         index: true,

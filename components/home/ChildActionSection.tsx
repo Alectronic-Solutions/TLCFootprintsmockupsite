@@ -111,9 +111,15 @@ export function ChildActionSection() {
             delay={0.08}
             className="px-5 py-7 sm:px-8 sm:py-8 lg:px-10 lg:py-10"
           >
-            <SectionLabel>How to get started</SectionLabel>
+            <SectionLabel className="text-center lg:text-left">
+              How to get started
+            </SectionLabel>
 
-            <AnimatedGroup as="ol" className="relative mt-5" stagger={0.08}>
+            <AnimatedGroup
+              as="ol"
+              className="relative mx-auto mt-5 w-fit max-w-full lg:mx-0"
+              stagger={0.08}
+            >
               {STEPS.map((step, index) => (
                 <AnimatedItem
                   as="li"
@@ -150,13 +156,13 @@ export function ChildActionSection() {
               ))}
             </AnimatedGroup>
 
-            <div className="mt-6 rounded-2xl border-hair border-leaf/25 bg-leaf-light px-4 py-2.5 sm:w-fit sm:rounded-full sm:px-5">
+            <div className="mt-6 rounded-2xl border-hair border-leaf/25 bg-leaf-light px-4 py-2.5 text-center sm:mx-auto sm:w-fit sm:rounded-full sm:px-5 lg:mx-0 lg:text-left">
               <p className="text-balance text-sm font-bold leading-snug text-cocoa sm:whitespace-nowrap">
                 On CalWORKs? Start with your CalWORKs worker.
               </p>
             </div>
 
-            <p className="mt-3 text-balance text-sm leading-relaxed text-cocoa-mid">
+            <p className="mt-3 text-balance text-center text-sm leading-relaxed text-cocoa-mid lg:text-left">
               Child Action decides eligibility, coverage, and any family fee.
             </p>
           </AnimatedSection>

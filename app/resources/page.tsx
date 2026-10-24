@@ -124,7 +124,15 @@ function splitIntoBookPages(body: string, slug: string): ResourceBookData["pages
       const heading = source.match(/^#{2,3}\s+(.+)$/m)?.[1]?.trim();
       return {
         label: heading ?? (index === 0 ? "A quick start" : `Page ${index + 1}`),
-        content: <MDXRemote key={`${slug}-${index}`} source={source} components={bookComponents} />,
+        content: (
+          <MDXRemote
+            key={`${slug}-${index}`}
+            source={source}
+            components={bookComponents}
+            // First-party content; see the note in resources/[slug]/page.tsx.
+            options={{ blockJS: false }}
+          />
+        ),
       };
     });
 }

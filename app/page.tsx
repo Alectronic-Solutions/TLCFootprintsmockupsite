@@ -222,7 +222,9 @@ export default function HomePage() {
               the cheaper answer is the one they meet first. */}
           <AnimatedSection className="mt-8 text-center">
             <p className="text-cocoa-mid">
-              Not the question you came with? Call or text{" "}
+              Not the question you came with?
+              <br className="sm:hidden" />
+              {" "}Call or text{" "}
               <a
                 href={BUSINESS.phoneHref}
                 className="font-semibold text-cocoa underline underline-offset-4 hover:text-pink-dark"

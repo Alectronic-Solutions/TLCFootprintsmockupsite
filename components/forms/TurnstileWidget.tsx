@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const TURNSTILE_SITE_KEY = "0x4AAAAAAEgU5JeUfdAAjsK6";
 const TURNSTILE_SCRIPT_ID = "cloudflare-turnstile-script";
@@ -33,8 +33,27 @@ export function TurnstileWidget({
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const widgetIdRef = useRef<string | null>(null);
+  const [armed, setArmed] = useState(false);
+
+  // Cloudflare is not contacted just because the page was opened. The script
+  // loads once the visitor starts filling in the form it belongs to.
+  useEffect(() => {
+    const form = containerRef.current?.closest("form");
+    if (!form) {
+      setArmed(true);
+      return;
+    }
+    const arm = () => setArmed(true);
+    form.addEventListener("focusin", arm, { once: true });
+    form.addEventListener("input", arm, { once: true });
+    return () => {
+      form.removeEventListener("focusin", arm);
+      form.removeEventListener("input", arm);
+    };
+  }, []);
 
   useEffect(() => {
+    if (!armed) return;
     let cancelled = false;
 
     const renderWidget = () => {
@@ -87,13 +106,15 @@ export function TurnstileWidget({
       widgetIdRef.current = null;
       onTokenChange("");
     };
-  }, [onTokenChange]);
+  }, [armed, onTokenChange]);
 
   return (
     <div className="space-y-2">
       <div ref={containerRef} className="mx-auto min-h-[65px] max-w-[420px]" />
       <p className="text-center text-xs text-cocoa-mid">
-        Protected by Cloudflare Turnstile spam protection.
+        {armed
+          ? "Protected by Cloudflare Turnstile spam protection."
+          : "Spam protection from Cloudflare Turnstile loads when you start filling in this form."}
       </p>
     </div>
   );

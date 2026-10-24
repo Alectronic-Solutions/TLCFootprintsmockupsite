@@ -24,7 +24,7 @@ export default function PrivacyPage() {
       label="Privacy policy"
       title="How information is handled"
       subtitle="This policy explains what this website collects, what it does not collect, and the choices available to you."
-      updated="October 18, 2026"
+      updated="October 23, 2026"
     >
       <h2>The short version</h2>
       <p>
@@ -132,7 +132,8 @@ export default function PrivacyPage() {
       <h2>Cookies, analytics, and privacy signals</h2>
       <p>
         {BUSINESS.name} does not currently use analytics, include embedded social media
-        widgets, or use advertising trackers on this site. The online inquiry forms use{" "}
+        widgets, or use advertising trackers on this site, and no third-party script runs
+        just because a page is opened. The online inquiry forms use{" "}
         <a
           href="https://www.cloudflare.com/turnstile-privacy-policy/"
           target="_blank"
@@ -140,8 +141,9 @@ export default function PrivacyPage() {
         >
           Cloudflare Turnstile
         </a>{" "}
-        spam protection, which may process essential technical information and use
-        necessary browser storage or cookies to detect and prevent automated submissions.
+        spam protection, which is loaded only after you start filling in a form. It may
+        process essential technical information and use necessary browser storage or
+        cookies to detect and prevent automated submissions.
         The hosting and security provider may also use essential technical measures to
         serve the site and detect abuse.
       </p>
@@ -217,7 +219,7 @@ export default function PrivacyPage() {
 
       <h2>Effective date and contact</h2>
       <p>
-        Effective October 18, 2026. Questions or requests may be sent to{" "}
+        Effective October 23, 2026. Questions or requests may be sent to{" "}
         <a href={BUSINESS.emailHref}>{BUSINESS.email}</a> or made by calling{" "}
         <a href={BUSINESS.phoneHref}>{BUSINESS.phone}</a>.
       </p>

@@ -192,7 +192,7 @@ export function FootprintChecklist() {
               <p className="font-display text-xl font-semibold text-cocoa">Piece tray</p>
               <p className="text-sm text-cocoa-mid">Choose one to get started.</p>
             </div>
-            <span className="rounded-full border border-leaf/20 bg-leaf-light px-3 py-1.5 text-sm font-bold uppercase tracking-[0.06em] text-leaf-dark">
+            <span className="shrink-0 whitespace-nowrap rounded-full border border-leaf/25 bg-leaf-light px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-[0.08em] text-leaf-dark shadow-[0_1px_0_0_rgba(62,42,33,0.06)] sm:px-3 sm:py-1.5 sm:text-sm sm:tracking-[0.06em]">
               Tap or drag
             </span>
           </div>

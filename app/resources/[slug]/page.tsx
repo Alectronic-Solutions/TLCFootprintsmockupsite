@@ -185,6 +185,13 @@ export default async function ArticlePage({
                 <span aria-hidden="true">·</span>
                 <span>By {BUSINESS.shortName}</span>
               </div>
+              <p className="mx-auto mt-3 max-w-[54ch] text-sm text-cocoa-mid">
+                General information for families, not medical, legal, or financial advice. See the{" "}
+                <Link className="font-semibold underline" href="/terms">
+                  Terms
+                </Link>
+                .
+              </p>
             </div>
           </div>
         </header>
@@ -194,7 +201,15 @@ export default async function ArticlePage({
         <div className="bg-cream-deep py-10 sm:py-12">
           <div className="container-prose">
             <div className="article-prose rounded-2xl border-hair border-cocoa/10 bg-cream p-7 text-center sm:p-10">
-              <MDXRemote source={article.body} components={components} />
+              {/* The articles pass list items as `items={[...]}` props, which
+                  v6 blocks by default. The content is first-party, and
+                  blockDangerousJS stays on. */}
+              <MDXRemote
+                source={article.body}
+                components={components}
+                options={{ blockJS: false }}
+              />
+
             </div>
           </div>
         </div>

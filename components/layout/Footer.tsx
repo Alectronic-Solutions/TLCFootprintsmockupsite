@@ -251,7 +251,7 @@ export function Footer() {
                     href={BRIGHTWHEEL.familySignInUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group mt-2 inline-flex items-center gap-1 text-sm font-semibold text-cocoa underline decoration-pink/50 underline-offset-4 transition-colors hover:text-pink-dark"
+                    className="group mt-3 inline-flex min-h-[42px] items-center justify-center gap-1.5 rounded-full border-hair border-cocoa/25 bg-white px-5 py-2 text-sm font-semibold text-cocoa shadow-[0_2px_0_0_rgba(62,42,33,0.10)] transition-[transform,box-shadow,background-color,border-color] duration-200 hover:border-cocoa/40 hover:bg-cream hover:text-pink-dark active:translate-y-px active:shadow-[0_1px_0_0_rgba(62,42,33,0.10)] motion-reduce:transition-none"
                   >
                     Brightwheel sign-in
                     <ArrowUpRight className={`h-3.5 w-3.5 ${OUT_ICON}`} aria-hidden="true" />

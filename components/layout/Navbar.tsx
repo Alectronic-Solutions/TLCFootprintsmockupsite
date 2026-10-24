@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Menu, MessageSquare, Phone, X } from "lucide-react";
+import { Menu, Phone, X } from "lucide-react";
 import { Logo } from "./Logo";
 import { AnnouncementBar } from "./AnnouncementBar";
 import { Button } from "@/components/ui/Button";
@@ -264,24 +264,7 @@ export function Navbar() {
                 );
               })}
 
-              <div className="mt-5 grid grid-cols-2 gap-3">
-                <a
-                  href={BUSINESS.phoneHref}
-                  className="flex min-h-[48px] items-center justify-center gap-2 rounded-full border-hair border-cocoa/20 bg-white text-base font-semibold text-cocoa shadow-[0_2px_0_0_rgba(62,42,33,0.10)]"
-                >
-                  <Phone className="h-4 w-4 text-pink-dark" aria-hidden="true" />
-                  Call
-                </a>
-                <a
-                  href={BUSINESS.smsHref}
-                  className="flex min-h-[48px] items-center justify-center gap-2 rounded-full border-hair border-cocoa/20 bg-white text-base font-semibold text-cocoa shadow-[0_2px_0_0_rgba(62,42,33,0.10)]"
-                >
-                  <MessageSquare className="h-4 w-4 text-pink-dark" aria-hidden="true" />
-                  Text
-                </a>
-              </div>
-
-              <Button href="/tour" size="md" block className="mt-3">
+              <Button href="/tour" size="md" block className="mt-5">
                 Request a Tour
               </Button>
               <Button
