@@ -117,7 +117,7 @@ export function ChildActionSection() {
 
             <AnimatedGroup
               as="ol"
-              className="relative mx-auto mt-5 w-fit max-w-full lg:mx-0"
+              className="relative mx-auto mt-5 w-fit max-w-full max-sm:max-w-[15rem] lg:mx-0"
               stagger={0.08}
             >
               {STEPS.map((step, index) => (

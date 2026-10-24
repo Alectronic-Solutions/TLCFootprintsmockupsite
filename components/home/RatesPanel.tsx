@@ -146,7 +146,7 @@ export function RatesPanel() {
                       beside the name and the pair costs one; from sm up, where
                       the height is not being fought over, it is the centred stack
                       again. */}
-                  <div className="flex items-center gap-3 sm:w-full sm:flex-col sm:gap-0">
+                  <div className="flex items-center justify-center gap-3 sm:w-full sm:flex-col sm:gap-0">
                     <ProgramIcon
                       name={program.icon}
                       className="h-9 w-9 shrink-0 sm:h-16 sm:w-16"
@@ -204,7 +204,7 @@ export function RatesPanel() {
                          parent is comparing end up on one baseline. `flex-wrap`
                          is the escape hatch for a 320px screen, where the pair
                          does not fit across. */
-                      className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-1 print:hidden sm:block"
+                      className="flex flex-wrap items-baseline justify-center gap-x-4 gap-y-1 print:hidden sm:block"
                     >
                       <p className="tabular font-display text-3xl font-semibold text-cocoa max-sm:text-[1.65rem] sm:text-5xl">
                         $<TweenNumber value={weekly} />
